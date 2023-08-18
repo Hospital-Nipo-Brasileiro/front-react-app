@@ -1,0 +1,124 @@
+.login-background{
+    background: #2A4A25;
+    width: 100;
+    height: 86.6vh;
+    padding: 65px;
+    display: flex;
+    justify-content: center;
+}
+
+.app-background{
+    width: 100%;
+    height: 85vh;
+    border-radius: 1.875rem;
+    background: linear-gradient(135deg, #3FA600 0%, #C8FFBF 100%);
+    box-shadow: 8px 10px 17px 5px #000;
+}
+
+.title-technipo{
+    position: absolute;
+    margin-top: -90px;
+    font-size: 100px;
+    font-family: 'Bayon', sans-serif;
+    color: #fff;
+    text-shadow: 4px 6px 7px rgba(0, 0, 0, 0.70);
+}
+
+.container-logo-login{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logotipo{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.btn-login{
+    background-color: #FF7A00;
+    width: 12.5625rem;
+    height: 3.1875rem;
+    fill: #FF7A00;
+    filter: drop-shadow(8px 8px 17px #7C4512);
+    border-radius: 20px;
+    border: 0;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.btn-login:hover{
+    background-color: #8f4805;
+}
+
+.text-btn-login{
+    font-family: 'Basic', sans-serif;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.logotipo-img-txt{
+    display: flex;
+    flex-direction: row;
+}
+
+.txt-logotipo{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    color: #fff;
+}
+
+.txt-logotipo-subtitle{
+    margin-top: 10px;
+    font-family: 'Alef', sans-serif;
+    font-size: 13px;
+}
+
+.txt-logotipo-title{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+
+}
+
+.container-content{
+    width: 91%;
+    height: 610px;
+    margin: 60px;
+    display: flex;
+    flex-direction: row;
+}
+
+.container-info-ti{
+    display: flex;
+    flex-direction: column;
+    width: 524px;
+}
+
+.line{
+    width: 4px;
+    background-color: #fff;
+    height: 550px;
+    margin: 40px;
+}
+
+.container-subtitle-ti{
+    width: 524px;
+    height: 156px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.subtitle-ti{
+    font-size: 40px;
+    font-family: 'DM Sans', sans-serif;
+    color: #fff;
+    
+}
+
+.text-ti{
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: #fff;
+    margin-top: 20px;
+}
+
