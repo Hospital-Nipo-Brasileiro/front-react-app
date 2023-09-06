@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import './StylesLogin.css'
-import logo from '../../assets/logotype.svg'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import './StylesLogin.css'
+import logo from '../../assets/logotype.svg'
+import hnipo from '../../assets/hnipo.svg'
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -24,15 +26,33 @@ function Login() {
 
       if (token) {
         navigate('/home');
+      } else {
+        toast.error(`${response.data}`, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     } catch (error) {
-      console.log(error);
+      if (error instanceof Error && error.message) {
+        console.error(error.message);
+      } else {
+        console.error("Erro desconhecido:", error);
+      }
+
     }
   }
+
   return (
     <div className="login-background">
       <span className='title-technipo'>LOGIN</span>
       <div className="app-background">
+        <ToastContainer />
 
         <div className="container-logo-login">
           <div className="logotipo-img-txt">
@@ -45,6 +65,7 @@ function Login() {
         </div>
 
         <div className="container-card-login">
+          <img src={hnipo} alt='' className='hnipo' />
           <div className="align-infos-login">
             <span>username:</span>
             <input
