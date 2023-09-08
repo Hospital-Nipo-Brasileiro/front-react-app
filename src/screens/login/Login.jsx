@@ -18,12 +18,38 @@ function Login() {
       ds_password: password
     }
 
+    if (!username || username === undefined) {
+      toast.error(`Nenhum usuário inserido`, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return
+    } else if (!password || password === undefined) {
+      toast.error(`Senha não inserida`, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      return
+    }
+
     try {
       const response = await axios.post(url, body);
       const token = response.data;
 
       console.log(token)
-
+      
       if (token) {
         navigate('/home');
       } else {
@@ -40,9 +66,27 @@ function Login() {
       }
     } catch (error) {
       if (error instanceof Error && error.message) {
-        console.error(error.message);
+        toast.error(`${error.message}`, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       } else {
-        console.error("Erro desconhecido:", error);
+        toast.error(`${error.response.data}`, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
 
     }
@@ -67,21 +111,29 @@ function Login() {
         <div className="container-card-login">
           <img src={hnipo} alt='' className='hnipo' />
           <div className="align-infos-login">
-            <span>username:</span>
-            <input
-              type='text'
-              id='username'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <span>password:</span>
-            <input
-              type='password'
-              id='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={handleLogin}>login</button>
+            <div className="container-input">
+              <label className='label-input'>username:</label>
+              <input
+                type='text'
+                className='inputs'
+                id='username'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+
+            <div className="container-input">
+              <label className='label-input'>password:</label>
+              <input
+                type='password'
+                className='inputs'
+                id='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <button className='btn-login' id='login-screen-login' onClick={handleLogin}>login</button>
           </div>
         </div>
       </div>
