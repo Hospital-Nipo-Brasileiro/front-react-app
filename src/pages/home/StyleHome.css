@@ -1,0 +1,74 @@
+.navbar-app{
+    width: 100%;
+    height: 4rem;
+    background-color: #fff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center
+}
+
+.circle-logo{
+    background-color: black;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 20px;
+    margin-right: 20px;
+}
+
+.container-content-home{
+    height: 78vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center
+}
+
+.container-card-automacao{
+    background-image: url("../../assets/card-automation.svg");
+    width: 95%;
+    height: 40%;
+    border-radius: 30px;
+}
+
+.container-filtro-fosco{
+    width: 100%;
+    height: 100%;
+    background-color: #0836008f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.text-automacao{
+    color: #fff;
+    font-family: 'Bayon', sans-serif;
+    font-size: 90px;
+    text-decoration: none;
+}
+
+.container-double-cards{
+    width: 95%;
+    height: 40%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+
+.container-card-estoque{
+    background-image: url("../../assets/card-estoque.svg");
+    width: 45%;
+    height: 100%;
+    border-radius: 30px;
+}
+
+.container-card-acessos{
+    background-image: url("../../assets/card-acessos.svg");
+    width: 45%;
+    height: 100%;
+    border-radius: 30px;
+}

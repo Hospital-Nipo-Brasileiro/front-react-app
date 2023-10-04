@@ -9,6 +9,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center
 }
 
 .align-infos-login {
@@ -52,8 +54,6 @@
     font-family: sans-serif;
     font-size: 1rem;
     font-weight: 500;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 .inputs:focus-visible{
@@ -65,8 +65,18 @@
     height: 2.75rem;
 }
 
+.copyright-span{
+    color: #393939ad;
+    margin: 20px;
+    
+}
+
 
 @media screen and (max-width: 760px) {
+    .login-background{
+        padding: 0;
+    }
+    
     .btn-login {
         width: 70%;
     }
@@ -94,6 +104,10 @@
         transform: none;
     }
 
+    .logotipo{
+        width: 13%;
+    }
+
     .inputs {
         width: max-content;
     }
@@ -105,6 +119,14 @@
     .title-technipo{
         font-size: 50px;
         margin-top: 36px;
+    }
+
+    .txt-logotipo-title {
+        font-size: 18px;
+    }
+
+    .txt-logotipo-subtitle{
+        font-size: 10px;
     }
 }
 

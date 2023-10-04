@@ -51,6 +51,7 @@ function Login() {
       console.log(token)
       
       if (token) {
+        localStorage.setItem("token", response.data.token);
         navigate('/home');
       } else {
         toast.error(`${response.data}`, {
@@ -109,32 +110,37 @@ function Login() {
         </div>
 
         <div className="container-card-login">
-          <img src={hnipo} alt='' className='hnipo' />
-          <div className="align-infos-login">
-            <div className="container-input">
-              <label className='label-input'>username:</label>
-              <input
-                type='text'
-                className='inputs'
-                id='username'
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
+          <div className="container-content-login-without-copyright">
+            <img src={hnipo} alt='' className='hnipo' />
+            <div className="align-infos-login">
+              <div className="container-input">
+                <label className='label-input'>username:</label>
+                <div className='container-input-without-label'>
+                  <input
+                    type='text'
+                    className='inputs'
+                    id='username'
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />                
+                </div>
+              </div>
 
-            <div className="container-input">
-              <label className='label-input'>password:</label>
-              <input
-                type='password'
-                className='inputs'
-                id='password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+              <div className="container-input">
+                <label className='label-input'>password:</label>
+                <input
+                  type='password'
+                  className='inputs'
+                  id='password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
 
-            <button className='btn-login' id='login-screen-login' onClick={handleLogin}>login</button>
+              <button className='btn-login' id='login-screen-login' onClick={handleLogin}>login</button>
+            </div>
           </div>
+          <span className='copyright-span'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>
         </div>
       </div>
     </div>
