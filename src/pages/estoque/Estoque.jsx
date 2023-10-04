@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 function Estoque() {
+    const [itemCount, setItemCount] = useState(null);
+
+    useEffect(() => {
+      fetch('GET', 'http:localhost:8080/estoques/1') // Substitua '/api/estoque/1' pela rota correta do seu servidor
+        .then(response => response.json())
+        .then(data => {
+          setItemCount(data.item_count); // Atualiza o estado com a quantidade de itens
+        })
+        .catch(error => {
+          console.error('Erro ao buscar a quantidade de itens:', error);
+        });
+    }, []);
+
   return (
     <div className="login-background">
       <span className='title-technipo'>ESTOQUE</span>

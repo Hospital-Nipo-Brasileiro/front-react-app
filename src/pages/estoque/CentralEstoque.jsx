@@ -22,6 +22,15 @@ function CentralEstoque() {
 
                 </div>
             </div>
+
+            <div className="container-content-estoques">
+                <div className="container-cards-estoque">
+                    <div className="card-estoque"></div>
+                    <div className="card-estoque"></div>
+                    <div className="card-estoque"></div>
+                    <div className="card-estoque"></div>
+                </div>
+            </div>
         </div>
     </div>
   );
