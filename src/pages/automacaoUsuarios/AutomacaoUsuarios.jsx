@@ -1,21 +1,14 @@
 import React from 'react';
 import './StyleAutomacaoUsuarios.css'
 import { Link } from 'react-router-dom';
+import NavBarUser from '../../components/NavBarUser';
 
 function AutomacaoUsuarios() {
   return(
     <div className="login-background">
       <span className='title-technipo'>AUTOMAÇÃO</span>
       <div id='center-searcher' className="app-background">
-        <div className="navbar-user">
-          <Link to={"/home"}>                  
-            <div className="container-btn-comeback">
-              <img src='' alt=''/>
-            </div>
-          </Link>
-          <div className="container-user-config" >
-          </div>
-        </div>
+        <NavBarUser/>
 
         <div className="container-searcher">
           <div className="search-bar"/>

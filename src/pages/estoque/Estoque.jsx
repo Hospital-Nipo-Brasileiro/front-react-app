@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import NavBarUser from '../../components/NavBarUser';
 
 
 function Estoque() {
@@ -19,6 +20,8 @@ function Estoque() {
     <div className="login-background">
       <span className='title-technipo'>ESTOQUE</span>
       <div id='center-searcher' className="app-background">
+        <NavBarUser />
+        
         <div className="container-searcher">
           <div className="search-bar"/>
           <div className="container-items">

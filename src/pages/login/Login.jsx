@@ -13,9 +13,13 @@ function Login() {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
 
-  if(auth) {
-    navigate('/home');
-  }
+
+  useEffect(() => {
+    if(auth) {
+      navigate('/home');
+    }
+
+  })
 
 
   async function handleLogin() {
@@ -52,7 +56,8 @@ function Login() {
     }
 
     try {
-      const response = {data: {token: 'seucu'}}//await axios.post(url, body);
+      const response = await axios.post(url, body);
+      //const response = {data: {token: 'seucu'}}
       const token = response.data;
 
       console.log(token)

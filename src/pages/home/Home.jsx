@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./StyleHome.css"
 import { Link } from 'react-router-dom';
+import NavBarUser from '../../components/NavBarUser';
 
 function Home() {
     useEffect(() => {
@@ -21,13 +22,7 @@ function Home() {
   return (
     <div className="login-background">
         <div className="app-background">
-            <div className="navbar-app">
-                <div className="container-config-user">
-                    <div className="circle-logo">
-                        
-                    </div>
-                </div>
-            </div>
+            <NavBarUser/>
 
             <div className="container-content-home">
                 <div className="container-card-automacao">

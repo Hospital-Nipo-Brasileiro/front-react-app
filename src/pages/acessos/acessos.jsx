@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBarUser from '../../components/NavBarUser';
 
 
 function Acessos() {
@@ -6,6 +7,7 @@ function Acessos() {
     <div className="login-background">
       <span className='title-technipo'>ACESSOS</span>
       <div id='center-searcher' className="app-background">
+        <NavBarUser />
         <div className="container-searcher">
           <div className="search-bar"/>
           <div className="container-items">
