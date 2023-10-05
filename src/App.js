@@ -1,62 +1,26 @@
 import React, { useContext } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AuthContext } from './contexts/AuthContext';
+import PrivateRoutes from './routes/private.routes';
+import PublicRoutes from './routes/public.routes';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/home/Home';
 import TechNipo from './pages/techNipo/TechNipo';
 import Login from './pages/login/Login';
-import Home from './pages/home/Home';
-import AutomacaoUsuarios from './pages/automacaoUsuarios/AutomacaoUsuarios';
-import { AuthContext } from './contexts/AuthContext';
-import Estoque from './pages/estoque/Estoque';
-import Acessos from './pages/acessos/acessos';
-import CentralEstoque from './pages/estoque/CentralEstoque';
+import AutomacaoUsuarios from './pages/automacaoUsuarios/AutomacaoUsuarios'
+
 
 
 function App() {
-  const privateRouter = createBrowserRouter([
-    {
-      path: "/",
-      element: <TechNipo />
-    },
-    {
-        path: "/login",
-        element: <Login/>
-    },
-    {
-        path: "/home",
-        element: <Home />,
-    },
-    {
-        path: "/automation",
-        element: <AutomacaoUsuarios />
-    },
-    {
-      path: "/central-estoques",
-      element: <CentralEstoque />
-    },
-    {
-      path: "/estoque",
-      element: <Estoque />
-    },
-    {
-      path: "/acessos",
-      element: <Acessos />
-    }
-  ]);
-
-  const publicRoute = createBrowserRouter([
-    {
-        path: "/",
-        element: <TechNipo />
-    },
-    {
-        path: "/login",
-        element: <Login/>
-    }
-  ]);
-
   const auth = useContext(AuthContext)
   return(
-    auth ? <RouterProvider router={publicRoute} /> 
-    : <RouterProvider router={privateRouter} />
+    <BrowserRouter>
+        <Routes>
+            <Route path='/' element={<TechNipo/>} />
+            <Route path='/login' element={<Login/>} />
+            <Route path='/home' element={auth ? <Home/>: <Login/>} />
+            <Route path='/automation' element={<AutomacaoUsuarios/>} />
+        </Routes>
+    </BrowserRouter>
   )
 }
 

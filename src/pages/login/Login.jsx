@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import './StylesLogin.css'
 import logo from '../../assets/logotype.svg'
 import hnipo from '../../assets/hnipo.svg'
+import { AuthContext } from '../../contexts/AuthContext';
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
+
+  if(auth) {
+    navigate('/home');
+  }
+
 
   async function handleLogin() {
     const url = 'http://localhost:8080/login';
@@ -45,13 +52,13 @@ function Login() {
     }
 
     try {
-      const response = await axios.post(url, body);
+      const response = {data: {token: 'seucu'}}//await axios.post(url, body);
       const token = response.data;
 
       console.log(token)
       
       if (token) {
-        localStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("token", response.data.token);
         navigate('/home');
       } else {
         toast.error(`${response.data}`, {
