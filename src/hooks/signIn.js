@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 
-
-export const signIn = async ({ username, password, navigate }) => {
+export const signIn = async ({ username, password }) => {
   const url = "http://localhost:8080/login";
   const body = {
     ds_username: username,
@@ -42,7 +40,7 @@ export const signIn = async ({ username, password, navigate }) => {
 
     if (token) {
       sessionStorage.setItem("token", response.data.token);
-      navigate("/home");
+      return token
     } else {
       toast.error(`${response.data}`, {
         position: "bottom-left",

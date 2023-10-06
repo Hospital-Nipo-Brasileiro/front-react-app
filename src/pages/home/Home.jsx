@@ -19,23 +19,23 @@ function Home() {
         });
     }, []);
 
-  return (
-    <div className="login-background">
-        <div className="app-background">
-            <NavBarUser/>
+    return (
+        <div className="login-background">
+            <div className="app-background">
+                <NavBarUser />
 
-            <div className="container-content-home">
-                <div className="container-card-automacao">
-                    <Link to={"/automation"} style={{textDecoration: "none"}}>
-                        <div className="container-filtro-fosco">
-                            <span className="text-automacao">AUTOMAÇÃO DE USUÁRIOS</span>
-                        </div>
-                    </Link>
-                </div>
+                <div className="container-content-home">
+                    <div className="container-card-automacao">
+                        <Link to={"/automation"} style={{ textDecoration: "none" }}>
+                            <div className="container-filtro-fosco">
+                                <span className="text-automacao">AUTOMAÇÃO DE USUÁRIOS</span>
+                            </div>
+                        </Link>
+                    </div>
 
-                <div className="container-double-cards">
+                    <div className="container-double-cards">
                         <div className="container-card-estoque">
-                            <Link to={"/central-estoques"} style={{textDecoration: "none"}}>
+                            <Link to={"/central-estoques"} style={{ textDecoration: "none" }}>
                                 <div className="container-filtro-fosco">
                                     <span className="text-automacao">ESTOQUE</span>
                                 </div>
@@ -43,19 +43,19 @@ function Home() {
                         </div>
 
                         <div className="container-card-acessos">
-                            <Link to={"/acessos"} style={{textDecoration: "none"}}>
+                            <Link to={"/acessos"} style={{ textDecoration: "none" }}>
                                 <div className="container-filtro-fosco">
                                     <span className="text-automacao">ACESSOS</span>
                                 </div>
                             </Link>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
 
-        
-    </div>
-  );
+
+        </div>
+    );
 }
 
 export default Home;

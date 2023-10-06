@@ -6,6 +6,7 @@ import './StylesLogin.css'
 import logo from '../../assets/logotype.svg'
 import hnipo from '../../assets/hnipo.svg'
 import { AuthContext } from '../../contexts/AuthContext';
+import { signIn } from '../../hooks/signIn';
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -15,95 +16,24 @@ function Login() {
 
 
   useEffect(() => {
-    if(auth) {
+    if (auth) {
       navigate('/home');
     }
 
   })
 
-
-  async function handleLogin() {
-    const url = 'http://localhost:8080/login';
-    const body = {
-      ds_username: username,
-      ds_password: password
-    }
-
-    if (!username || username === undefined) {
-      toast.error(`Nenhum usuário inserido`, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-      return
-    } else if (!password || password === undefined) {
-      toast.error(`Senha não inserida`, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-      return
-    }
-
+  const handleSignIn = async ({ username, password }) => {
     try {
-      const response = await axios.post(url, body);
-      //const response = {data: {token: 'seucu'}}
+      const response = await signIn(username, password);
       const token = response.data;
-
-      console.log(token)
-      
       if (token) {
-        sessionStorage.setItem("token", response.data.token);
-        navigate('/home');
-      } else {
-        toast.error(`${response.data}`, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        navigate("/home");
       }
     } catch (error) {
-      if (error instanceof Error && error.message) {
-        toast.error(`${error.message}`, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      } else {
-        toast.error(`${error.response.data}`, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      }
-
+      toast.error("Falha ao fazer login. Verifique suas credenciais.");
     }
-  }
+  };
+
 
   return (
     <div className="login-background">
@@ -134,7 +64,7 @@ function Login() {
                     id='username'
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                  />                
+                  />
                 </div>
               </div>
 
@@ -149,7 +79,7 @@ function Login() {
                 />
               </div>
 
-              <button className='btn-login' id='login-screen-login' onClick={handleLogin}>login</button>
+              <button className='btn-login' id='login-screen-login' onClick={handleSignIn}>login</button>
             </div>
           </div>
           <span className='copyright-span'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>

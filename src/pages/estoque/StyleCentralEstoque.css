@@ -1,4 +1,4 @@
-.navbar-user{
+.navbar-user {
     width: 100%;
     height: 8%;
     background-color: #fff;
@@ -7,7 +7,8 @@
     justify-content: space-between;
     align-items: center;
 }
-.container-btn-comeback{
+
+.container-btn-comeback {
     width: 40px;
     height: 40px;
     border-radius: 20px;
@@ -15,11 +16,11 @@
     margin-left: 20px;
 }
 
-.container-user-config:hover{
+.container-user-config:hover {
     cursor: pointer;
 }
 
-.container-content-estoques{
+.container-content-estoques {
     width: 100%;
     height: 92%;
     background-color: transparent;
@@ -29,7 +30,7 @@
     align-items: center;
 }
 
-.container-cards-estoque{
+.container-cards-estoque {
     width: 80%;
     height: 80%;
     background-color: transparent;
@@ -38,14 +39,23 @@
     align-content: space-between;
     justify-content: space-between;
 }
-.card-estoque{
+
+.container-link-card-estoque {
     width: 40%;
     height: 40%;
-    background-color: aqua;
-    border-radius: 20px;
 }
 
-.backarrow{
+.card-estoque {
+    width: 100%;
+    height: 100%;
+    background-color: #00000075;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.backarrow {
     margin-left: 5px;
     margin-top: 2px;
 }

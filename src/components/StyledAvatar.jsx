@@ -1,20 +1,37 @@
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
 function StyledAvatar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const SignOutButton = () => {
+    const { signOut } = useContext(AuthContext);
+
+    const handleSignOut = () => {
+      signOut();
+      handleClose(); // Feche o menu após fazer logout, se desejado
     };
 
-  return(
+    return (
+      <MenuItem onClick={handleSignOut}>
+        <span>Logout</span>
+      </MenuItem>
+    );
+  };
+
+  return (
     <>
-  
       <IconButton
         onClick={handleClick}
         size="small"
@@ -61,12 +78,12 @@ function StyledAvatar() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link to={"/home"}>
-            <MenuItem onClick={handleClose}>
-                <span>Setting</span>
-
-            </MenuItem>
+        <Link to={"/home"} style={{ textDecoration: "none", color: "#000" }}>
+          <MenuItem onClick={handleClose}>
+            <span>Setting</span>
+          </MenuItem>
         </Link>
+        <SignOutButton /> {/* Renderize o SignOutButton aqui */}
         <MenuItem onClick={handleClose}>
           <Avatar /> My account
         </MenuItem>
