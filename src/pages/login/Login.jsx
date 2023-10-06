@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import './StylesLogin.css'
@@ -24,11 +23,11 @@ function Login() {
 
   const handleSignIn = async ({ username, password }) => {
     try {
-      const response = await signIn(username, password);
-      const token = response.data;
-      if (token) {
-        navigate("/home");
-      }
+      console.log("cheguei 1");
+      await signIn({username, password});
+      console.log("cheguei 2");
+      navigate("/home");
+      
     } catch (error) {
       toast.error("Falha ao fazer login. Verifique suas credenciais.");
     }

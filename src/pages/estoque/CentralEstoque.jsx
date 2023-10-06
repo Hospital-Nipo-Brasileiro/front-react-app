@@ -12,7 +12,7 @@ function CentralEstoque() {
   useEffect(() => {
     axios.get('http://localhost:8080/estoques')
       .then((response) => {
-        setEstoques(response.data); // Atualiza o estado com os dados obtidos
+        setEstoques(response.data);
       })
       .catch((error) => {
         console.error('Erro ao buscar os dados dos estoques:', error);

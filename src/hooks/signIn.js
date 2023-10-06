@@ -36,13 +36,13 @@ export const signIn = async ({ username, password }) => {
 
   try {
     const response = await axios.post(url, body);
-    const token = response.data;
+    const token = response.data.token;
 
     if (token) {
-      sessionStorage.setItem("token", response.data.token);
+      sessionStorage.setItem("token", token);
       return token
     } else {
-      toast.error(`${response.data}`, {
+      toast.error(`Falha no login. Verifique suas credenciais.`, {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,

@@ -1,11 +1,10 @@
 import { createContext, useState } from "react";
 import { signIn } from '../hooks/signIn';
-import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [auth, setAuth] = useState(!!sessionStorage.getItem("token"))
+    const [auth, setAuth] = useState(false)
 
     const handleSignIn = async ({ username, password }) => {
         await signIn({ username, password });
