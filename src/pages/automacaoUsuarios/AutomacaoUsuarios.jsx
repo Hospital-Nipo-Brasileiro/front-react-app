@@ -10,7 +10,7 @@ function AutomacaoUsuarios() {
         <NavBarUser />
 
         <div className="container-searcher">
-          <div className="search-bar" />
+          <div className="search-navbar" />
           <div className="container-items">
             <div className="container-content-items">
               <div id='item-number-one' className="item-bar"></div>

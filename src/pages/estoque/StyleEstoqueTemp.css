@@ -1,0 +1,33 @@
+#search-bar-estoque{
+    display: flex;
+    flex-direction: row;
+}
+
+.container-local-items{
+    margin-left: 5%;
+    display: flex;
+    flex-direction: row;
+    width: 68%;
+}
+
+.search-bar{
+    margin-top: -15px;
+    width: 15%;
+    background-color: orange;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.container-item-quantity{
+    width: 7%;
+    margin-right: 5%;
+    margin-left: 2%;
+}
+
+.span-items{
+    margin-top: 10px;
+    margin-right: 15px;
+    font-size: large;
+    font-weight: 500;
+    margin-left: 10px;
+}

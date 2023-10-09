@@ -1,7 +1,7 @@
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 function StyledAvatar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -16,7 +16,7 @@ function StyledAvatar() {
   };
 
   const SignOutButton = () => {
-    const { signOut } = useContext(AuthContext);
+    const { signOut } = useAuth();
 
     const handleSignOut = () => {
       signOut();

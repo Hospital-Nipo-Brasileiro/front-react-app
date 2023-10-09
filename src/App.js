@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { AuthContext } from './contexts/AuthContext';
+import React from 'react';
+import { useAuth } from './contexts/AuthContext';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'; // Importe também o Navigate
 
 import Home from './pages/home/Home';
@@ -11,7 +11,7 @@ import Acessos from './pages/acessos/Acessos.jsx'
 import EstoqueTemp from './pages/estoque/EstoqueTemp'
 
 function App() {
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth()
 
   return (
     <BrowserRouter>

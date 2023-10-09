@@ -8,39 +8,12 @@ export const signIn = async ({ username, password }) => {
     ds_password: password,
   };
 
-  if (!username || username === undefined) {
-    toast.error(`Nenhum usuário inserido`, {
-      position: "bottom-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
-    return;
-  } else if (!password || password === undefined) {
-    toast.error(`Senha não inserida`, {
-      position: "bottom-left",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
-    return;
-  }
-
   try {
     const response = await axios.post(url, body);
-    const token = response.data.token;
-
+    const token = response.data;
     if (token) {
       sessionStorage.setItem("token", token);
-      return token
+      return token;
     } else {
       toast.error(`Falha no login. Verifique suas credenciais.`, {
         position: "bottom-left",

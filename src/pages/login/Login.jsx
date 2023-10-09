@@ -1,31 +1,54 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import './StylesLogin.css'
 import logo from '../../assets/logotype.svg'
 import hnipo from '../../assets/hnipo.svg'
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { signIn } from '../../hooks/signIn';
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { auth } = useContext(AuthContext);
+  const { auth, login } = useAuth();
 
 
   useEffect(() => {
     if (auth) {
       navigate('/home');
     }
+  },[auth, navigate])
 
-  })
-
-  const handleSignIn = async ({ username, password }) => {
+  const handleSignIn = async () => {
     try {
-      console.log("cheguei 1");
+      if (!username || username === undefined) {
+        toast.error(`Nenhum usuário inserido`, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return;
+      } else if (!password || password === undefined) {
+        toast.error(`Senha não inserida`, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        return;
+      }
       await signIn({username, password});
-      console.log("cheguei 2");
+      login();
       navigate("/home");
       
     } catch (error) {
