@@ -83,7 +83,7 @@ function StyledAvatar() {
             <span>Setting</span>
           </MenuItem>
         </Link>
-        <SignOutButton /> {/* Renderize o SignOutButton aqui */}
+        <SignOutButton /> 
         <MenuItem onClick={handleClose}>
           <Avatar /> My account
         </MenuItem>

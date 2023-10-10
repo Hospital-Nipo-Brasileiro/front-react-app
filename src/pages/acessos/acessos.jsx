@@ -7,7 +7,7 @@ function Acessos() {
     <div className="login-background">
       <span className='title-technipo'>ACESSOS</span>
       <div id='center-searcher' className="app-background">
-        <NavBarUser />
+        <NavBarUser backbtn={true}/>
         <div className="container-searcher">
           <div className="search-navbar"/>
           <div className="container-items">

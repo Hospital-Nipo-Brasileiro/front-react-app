@@ -22,7 +22,7 @@ function Home() {
     return (
         <div className="login-background">
             <div className="app-background">
-                <NavBarUser />
+                <NavBarUser backbtn={false}/>
 
                 <div className="container-content-home">
                     <div className="container-card-automacao">

@@ -18,7 +18,7 @@ function Login() {
     if (auth) {
       navigate('/home');
     }
-  },[auth, navigate])
+  })
 
   const handleSignIn = async () => {
     try {

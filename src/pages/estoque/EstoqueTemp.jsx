@@ -20,7 +20,7 @@ function Estoque() {
     <div className="login-background">
       <span className='title-technipo'>ESTOQUE</span>
       <div id='center-searcher' className="app-background">
-        <NavBarUser />
+        <NavBarUser backbtn={true}/>
 
         <div className="container-searcher">
           <div className="search-navbar" id='search-bar-estoque'>
