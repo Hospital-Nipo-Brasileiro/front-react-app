@@ -5,11 +5,24 @@ import './StyleEstoqueTemp.css'
 
 function Estoque() {
   const [itens, setItens] = useState([]);
+  const [nameItem, setNameItem] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:8080/estoques/1/itens')
       .then((response) => {
         setItens(response.data);
+        response.data.forEach((item) => {
+          axios.get(`http://localhost:8080/itens/${item.id_item}`)
+            .then((res) => {
+              setNameItem(prevNameItem => ({
+                ...prevNameItem,
+                [item.id_item]: res.data.ds_nome,
+              }));
+            })
+            .catch((err) => {
+              console.error('Erro ao buscar item: ', err);
+            });
+        });
       })
       .catch((error) => {
         console.error('Erro ao buscar os dados dos estoques:', error);
@@ -48,6 +61,7 @@ function Estoque() {
                   <span className='span-items'>{item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.ds_nome ?? "-"}</span>
                   <span className='span-items'>{item.TN_T_PRATELEIRA?.ds_nome ?? "-"}</span>
                   <span className='span-items'>{item.TN_T_BAU?.id ?? "-"}</span>
+                  <span className='span-items'>{nameItem[item.id_item] ?? "-"}</span>
                 </div>
               ))}
             </div>
