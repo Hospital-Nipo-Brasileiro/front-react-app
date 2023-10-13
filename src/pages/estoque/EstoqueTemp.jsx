@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import NavBarUser from '../../components/NavBarUser';
 import axios from 'axios';
-import './StyleEstoqueTemp.css'
+import './StyleEstoqueTemp.css';
 
 function Estoque() {
   const [itens, setItens] = useState([]);
   const [nameItem, setNameItem] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:8080/estoques/1/itens')
@@ -29,11 +30,29 @@ function Estoque() {
       });
   }, []);
 
+  const filteredItens = itens.filter((item) => {
+    const zonaNome = item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.TN_T_ZONA?.ds_nome || '';
+    const bauZonaNome = item.TN_T_BAU?.TN_T_ZONA?.ds_nome || '';
+    const armarioNome = item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.ds_nome || '';
+    const prateleiraNome = item.TN_T_PRATELEIRA?.ds_nome || '';
+    const itemNome = nameItem[item.id_item] || '';
+
+    const searchTerm = searchQuery.toLowerCase();
+
+    return (
+      zonaNome.toLowerCase().includes(searchTerm) ||
+      bauZonaNome.toLowerCase().includes(searchTerm) ||
+      armarioNome.toLowerCase().includes(searchTerm) ||
+      prateleiraNome.toLowerCase().includes(searchTerm) ||
+      itemNome.toLowerCase().includes(searchTerm)
+    );
+  });
+
   return (
     <div className="login-background">
       <span className='title-technipo'>ESTOQUE</span>
       <div id='center-searcher' className="app-background">
-        <NavBarUser backbtn={true}/>
+        <NavBarUser backbtn={true} />
 
         <div className="container-searcher">
           <div className="search-navbar" id='search-bar-estoque'>
@@ -46,7 +65,12 @@ function Estoque() {
               <span className='span-items'>item</span>
             </div>
             <div className="search-bar">
-
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
             <div className="container-item-quantity">
               <span className='span-items'>qnt</span>
@@ -54,12 +78,18 @@ function Estoque() {
           </div>
           <div className="container-items">
             <div className="container-content-items">
-              {itens.map((item, index) => (
-                <div className="item-bar" key={index}>
+              {filteredItens.map((item) => (
+                <div className="item-bar" key={item.id}>
                   <span className='span-items'>{item.id}</span>
-                  <span className='span-items'>{item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.TN_T_ZONA?.ds_nome ?? item.TN_T_BAU?.TN_T_ZONA?.ds_nome}</span>
-                  <span className='span-items'>{item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.ds_nome ?? "-"}</span>
-                  <span className='span-items'>{item.TN_T_PRATELEIRA?.ds_nome ?? "-"}</span>
+                  <span className='span-items'>
+                    {item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.TN_T_ZONA?.ds_nome ?? item.TN_T_BAU?.TN_T_ZONA?.ds_nome}
+                  </span>
+                  <span className='span-items'>
+                    {item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.ds_nome ?? "-"}
+                  </span>
+                  <span className='span-items'>
+                    {item.TN_T_PRATELEIRA?.ds_nome ?? "-"}
+                  </span>
                   <span className='span-items'>{item.TN_T_BAU?.id ?? "-"}</span>
                   <span className='span-items'>{nameItem[item.id_item] ?? "-"}</span>
                 </div>
@@ -69,7 +99,7 @@ function Estoque() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Estoque;
