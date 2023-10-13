@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NavBarUser from '../../components/NavBarUser';
 import axios from 'axios';
 import './StyleEstoqueTemp.css';
+import lupa from '../../assets/lupa.svg'
 
 function Estoque() {
   const [itens, setItens] = useState([]);
@@ -64,14 +65,13 @@ function Estoque() {
               <span className='span-items'>baú</span>
               <span className='span-items'>item</span>
             </div>
-            <div className="search-bar">
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
+            <input
+              className="search-bar"
+              type="text"
+              placeholder="fone de ouvido"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
             <div className="container-item-quantity">
               <span className='span-items'>qnt</span>
             </div>
