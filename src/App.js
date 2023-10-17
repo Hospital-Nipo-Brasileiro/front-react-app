@@ -9,6 +9,7 @@ import AutomacaoUsuarios from './pages/automacaoUsuarios/AutomacaoUsuarios'
 import CentralEstoque from './pages/estoque/CentralEstoque'
 import Acessos from './pages/acessos/Acessos.jsx'
 import EstoqueTemp from './pages/estoque/EstoqueTemp'
+import MeuUsuario from './pages/MeuUsuario/index';
 
 function App() {
   const { auth } = useAuth()
@@ -23,6 +24,7 @@ function App() {
         <Route path='/central-estoques' element={auth ? <CentralEstoque /> : <Navigate to="/login" />} />
         <Route path='/acessos' element={auth ? <Acessos /> : <Navigate to="/login" />} />
         <Route path='/estoque/1' element={auth ? <EstoqueTemp /> : <Navigate to="/login" />} />
+        <Route path='/minha-conta' element={<MeuUsuario /> } />
       </Routes>
     </BrowserRouter>
   )

@@ -1,0 +1,15 @@
+#app-background-user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-user-settings{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 80%;
+    background-color: red;
+    border-radius: 30px;
+}
+

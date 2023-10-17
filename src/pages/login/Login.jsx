@@ -47,9 +47,11 @@ function Login() {
         });
         return;
       }
-      await signIn({username, password});
-      login();
-      navigate("/home");
+      const token = await signIn({username, password});
+      if(token) {
+        login();
+        navigate("/home");
+      } 
       
     } catch (error) {
       toast.error("Falha ao fazer login. Verifique suas credenciais.");

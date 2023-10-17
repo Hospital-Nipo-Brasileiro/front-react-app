@@ -25,3 +25,27 @@
     background-color: red;
     border-radius: 30px;
 }
+
+.deskmanager-users-preview{
+    margin-top: 5px;
+    background-color: transparent;
+    width: 95%;
+    height: 70%;
+}
+
+.span-itens2{
+    font-size: small;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.span-itens3{
+    font-size: small;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#item-bar-desk{
+    justify-content: space-between;
+    
+}
