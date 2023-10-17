@@ -2,18 +2,34 @@ import React, { useState } from 'react';
 import NavBarUser from '../../components/NavBarUser';
 import './StyleAutomacaoUsuarios.css'
 import axios from 'axios';
+import SweetPagination from "sweetpagination";
+import CustomButton from '../../components/CustomButton';
 
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
   const [dia, setDia] = useState();
   const [arquivoSelecionado, setArquivoSelecionado] = useState();
   const [usuarios, setUsuarios] = useState([]);
+  const [currentPageData, setCurrentPageData] = useState(new Array(2).fill());
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
+  const [usersCreated, setUsersCreated] = useState([]);
 
 
   const handleFileChange = (e) => {
     setArquivoSelecionado(e.target.files[0]);
+  }
+
+  const handleCreateUsers = () => {
+    axios.post("http://localhost:8080/desk-manager/cria-todos-usuarios", arquivoEnviado, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(() => {
+      setUsersCreated(usuarios)
+      console.log("Usuários criados")
+    })
   }
 
   const handlePreview = () => {
@@ -93,11 +109,26 @@ function AutomacaoUsuarios() {
                 </div>
               ))}
             </div>
+            
+            <div className="container-footer-form">
+              <div className="sweet-pagination">
+                <SweetPagination
+                  currentPageData={setCurrentPageData}
+                  dataPerPage={usersPerPage}
+                  getData={usuarios}
+                  navigation={true}
+                  setStyle={'sweetPagination'}
+                />
 
-            <div className="pagination">
-              <button onClick={prevPage} disabled={currentPage === 1}>Anterior</button>
-              <button onClick={nextPage} disabled={currentUsers.length < usersPerPage}>Próxima</button>
-            </div>    
+              </div>
+
+              <CustomButton
+                text={"Enviar"}
+                customStyles={{marginTop : "0px"}}
+                onclick={handleCreateUsers}
+              />
+
+            </div>
 
           </div>
         }

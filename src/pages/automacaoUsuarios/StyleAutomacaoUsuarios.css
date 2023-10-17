@@ -49,3 +49,13 @@
     justify-content: space-between;
     
 }
+
+.container-footer-form{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.sweet-pagination{
+    width: 80%;
+}
