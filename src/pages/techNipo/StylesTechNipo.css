@@ -4,17 +4,15 @@ body {
 
 .login-background {
     background: #2A4A25;
-    width: 100;
+    width: 100vw;
     height: 100vh;
-    padding-left: 65px;
-    padding-right: 65px;
     display: flex;
     justify-content: center;
 }
 
 .app-background {
     margin-top: 65px;
-    width: 100%;
+    width: 90%;
     height: 85vh;
     border-radius: 1.875rem;
     background: linear-gradient(135deg, #3FA600 0%, #C8FFBF 100%);

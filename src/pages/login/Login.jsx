@@ -50,7 +50,22 @@ function Login() {
       const token = await signIn({username, password});
       if(token) {
         login();
-        navigate("/home");
+
+        toast.success('Login bem-sucedido!', {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
+        setTimeout(() => {
+          navigate("/home");
+        }, 5000)
+        
       } 
       
     } catch (error) {

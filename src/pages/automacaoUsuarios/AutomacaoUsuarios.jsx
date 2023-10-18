@@ -99,13 +99,13 @@ function AutomacaoUsuarios() {
                 <p className='span-itens3'>Senha</p>
                 <p className='span-itens3'>Departamento</p>
               </div>
-              {currentUsers.map((usuario, index) => (
+              {currentPageData?.map((usuario, index) => (
                 <div className='item-bar' id='item-bar-desk' key={index}>
-                  <p className='span-itens2'>{`${usuario.TUsuario.Nome}`}</p>
-                  <p className='span-itens2'>{`${usuario.TUsuario.Sobrenome}`}</p>
-                  <p className='span-itens2'>{`${usuario.TUsuario.Email}`}</p>
-                  <p className='span-itens2'>{`${usuario.TUsuario.Senha}`}</p>
-                  <p className='span-itens2'>{`${usuario.TUsuario.NomeDepartamento}`}</p>
+                  <p className='span-itens2'>{`${usuario?.TUsuario.Nome}`}</p>
+                  <p className='span-itens2'>{`${usuario?.TUsuario.Sobrenome}`}</p>
+                  <p className='span-itens2'>{`${usuario?.TUsuario.Email}`}</p>
+                  <p className='span-itens2'>{`${usuario?.TUsuario.Senha}`}</p>
+                  <p className='span-itens2'>{`${usuario?.TUsuario.NomeDepartamento}`}</p>
                 </div>
               ))}
             </div>

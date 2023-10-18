@@ -3,11 +3,13 @@ import NavBarUser from '../../components/NavBarUser';
 import axios from 'axios';
 import './StyleEstoqueTemp.css';
 import lupa from '../../assets/lupa.svg'
+import ReactModal from 'react-modal';
 
 function Estoque() {
   const [itens, setItens] = useState([]);
   const [nameItem, setNameItem] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     axios.get('http://localhost:8080/estoques/1/itens')
@@ -50,7 +52,7 @@ function Estoque() {
   });
 
   return (
-    <div className="login-background">
+    <div className="login-background" style={{position: modal ? 'fixed' : 'relative'}}>
       <span className='title-technipo'>ESTOQUE</span>
       <div id='center-searcher' className="app-background">
         <NavBarUser backbtn={true} />
@@ -79,7 +81,14 @@ function Estoque() {
           <div className="container-items">
             <div className="container-content-items">
               {filteredItens.map((item) => (
-                <div className="item-bar" key={item.id}>
+                <div className="item-bar" onClick={() => setModal(!modal)} key={item.id}>
+                  <ReactModal 
+                    isOpen={modal}
+                    className='container-modal'
+                    overlayClassName='container-overlay-modal'
+                  >
+
+                  </ReactModal>
                   <span className='span-items'>{item.id}</span>
                   <span className='span-items'>
                     {item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.TN_T_ZONA?.ds_nome ?? item.TN_T_BAU?.TN_T_ZONA?.ds_nome}
