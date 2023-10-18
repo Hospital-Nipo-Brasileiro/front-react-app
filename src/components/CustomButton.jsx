@@ -14,6 +14,11 @@ function CustomButton({text="enviar", customStyles, onclick}) {
     font-family: 'Basic', sans-serif;
     color: #fff;
     font-size: 1.5rem;
+    transition: 0.3s;
+    &:hover{
+      transform: scale(1.03);
+      transition: 0.3s;
+    }
     `;
 
 

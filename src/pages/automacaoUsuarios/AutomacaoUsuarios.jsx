@@ -21,11 +21,7 @@ function AutomacaoUsuarios() {
   }
 
   const handleCreateUsers = () => {
-    axios.post("http://localhost:8080/desk-manager/cria-todos-usuarios", arquivoEnviado, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
+    axios.post("http://localhost:8080/desk-manager/cria-todos-usuarios", arquivoEnviado)
     .then(() => {
       setUsersCreated(usuarios)
       console.log("Usuários criados")
@@ -44,32 +40,17 @@ function AutomacaoUsuarios() {
           },
         })
         .then((response) => {
-          console.log('Resposta da API:', response.data);
           setArquivoEnviado(true)
           setUsuarios(response.data);
 
         })
         .catch((error) => {
-          // Lide com erros da solicitação
           console.error('Erro ao enviar arquivo:', error);
         });
     } else {
-      // Exiba uma mensagem de erro se nenhum arquivo estiver selecionado
       console.error('Nenhum arquivo selecionado.');
     }
   }
-
-  const nextPage = () => {
-    setCurrentPage(prev => prev + 1);
-  };
-  
-  const prevPage = () => {
-    setCurrentPage(prev => prev - 1);
-  };
-  
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = usuarios.slice(indexOfFirstUser, indexOfLastUser);
 
   
   return (

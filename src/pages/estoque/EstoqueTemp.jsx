@@ -7,7 +7,6 @@ import ReactModal from 'react-modal';
 
 function Estoque() {
   const [itens, setItens] = useState([]);
-  const [nameItem, setNameItem] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [modal, setModal] = useState(false);
 
@@ -15,18 +14,6 @@ function Estoque() {
     axios.get('http://localhost:8080/estoques/1/itens')
       .then((response) => {
         setItens(response.data);
-        response.data.forEach((item) => {
-          axios.get(`http://localhost:8080/itens/${item.id_item}`)
-            .then((res) => {
-              setNameItem(prevNameItem => ({
-                ...prevNameItem,
-                [item.id_item]: res.data.ds_nome,
-              }));
-            })
-            .catch((err) => {
-              console.error('Erro ao buscar item: ', err);
-            });
-        });
       })
       .catch((error) => {
         console.error('Erro ao buscar os dados dos estoques:', error);
@@ -34,11 +21,11 @@ function Estoque() {
   }, []);
 
   const filteredItens = itens.filter((item) => {
-    const zonaNome = item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.TN_T_ZONA?.ds_nome || '';
-    const bauZonaNome = item.TN_T_BAU?.TN_T_ZONA?.ds_nome || '';
-    const armarioNome = item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.ds_nome || '';
-    const prateleiraNome = item.TN_T_PRATELEIRA?.ds_nome || '';
-    const itemNome = nameItem[item.id_item] || '';
+    const zonaNome = item.ZONA || '';
+    const bauZonaNome = item.BAU || '';
+    const armarioNome = item.ARMARIO || '';
+    const prateleiraNome = item.PRATELEIRA || '';
+    const itemNome = item.ITEM || '';
 
     const searchTerm = searchQuery.toLowerCase();
 
@@ -61,6 +48,7 @@ function Estoque() {
           <div className="search-navbar" id='search-bar-estoque'>
             <div className="container-local-items">
               <span className='span-items'>id</span>
+              <span className='span-items'>estoque</span>
               <span className='span-items'>zona</span>
               <span className='span-items'>armário</span>
               <span className='span-items'>prateleira</span>
@@ -70,7 +58,7 @@ function Estoque() {
             <input
               className="search-bar"
               type="text"
-              placeholder="fone de ouvido"
+              placeholder="  ex.: fone de ouvido"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -90,17 +78,13 @@ function Estoque() {
 
                   </ReactModal>
                   <span className='span-items'>{item.id}</span>
-                  <span className='span-items'>
-                    {item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.TN_T_ZONA?.ds_nome ?? item.TN_T_BAU?.TN_T_ZONA?.ds_nome}
-                  </span>
-                  <span className='span-items'>
-                    {item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.ds_nome ?? "-"}
-                  </span>
-                  <span className='span-items'>
-                    {item.TN_T_PRATELEIRA?.ds_nome ?? "-"}
-                  </span>
-                  <span className='span-items'>{item.TN_T_BAU?.id ?? "-"}</span>
-                  <span className='span-items'>{nameItem[item.id_item] ?? "-"}</span>
+                  <span className='span-items'>{item.ESTOQUE ?? "-"}</span>
+                  <span className='span-items'>{item.ZONA ?? "-"}</span>
+                  <span className='span-items'>{item.ARMARIO ?? "-"}</span>
+                  <span className='span-items'>{item.PRATELEIRA ?? "-"}</span>
+                  <span className='span-items'>{item.BAU ?? "-"}</span>
+                  <span className='span-items'>{item.ITEM ?? "-"}</span>
+                  <span className='span-items'>{item.QT_ITEM ?? "-"}</span>
                 </div>
               ))}
             </div>
