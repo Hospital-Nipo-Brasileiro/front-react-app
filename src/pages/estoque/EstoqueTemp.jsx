@@ -89,7 +89,10 @@ function Estoque() {
                   >
 
                   </ReactModal>
-                  <span className='span-items'>{item.id}</span>
+
+                  <span className='span-items'>
+                    {item.id}
+                  </span>
                   <span className='span-items'>
                     {item.TN_T_PRATELEIRA?.TN_T_ARMARIO?.TN_T_ZONA?.ds_nome ?? item.TN_T_BAU?.TN_T_ZONA?.ds_nome}
                   </span>
@@ -99,8 +102,13 @@ function Estoque() {
                   <span className='span-items'>
                     {item.TN_T_PRATELEIRA?.ds_nome ?? "-"}
                   </span>
-                  <span className='span-items'>{item.TN_T_BAU?.id ?? "-"}</span>
-                  <span className='span-items'>{nameItem[item.id_item] ?? "-"}</span>
+                  <span className='span-items'>
+                    {item.TN_T_BAU?.id ?? "-"}
+                  </span>
+                  <span className='span-items'>
+                    {nameItem[item.id_item] ?? "-"}
+                  </span>
+
                 </div>
               ))}
             </div>

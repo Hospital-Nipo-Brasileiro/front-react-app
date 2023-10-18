@@ -89,8 +89,6 @@ function AutomacaoUsuarios() {
           </div> 
           :
           <div className="form-send-user">
-            <div className="particle-js"/>
-            
             <div className="deskmanager-users-preview">
               <div className='item-bar' id='item-bar-desk'>
                 <p className='span-itens3'>Nome</p>
