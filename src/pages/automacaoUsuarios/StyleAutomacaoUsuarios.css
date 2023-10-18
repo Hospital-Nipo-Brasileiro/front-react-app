@@ -19,13 +19,6 @@
     flex-direction: column;
 }
 
-.particle-js{
-    width: 100%;
-    height: 15%;
-    background-color: red;
-    border-radius: 30px;
-}
-
 .deskmanager-users-preview{
     margin-top: 5px;
     background-color: transparent;
