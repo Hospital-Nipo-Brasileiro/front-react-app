@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import NavBarUser from '../../components/NavBarUser';
-import './StyleAutomacaoUsuarios.css'
 import axios from 'axios';
+
+import NavBarUser from '../../components/NavBarUser';
 import SweetPagination from "sweetpagination";
 import CustomButton from '../../components/CustomButton';
+
+import './StyleAutomacaoUsuarios.css'
 
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
@@ -11,7 +13,6 @@ function AutomacaoUsuarios() {
   const [arquivoSelecionado, setArquivoSelecionado] = useState();
   const [usuarios, setUsuarios] = useState([]);
   const [currentPageData, setCurrentPageData] = useState(new Array(2).fill());
-  const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
   const [usersCreated, setUsersCreated] = useState([]);
 
