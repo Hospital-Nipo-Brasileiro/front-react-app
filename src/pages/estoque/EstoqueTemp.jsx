@@ -46,24 +46,40 @@ function Estoque() {
 
         <div className="container-searcher">
           <div className="search-navbar" id='search-bar-estoque'>
-            <div className="container-local-items">
-              <span className='span-items'>id</span>
-              <span className='span-items'>estoque</span>
-              <span className='span-items'>zona</span>
-              <span className='span-items'>armário</span>
-              <span className='span-items'>prateleira</span>
-              <span className='span-items'>baú</span>
-              <span className='span-items'>item</span>
-            </div>
-            <input
-              className="search-bar"
-              type="text"
-              placeholder="  ex.: fone de ouvido"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <div className="container-item-quantity">
-              <span className='span-items'>qnt</span>
+            <div className="container-content-items-estoque">
+              <div className="container-local-items">
+                <div className="container-item" id="item-id">
+                  <span className='span-items'>id</span>
+                </div>
+                <div className="container-item" id='item-estoque'>
+                  <span className='span-items'>estoque</span>
+                </div>
+                <div className="container-item" id='item-zona'>
+                  <span className='span-items'>zona</span>
+                </div>
+                <div className="container-item" id='item-armario'>
+                  <span className='span-items'>armário</span>
+                </div>
+                <div className="container-item" id='item-prateleira'>
+                  <span className='span-items'>prateleira</span>
+                </div>
+                <div className="container-item" id='item-bau'>
+                  <span className='span-items'>baú</span>
+                </div>
+                <div className="container-item" id='span-item-item'>
+                  <span className='span-items'>item</span>
+                </div>
+              </div>
+              <input
+                className="search-bar"
+                type="text"
+                placeholder="  ex.: fone de ouvido"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <div className="container-item" id='item-quantidade-item'>
+                <span className='span-items'>qnt</span>
+              </div>
             </div>
           </div>
           <div className="container-items">
@@ -77,14 +93,32 @@ function Estoque() {
                   >
 
                   </ReactModal>
-                  <span className='span-items'>{item.id}</span>
-                  <span className='span-items'>{item.ESTOQUE ?? "-"}</span>
-                  <span className='span-items'>{item.ZONA ?? "-"}</span>
-                  <span className='span-items'>{item.ARMARIO ?? "-"}</span>
-                  <span className='span-items'>{item.PRATELEIRA ?? "-"}</span>
-                  <span className='span-items'>{item.BAU ?? "-"}</span>
-                  <span className='span-items'>{item.ITEM ?? "-"}</span>
-                  <span className='span-items'>{item.QT_ITEM ?? "-"}</span>
+                  <div className="container-item" id="item-id">
+                    <span className='span-items'>{item.id}</span>
+
+                  </div>
+                  <div className="container-item" id='item-estoque'>
+                    <span className='span-items'>{item.ESTOQUE ?? "-"}</span>
+                  </div>
+                  <div className="container-item" id='item-zona'>
+                    <span className='span-items'>{item.ZONA ?? "-"}</span>
+                  </div>
+                  <div className="container-item" id='item-armario'>
+                    <span className='span-items'>{item.ARMARIO ?? "-"}</span>
+                  </div>
+                  <div className="container-item" id='item-prateleira'>
+                    <span className='span-items'>{item.PRATELEIRA ?? "-"}</span>
+                  </div>
+                  <div className="container-item" id='item-bau'>
+                    <span className='span-items'>{item.BAU ?? "-"}</span>
+                  </div>
+                  <div className="container-item" id='item-item'>
+                    <span className='span-items'>{item.ITEM ?? "-"}</span>
+                  </div>
+                  
+                  <div className="container-item" id="item-quantidade-item">
+                    <span className='span-items'>{item.QT_ITEM ?? "-"}</span>
+                  </div>
                 </div>
               ))}
             </div>
