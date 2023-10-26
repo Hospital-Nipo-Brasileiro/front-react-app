@@ -84,9 +84,11 @@ function StyledAvatar() {
           </MenuItem>
         </Link>
         <SignOutButton /> 
-        <MenuItem onClick={handleClose}>
-          <Avatar /> My account
-        </MenuItem>
+        <Link to={"/meu-usuario"} style={{ textDecoration: "none", color: "#000" }}>
+          <MenuItem onClick={handleClose}>
+            <Avatar /> My account
+          </MenuItem>
+        </Link>
       </Menu>
     </>
   );

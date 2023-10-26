@@ -24,7 +24,7 @@ function App() {
         <Route path='/central-estoques' element={auth ? <CentralEstoque /> : <Navigate to="/login" />} />
         <Route path='/acessos' element={auth ? <Acessos /> : <Navigate to="/login" />} />
         <Route path='/estoque/1' element={auth ? <EstoqueTemp /> : <Navigate to="/login" />} />
-        <Route path='/minha-conta' element={<MeuUsuario /> } />
+        <Route path='/meu-usuario' element={<MeuUsuario /> } />
       </Routes>
     </BrowserRouter>
   )

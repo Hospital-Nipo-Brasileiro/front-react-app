@@ -51,7 +51,7 @@ function Login() {
       if(token) {
         login();
 
-        toast.success('Login bem-sucedido!', {
+        await toast.success('Login bem-sucedido!', {
           position: "bottom-left",
           autoClose: 5000,
           hideProgressBar: false,

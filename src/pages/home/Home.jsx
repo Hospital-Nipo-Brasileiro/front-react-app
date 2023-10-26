@@ -6,23 +6,24 @@ import { Link } from 'react-router-dom';
 import NavBarUser from '../../components/NavBarUser';
 
 function Home() {
-    useEffect(() => {
-        toast.success('Login bem-sucedido!', {
-            position: "bottom-left",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-        });
-    }, []);
+
+    // useEffect(() => {
+    //     toast.success('Login bem-sucedido!', {
+    //         position: "bottom-left",
+    //         autoClose: 5000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //         theme: "colored",
+    //     });
+    // }, []);
 
     return (
         <div className="login-background">
             <div className="app-background">
-                <NavBarUser backbtn={false}/>
+                <NavBarUser backbtn={false} divx={true} />
 
                 <div className="container-content-home">
                     <div className="container-card-automacao">
