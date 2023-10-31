@@ -14,45 +14,53 @@ function AutomacaoUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
   const [currentPageData, setCurrentPageData] = useState(new Array(2).fill());
   const usersPerPage = 5;
-  const [usersCreated, setUsersCreated] = useState([]);
 
 
   const handleFileChange = (e) => {
     setArquivoSelecionado(e.target.files[0]);
   }
 
-  const handleCreateUsers = () => {
-    axios.post("http://localhost:8080/desk-manager/cria-todos-usuarios", arquivoEnviado)
-    .then(() => {
-      setUsersCreated(usuarios)
-      console.log("Usuários criados")
-    })
-  }
-
   const handlePreview = () => {
-    if (arquivoSelecionado) {
+    if (arquivoSelecionado && dia) {
+      
+
       const formData = new FormData();
       formData.append('file', arquivoSelecionado);
-
+      formData.append('diaAdmissao', dia); 
+  
       axios
-        .post('http://localhost:8080/desk-manager/visualiza', formData, {
+        .post('http://localhost:8080/admissoes/enviar', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         })
         .then((response) => {
-          setArquivoEnviado(true)
+          setArquivoEnviado(true);
           setUsuarios(response.data);
-
+          console.log(response.data);
         })
         .catch((error) => {
           console.error('Erro ao enviar arquivo:', error);
         });
     } else {
-      console.error('Nenhum arquivo selecionado.');
+      console.error('Nenhum arquivo ou data de admissão selecionados.');
     }
+  };
+  
+
+  const criarDeskManager = () => {
+    axios.post("http://localhost:8080/admissoes/desk", arquivoEnviado)
+    .then(() => {
+      console.log("Usuários criados")
+    })
   }
 
+  const criarWord = () => {
+    axios.post("http://localhost:8080/admissoes/concluir", arquivoEnviado)
+    .then(() => {
+      console.log("Usuários criados")
+    })
+  }
   
   return (
     <div className="login-background">
@@ -72,41 +80,55 @@ function AutomacaoUsuarios() {
           :
           <div className="form-send-user">
             <div className="deskmanager-users-preview">
-              <div className='item-bar' id='item-bar-desk'>
-                <p className='span-itens3'>Nome</p>
-                <p className='span-itens3'>Sobrenome</p>
-                <p className='span-itens3'>Email</p>
-                <p className='span-itens3'>Senha</p>
-                <p className='span-itens3'>Departamento</p>
+              <div className='item-bar'>
+                <p className='span-itens3' id='span-item-nome'>Nome</p>
+                <p className='span-itens3' id='span-item-usuario'>Usuário</p>
+                <p className='span-itens3' id='span-item-senha'>Senha</p>
+                <p className='span-itens3' id='span-item-local'>Local</p>
+                <p className='span-itens3' id='span-item-departamento'>Departamento</p>
+                <p className='span-itens3' id='span-item-acessos'>Acessos</p>
               </div>
-              {currentPageData?.map((usuario, index) => (
-                <div className='item-bar' id='item-bar-desk' key={index}>
-                  <p className='span-itens2'>{`${usuario?.TUsuario.Nome}`}</p>
-                  <p className='span-itens2'>{`${usuario?.TUsuario.Sobrenome}`}</p>
-                  <p className='span-itens2'>{`${usuario?.TUsuario.Email}`}</p>
-                  <p className='span-itens2'>{`${usuario?.TUsuario.Senha}`}</p>
-                  <p className='span-itens2'>{`${usuario?.TUsuario.NomeDepartamento}`}</p>
+              {currentPageData.map((usuario, index) => (
+                <div className='item-bar' key={index}>
+                  <p className='span-itens2' id='span-item-nome'>{usuario?.nome}</p>
+                  <p className='span-itens2' id='span-item-usuario'>{usuario?.usuario}</p>
+                  <p className='span-itens2' id='span-item-senha'>{usuario?.senha}</p>
+                  <p className='span-itens2' id='span-item-local'>{usuario?.local}</p>
+                  <p className='span-itens2' id='span-item-departamento'>{usuario?.area}</p>
+                  <p className='span-itens2' id='span-item-acessos'>
+                    {usuario?.acessos.map((acesso, index) => (
+                    <span key={index}>
+                      {acesso}
+                      {index !== usuario?.acessos?.length - 1 && ', '}
+                    </span>
+                    ))}
+                  </p>
                 </div>
               ))}
             </div>
             
             <div className="container-footer-form">
-              <div className="sweet-pagination">
-                <SweetPagination
-                  currentPageData={setCurrentPageData}
-                  dataPerPage={usersPerPage}
-                  getData={usuarios}
-                  navigation={true}
-                  setStyle={'sweetPagination'}
-                />
 
-              </div>
-
-              <CustomButton
-                text={"Enviar"}
-                customStyles={{marginTop : "0px"}}
-                onclick={handleCreateUsers}
+            <div className="sweet-pagination">
+              <SweetPagination
+                currentPageData={setCurrentPageData}
+                dataPerPage={usersPerPage}
+                getData={usuarios.flat()}
+                navigation={true}
               />
+            </div>
+
+            <CustomButton
+              text={"Criar Desk"}
+              customStyles={{marginTop : "0px"}}
+              onclick={criarDeskManager}
+            />
+
+            <CustomButton
+              text={"Criar Word"}
+              customStyles={{marginTop : "0px"}}
+              onclick={criarWord}
+            />
 
             </div>
 

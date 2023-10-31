@@ -1,7 +1,7 @@
 .form-send-user{
-    width: 800px;
+    width: 1400px;
     height: 500px;
-    background-color: #D4D4D4;
+    background-color: #00000079;
     box-shadow: 4px 7px 10px 0px rgba(0, 0, 0, 0.50);
     border-radius: 30px;
     margin-top: 5%;
@@ -22,7 +22,7 @@
 .deskmanager-users-preview{
     margin-top: 5px;
     background-color: transparent;
-    width: 95%;
+    width: 1300px;
     height: 70%;
 }
 
@@ -38,10 +38,10 @@
     margin-right: 20px;
 }
 
-#item-bar-desk{
+/* #item-bar-desk{
     justify-content: space-between;
     
-}
+} */
 
 .container-footer-form{
     display: flex;
@@ -51,4 +51,24 @@
 
 .sweet-pagination{
     width: 80%;
+}
+
+#span-item-nome{
+    width: 190px;
+}
+
+#span-item-usuario{
+    width: 70px;
+}
+
+#span-item-senha{
+    width: 100px;
+}
+
+#span-item-local{
+    width: 30px;
+}
+
+#span-item-departamento{
+    width: 250px;
 }
