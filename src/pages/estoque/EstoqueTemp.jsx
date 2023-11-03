@@ -4,14 +4,18 @@ import axios from 'axios';
 import './StyleEstoqueTemp.css';
 import lupa from '../../assets/lupa.svg'
 import ReactModal from 'react-modal';
+import { Link, useLocation } from 'react-router-dom';
 
 function Estoque() {
   const [itens, setItens] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [modal, setModal] = useState(false);
 
-  useEffect(() => {
-    axios.get('http://localhost:8080/estoques/1/itens')
+  const location = useLocation();
+  const id = location.pathname.split('/').pop();
+
+  useEffect((req) => {
+    axios.get(`http://localhost:8080/estoques/${id}/itens`)
       .then((response) => {
         setItens(response.data);
       })
@@ -42,7 +46,7 @@ function Estoque() {
     <div className="login-background" style={{position: modal ? 'fixed' : 'relative'}}>
       <span className='title-technipo'>ESTOQUE</span>
       <div id='center-searcher' className="app-background">
-        <NavBarUser backbtn={true} />
+        <NavBarUser />
 
         <div className="container-searcher">
           <div className="search-navbar" id='search-bar-estoque'>
@@ -122,6 +126,12 @@ function Estoque() {
                 </div>
               ))}
             </div>
+
+            <Link to={"/estoques/entrada"}>
+              <div className="circle-add-item">
+                <button>Dar Entrada em um novo item</button>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

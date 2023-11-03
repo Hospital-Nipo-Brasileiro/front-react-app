@@ -36,7 +36,7 @@ function Home() {
 
                     <div className="container-double-cards">
                         <div className="container-card-estoque">
-                            <Link to={"/central-estoques"} style={{ textDecoration: "none" }}>
+                            <Link to={"/estoques/central"} style={{ textDecoration: "none" }}>
                                 <div className="container-filtro-fosco">
                                     <span className="text-automacao">ESTOQUE</span>
                                 </div>

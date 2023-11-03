@@ -10,6 +10,7 @@ import CentralEstoque from './pages/estoque/CentralEstoque'
 import Acessos from './pages/acessos/Acessos.jsx'
 import EstoqueTemp from './pages/estoque/EstoqueTemp'
 import MeuUsuario from './pages/MeuUsuario/index';
+import EntradaEstoque from './pages/estoque/EntradaEstoque';
 
 function App() {
   const { auth } = useAuth()
@@ -21,10 +22,11 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/home' element={auth ? <Home /> : <Navigate to="/login" />} />
         <Route path='/automation' element={auth ? <AutomacaoUsuarios /> : <Navigate to="/login" />} />
-        <Route path='/central-estoques' element={auth ? <CentralEstoque /> : <Navigate to="/login" />} />
+        <Route path='/estoques/central' element={auth ? <CentralEstoque /> : <Navigate to="/login" />} />
         <Route path='/acessos' element={auth ? <Acessos /> : <Navigate to="/login" />} />
-        <Route path='/estoque/1' element={auth ? <EstoqueTemp /> : <Navigate to="/login" />} />
-        <Route path='/meu-usuario' element={<MeuUsuario /> } />
+        <Route path='/estoques/:id' element={auth ? <EstoqueTemp /> : <Navigate to="/login" />} />
+        <Route path='/meu-usuario' element={auth ? <MeuUsuario /> : <Navigate to="/login" />} />
+        <Route path='/estoques/entrada' element={auth ? <EntradaEstoque /> : <Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   )

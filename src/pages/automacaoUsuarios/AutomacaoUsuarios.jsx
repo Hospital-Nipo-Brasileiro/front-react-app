@@ -9,8 +9,8 @@ import './StyleAutomacaoUsuarios.css'
 
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
-  const [dia, setDia] = useState();
-  const [arquivoSelecionado, setArquivoSelecionado] = useState();
+  const [dia, setDia] = useState('');
+  const [arquivoSelecionado, setArquivoSelecionado] = useState('');
   const [usuarios, setUsuarios] = useState([]);
   const [currentPageData, setCurrentPageData] = useState(new Array(2).fill());
   const usersPerPage = 5;
@@ -49,17 +49,49 @@ function AutomacaoUsuarios() {
   
 
   const criarDeskManager = () => {
-    axios.post("http://localhost:8080/admissoes/desk", arquivoEnviado)
-    .then(() => {
-      console.log("Usuários criados")
-    })
+    if (arquivoSelecionado && dia) {      
+
+      const formData = new FormData();
+      formData.append('file', arquivoSelecionado);
+      formData.append('diaAdmissao', dia); 
+      
+      axios.post("http://localhost:8080/admissoes/desk",  formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(() => {
+        console.log("Usuários criados")
+      }).catch((error) => {
+        console.error('Erro ao enviar arquivo:', error);
+      });
+    } else {
+      console.error('Nenhum arquivo ou data de admissão selecionados.');
+    }
+
   }
 
   const criarWord = () => {
-    axios.post("http://localhost:8080/admissoes/concluir", arquivoEnviado)
-    .then(() => {
-      console.log("Usuários criados")
-    })
+    if (arquivoSelecionado && dia) {      
+
+      const formData = new FormData();
+      formData.append('file', arquivoSelecionado);
+      formData.append('diaAdmissao', dia); 
+
+      axios.post("http://localhost:8080/admissoes/concluir", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(() => {
+        console.log("Usuários criados")
+      })
+      .catch((error) => {
+        console.error('Erro ao enviar arquivo:', error);
+      });
+    } else {
+      console.error('Nenhum arquivo ou data de admissão selecionados.');
+    }
   }
   
   return (
@@ -88,7 +120,7 @@ function AutomacaoUsuarios() {
                 <p className='span-itens3' id='span-item-departamento'>Departamento</p>
                 <p className='span-itens3' id='span-item-acessos'>Acessos</p>
               </div>
-              {currentPageData.map((usuario, index) => (
+              {usuarios.map((usuario, index) => (
                 <div className='item-bar' key={index}>
                   <p className='span-itens2' id='span-item-nome'>{usuario?.nome}</p>
                   <p className='span-itens2' id='span-item-usuario'>{usuario?.usuario}</p>
@@ -110,12 +142,12 @@ function AutomacaoUsuarios() {
             <div className="container-footer-form">
 
             <div className="sweet-pagination">
-              <SweetPagination
+              {/* <SweetPagination
                 currentPageData={setCurrentPageData}
                 dataPerPage={usersPerPage}
                 getData={usuarios.flat()}
                 navigation={true}
-              />
+              /> */}
             </div>
 
             <CustomButton

@@ -28,6 +28,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .container-content-items {
@@ -50,11 +51,17 @@
     margin-top: 20px;
     width: 100%;
     transition: 0.3s;
+    border: 0;
 }
 
 .item-bar:hover{
     transform: scale(1.03);
     transition: 0.3s;
+    background-color: #dbdbdb;
+}
+
+.item-bar:focus{
+    outline: none;
 }
 
 #item-number-one {
@@ -165,3 +172,7 @@
     margin-left: 2%;
 }
 
+.circle-add-item{
+    display: flex;
+
+}

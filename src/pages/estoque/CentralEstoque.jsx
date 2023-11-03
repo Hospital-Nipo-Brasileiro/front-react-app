@@ -7,12 +7,18 @@ import axios from 'axios';
 
 function CentralEstoque() {
 
-  const [estoques, setEstoques] = useState([]);
+  const estoques = [
+    { id: 1, nome: 'TRIAGEM' },
+    { id: 2, nome: 'TEMP' },
+    { id: 3, nome: 'T.I.' },
+    { id: 4, nome: 'CENTRAL'},
+    { id: 5, nome: 'PABX'},
+    { id: 6, saida: 'SAIDA'}
+  ];
 
   useEffect(() => {
     axios.get('http://localhost:8080/estoques')
       .then((response) => {
-        setEstoques(response.data);
       })
       .catch((error) => {
         console.error('Erro ao buscar os dados dos estoques:', error);
@@ -22,22 +28,48 @@ function CentralEstoque() {
   return (
     <div className="login-background">
       <span className="title-technipo">ESTOQUE</span>
-      <div className="app-background">
+      <div className="app-background" id='app-background-estoque'>
         <div className="navbar-user">
           <BackButton />
           <StyledAvatar />
         </div>
 
         <div className="container-content-estoques">
-          <div className="container-cards-estoque">
-            {estoques.map((estoque, index) => (
-              <Link to={`/estoque/${estoque.id}`} className="container-link-card-estoque" key={index} style={{ textDecoration: "none" }}>
-                <div className="card-estoque">
-                  <span className='text-automacao' >{estoque.ds_nome}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <Link to={`/estoques/1`} style={{ textDecoration: "none" }}>
+            <div className="card-estoque">
+              <span className='text-automacao'>TRIAGEM</span>
+            </div>
+          </Link>
+
+          <Link to={`/estoques/2`} style={{ textDecoration: "none" }}>
+            <div className="card-estoque">
+              <span className='text-automacao'>TEMP</span>
+            </div>
+          </Link>
+
+          <Link to={`/estoques/3`} style={{ textDecoration: "none" }}>
+            <div className="card-estoque">
+              <span className='text-automacao'>T.I.</span>
+            </div>
+          </Link>
+
+          <Link to={`/estoques/4`} style={{ textDecoration: "none" }}>
+            <div className="card-estoque">
+              <span className='text-automacao'>CENTRAL</span>
+            </div>
+          </Link>
+
+          <Link to={`/estoques/5`} style={{ textDecoration: "none" }}>
+            <div className="card-estoque">
+              <span className='text-automacao'>PABX</span>
+            </div>
+          </Link>
+
+          <Link to={`/estoques/6`} style={{ textDecoration: "none" }}>
+            <div className="card-estoque">
+              <span className='text-automacao'>SAIDA</span>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

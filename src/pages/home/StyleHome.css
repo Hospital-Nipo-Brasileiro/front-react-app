@@ -61,7 +61,7 @@
 }
 
 .container-card-estoque{
-    background-image: url("../../assets/card-estoque.svg");
+    background-image: url("../../assets/card-acessos.svg");
     background-size: cover;
     width: 45%;
     height: 100%;
@@ -69,7 +69,7 @@
 }
 
 .container-card-acessos{
-    background-image: url("../../assets/card-acessos.svg");
+    background-image: url("../../assets/card-estoque.svg");
     background-size: cover;
     width: 45%;
     height: 100%;
