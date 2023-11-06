@@ -2,7 +2,7 @@ import React from 'react';
 import BackButton from './BackButton';
 import StyledAvatar from './StyledAvatar';
 
-function NavBarUser({backbtn = true }) {
+function NavBarUser({backbtn = true, screenPath}) {
   return (
     <div 
       className="navbar-user" 
@@ -12,7 +12,7 @@ function NavBarUser({backbtn = true }) {
 
       }}
     >
-        { backbtn && <BackButton /> }
+        { backbtn && <BackButton screenPath={screenPath}/> }
         <StyledAvatar/>
     </div>
   );

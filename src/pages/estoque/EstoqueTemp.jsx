@@ -5,6 +5,7 @@ import './StyleEstoqueTemp.css';
 import lupa from '../../assets/lupa.svg'
 import ReactModal from 'react-modal';
 import { Link, useLocation } from 'react-router-dom';
+import CustomButton from '../../components/CustomButton';
 
 function Estoque() {
   const [itens, setItens] = useState([]);
@@ -14,7 +15,7 @@ function Estoque() {
   const location = useLocation();
   const id = location.pathname.split('/').pop();
 
-  useEffect((req) => {
+  useEffect(() => {
     axios.get(`http://localhost:8080/estoques/${id}/itens`)
       .then((response) => {
         setItens(response.data);
@@ -48,10 +49,10 @@ function Estoque() {
       <div id='center-searcher' className="app-background">
         <NavBarUser />
 
-        <div className="container-searcher">
-          <div className="search-navbar" id='search-bar-estoque'>
-            <div className="container-content-items-estoque">
-              <div className="container-local-items">
+        <section className="w-5/6 h-5/6 rounded-3xl bg-black/50 m-12">
+          <nav className="w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center" id='search-bar-estoque'>
+            <div className="w-[67.5vw] flex">
+              <div className="w-9/12 flex justify-start">
                 <div className="container-item" id="item-id">
                   <span className='span-items'>id</span>
                 </div>
@@ -85,9 +86,9 @@ function Estoque() {
                 <span className='span-items'>qnt</span>
               </div>
             </div>
-          </div>
+          </nav>
           <div className="container-items">
-            <div className="container-content-items">
+            <div className="w-5/6 h-5/6 flex flex-col justify-start overflow-y-auto max-h-full">
               {filteredItens.map((item) => (
                 <div className="item-bar" onClick={() => setModal(!modal)} key={item.id}>
                   <ReactModal 
@@ -127,13 +128,9 @@ function Estoque() {
               ))}
             </div>
 
-            <Link to={"/estoques/entrada"}>
-              <div className="circle-add-item">
-                <button>Dar Entrada em um novo item</button>
-              </div>
-            </Link>
+            <CustomButton sendTo={"/estoques/entrada"} text='Dar entrada' />
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

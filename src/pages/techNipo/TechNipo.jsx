@@ -26,7 +26,7 @@ function TechNipo() {
           </div>
 
           <div className="container-content">
-            <div className="line"></div>
+            <div className="h-50 w-1 bg-white ml-10 mr-10 mt-5" id='line'/>
 
             <div className="container-info-ti">
               <div className="container-subtitle-ti"><span className='subtitle-ti'>Potencializando a Eficiência e Inovação para o Cuidado ao Paciente</span></div>

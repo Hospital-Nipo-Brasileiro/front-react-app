@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import NavBarUser from '../../components/NavBarUser';
 import CustomButton from '../../components/CustomButton';
 import './StyleEntradaEstoque.css'
-import CustomToasty from '../../components/CustomToast';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Input from '../../components/Input';
 
 function EntradaEstoque() {
   const [nome, setNome] = useState("");
@@ -35,7 +36,7 @@ function EntradaEstoque() {
             theme: "colored",
           });
         } else {
-          toast.error(response.statusText, {
+          toast.error(response.data.error, {
             position: "bottom-left",
             autoClose: 5000,
             hideProgressBar: false,
@@ -77,13 +78,14 @@ function EntradaEstoque() {
       <span className='title-technipo'>ESTOQUE</span>
 
       <div id='center-searcher' className="app-background">
-        <NavBarUser/>
+        <NavBarUser screenPath="/estoques/central"/>
         <div className="container-searcher">
           <div className="container-items">
             <div className="container-content-items">
-              <input className="item-bar2" type='text' placeholder='nome' value={nome} onChange={handleNomeChange}/>
-              <input className="item-bar2" type='text' placeholder='modelo' value={modelo} onChange={handleModeloChange}/>
-              <input className="item-bar2" type='text' placeholder='descrição' value={descricao} onChange={handleDescricaoChange}/>
+              <Input type='text' placeholder='nome' value={nome} onChange={handleNomeChange} />
+              <Input type='text' placeholder='modelo' value={modelo} onChange={handleModeloChange} />
+              <Input type='text' placeholder='descrição' value={descricao} onChange={handleDescricaoChange} />
+              <ToastContainer />
               <CustomButton onclick={handleCriaItem} text='Dar entrada'/>
             </div>
           </div>

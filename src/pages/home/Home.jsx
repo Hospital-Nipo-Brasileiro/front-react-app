@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { toast } from 'react-toastify';
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./StyleHome.css"
 import { Link } from 'react-router-dom';
@@ -7,23 +7,11 @@ import NavBarUser from '../../components/NavBarUser';
 
 function Home() {
 
-    // useEffect(() => {
-    //     toast.success('Login bem-sucedido!', {
-    //         position: "bottom-left",
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //         theme: "colored",
-    //     });
-    // }, []);
-
     return (
         <div className="login-background">
             <div className="app-background">
                 <NavBarUser backbtn={false} divx={true} />
+                <ToastContainer />
 
                 <div className="container-content-home">
                     <div className="container-card-automacao">
