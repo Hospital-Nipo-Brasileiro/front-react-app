@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import NavBarUser from '../../components/NavBarUser';
-import SweetPagination from "sweetpagination";
+import Input from '../../components/Input'
 import CustomButton from '../../components/CustomButton';
 
 import './StyleAutomacaoUsuarios.css'
@@ -10,7 +10,7 @@ import './StyleAutomacaoUsuarios.css'
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
   const [dia, setDia] = useState('');
-  const [arquivoSelecionado, setArquivoSelecionado] = useState('');
+  const [arquivoSelecionado, setArquivoSelecionado] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const [currentPageData, setCurrentPageData] = useState(new Array(2).fill());
   const usersPerPage = 5;
@@ -101,12 +101,24 @@ function AutomacaoUsuarios() {
         <NavBarUser backbtn={true} />
 
         {arquivoEnviado === false ? 
-          <div className="form-send-user">
-            <div className="particle-js"/>            
+          <div className="w-5/6 h-4/6 mt-16 mb-16 bg-black/30 shadow-xl rounded-3xl flex flex-col justify-between items-center">          
             <div className="container-content-send-user">
-              <input type="file" onChange={handleFileChange}/>
-              <input type="text" placeholder='1404' value={dia} onChange={(e) => setDia(e.target.value)}/>
-              <button onClick={handlePreview}>Pré-visualizar</button>
+              <div className="flex items-center justify-start mt-6">
+                <label htmlFor="file-upload" className="px-4 py-2 mb-3 bg-orange-500/50 text-white rounded-xl cursor-pointer">
+                  Selecione um arquivo
+                </label>
+                <input
+                  id="file-upload"
+                  type="file"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
+                {arquivoSelecionado && <p className="ml-4">{arquivoSelecionado.name}</p>}
+              </div>
+              <Input type='text' placeholder='1404' value={dia} onChange={(e) => setDia(e.target.value)}/>
+              <div className='w-full flex justify-center' > 
+                <button className='bg-orange-500 w-3/6 h-10 rounded-lg mt-5' onClick={handlePreview}>Pré-visualizar</button>
+              </div>
             </div>
           </div> 
           :
