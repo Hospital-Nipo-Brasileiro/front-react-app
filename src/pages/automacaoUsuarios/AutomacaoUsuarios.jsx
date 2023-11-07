@@ -7,6 +7,7 @@ import CustomButton from '../../components/CustomButton';
 
 import './StyleAutomacaoUsuarios.css'
 import HeaderList from '../../components/HeaderList';
+import { ToastContainer, toast } from 'react-toastify';
 
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
@@ -41,10 +42,28 @@ function AutomacaoUsuarios() {
           console.log(response.data);
         })
         .catch((error) => {
-          console.error('Erro ao enviar arquivo:', error);
+          toast.error(`Erro ao enviar arquivos: ${error}`, {
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         });
     } else {
-      console.error('Nenhum arquivo ou data de admissão selecionados.');
+      toast.error('Arquivo ou data de admissão não inserido.', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
   
@@ -62,12 +81,39 @@ function AutomacaoUsuarios() {
         },
       })
       .then(() => {
-        console.log("Usuários criados")
+        toast.success("Usuários de DeskManager criados!", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }).catch((error) => {
-        console.error('Erro ao enviar arquivo:', error);
+        toast.error(error, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
     } else {
-      console.error('Nenhum arquivo ou data de admissão selecionados.');
+      toast.error("Nenhum arquivo selecionado", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
   }
@@ -85,13 +131,40 @@ function AutomacaoUsuarios() {
         },
       })
       .then(() => {
-        console.log("Usuários criados")
+        toast.success("Words de colaboradores criados!", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       })
       .catch((error) => {
-        console.error('Erro ao enviar arquivo:', error);
+        toast.error(`Erro ao enviar arquivos: ${error}`, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
     } else {
-      console.error('Nenhum arquivo ou data de admissão selecionados.');
+      toast.error('Nenhum arquivo ou data de admissão selecionados.', {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   }
   
@@ -116,7 +189,7 @@ function AutomacaoUsuarios() {
                 />
                 {arquivoSelecionado && <p className="ml-4">{arquivoSelecionado.name}</p>}
               </div>
-              <Input type='text' placeholder='1404' value={dia} onChange={(e) => setDia(e.target.value)}/>
+              <Input type='text' placeholder='DiaMes ex.: 1302' value={dia} onChange={(e) => setDia(e.target.value)}/>
               <div className='w-full flex justify-center' > 
                 <button className='bg-orange-500 w-3/6 h-10 rounded-lg mt-5' onClick={handlePreview}>Pré-visualizar</button>
               </div>
@@ -144,54 +217,28 @@ function AutomacaoUsuarios() {
                   </span>
                 </div>
 
-                {/* <div className='item-bar' key={index}>
-                  <p className='span-itens2' id='span-item-nome'>{usuario?.nome}</p>
-                  <p className='span-itens2' id='span-item-usuario'>{usuario?.usuario}</p>
-                  <p className='span-itens2' id='span-item-senha'>{usuario?.senha}</p>
-                  <p className='span-itens2' id='span-item-local'>{usuario?.local}</p>
-                  <p className='span-itens2' id='span-item-departamento'>{usuario?.area}</p>
-                  <p className='span-itens2' id='span-item-acessos'>
-                    {usuario?.acessos.map((acesso, index) => (
-                      <span key={index}>
-                      {acesso}
-                      {index !== usuario?.acessos?.length - 1 && ', '}
-                    </span>
-                    ))}
-                  </p>
-                </div> */}
                 </>
               ))}
             </div>
             
-            <div className="container-footer-form">
+            <div className="flex m-5 w-full justify-end">
+              <CustomButton
+                text={"Criar Desk"}
+                style={"bg-orange-400"}
+                onclick={criarDeskManager}
+              />
 
-            <div className="sweet-pagination">
-              {/* <SweetPagination
-                currentPageData={setCurrentPageData}
-                dataPerPage={usersPerPage}
-                getData={usuarios.flat()}
-                navigation={true}
-              /> */}
-            </div>
-
-            <CustomButton
-              text={"Criar Desk"}
-              customStyles={{marginTop : "0px"}}
-              onclick={criarDeskManager}
-            />
-
-            <CustomButton
-              text={"Criar Word"}
-              customStyles={{marginTop : "0px"}}
-              onclick={criarWord}
-            />
-
+              <CustomButton
+                text={"Criar Word"}
+                style={"bg-orange-600"}
+                onclick={criarWord}
+              />
             </div>
 
           </div>
         }
 
-        
+        <ToastContainer />
       </div>
     </div>
 
