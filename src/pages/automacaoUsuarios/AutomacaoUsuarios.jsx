@@ -6,6 +6,7 @@ import Input from '../../components/Input'
 import CustomButton from '../../components/CustomButton';
 
 import './StyleAutomacaoUsuarios.css'
+import HeaderList from '../../components/HeaderList';
 
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
@@ -122,18 +123,28 @@ function AutomacaoUsuarios() {
             </div>
           </div> 
           :
-          <div className="form-send-user">
-            <div className="deskmanager-users-preview">
-              <div className='item-bar'>
-                <p className='span-itens3' id='span-item-nome'>Nome</p>
-                <p className='span-itens3' id='span-item-usuario'>Usuário</p>
-                <p className='span-itens3' id='span-item-senha'>Senha</p>
-                <p className='span-itens3' id='span-item-local'>Local</p>
-                <p className='span-itens3' id='span-item-departamento'>Departamento</p>
-                <p className='span-itens3' id='span-item-acessos'>Acessos</p>
-              </div>
+          <div className="w-5/6 h-4/6 mt-16 mb-16 bg-black/30 shadow-xl rounded-3xl flex flex-col justify-between items-center">
+            <HeaderList />
+            <div className="mt-3 w-11/12 h-5/6 overflow-y-auto ">
               {usuarios.map((usuario, index) => (
-                <div className='item-bar' key={index}>
+                <>
+                <div className='w-full mb-5 bg-white h-9 flex rounded-3xl items-center justify-center' key={index}>
+                  <span className='text-sm w-56 ml-5 truncate'>{usuario?.nome}</span>
+                  <span className='text-sm w-28 truncate'>{usuario?.usuario}</span>
+                  <span className='text-sm w-32 truncate'>{usuario?.senha}</span>
+                  <span className='text-sm w-16 truncate'>{usuario?.local}</span>
+                  <span className='text-sm w-64 truncate'>{usuario?.area}</span>
+                  <span className='text-sm w-64 truncate'>
+                    {usuario?.acessos.map((acesso, index) => (
+                      <span key={index}>
+                        {acesso}
+                        {index !== usuario?.acessos?.length - 1 && ', '}
+                      </span>
+                    ))}
+                  </span>
+                </div>
+
+                {/* <div className='item-bar' key={index}>
                   <p className='span-itens2' id='span-item-nome'>{usuario?.nome}</p>
                   <p className='span-itens2' id='span-item-usuario'>{usuario?.usuario}</p>
                   <p className='span-itens2' id='span-item-senha'>{usuario?.senha}</p>
@@ -141,13 +152,14 @@ function AutomacaoUsuarios() {
                   <p className='span-itens2' id='span-item-departamento'>{usuario?.area}</p>
                   <p className='span-itens2' id='span-item-acessos'>
                     {usuario?.acessos.map((acesso, index) => (
-                    <span key={index}>
+                      <span key={index}>
                       {acesso}
                       {index !== usuario?.acessos?.length - 1 && ', '}
                     </span>
                     ))}
                   </p>
-                </div>
+                </div> */}
+                </>
               ))}
             </div>
             

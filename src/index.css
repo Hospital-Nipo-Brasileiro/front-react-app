@@ -7,6 +7,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+p{
+   margin: 0; 
+}
+
 ::-webkit-scrollbar {
     width: 12px; /* Largura da barra de rolagem */
   }
