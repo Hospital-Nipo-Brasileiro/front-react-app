@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import './StylesLogin.css'
 import logo from '../../assets/logotype.svg'
 import hnipo from '../../assets/hnipo.svg'
@@ -78,7 +78,6 @@ function Login() {
     <div className="login-background">
       <span className='title-technipo'>LOGIN</span>
       <div className="app-background">
-        <ToastContainer />
 
         <div className="container-logo-login">
           <div className="logotipo-img-txt">

@@ -7,16 +7,14 @@ import CustomButton from '../../components/CustomButton';
 
 import './StyleAutomacaoUsuarios.css'
 import HeaderList from '../../components/HeaderList';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
   const [dia, setDia] = useState('');
   const [arquivoSelecionado, setArquivoSelecionado] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
-  const [currentPageData, setCurrentPageData] = useState(new Array(2).fill());
-  const usersPerPage = 5;
-
+  const token = sessionStorage.getItem('token');
 
   const handleFileChange = (e) => {
     setArquivoSelecionado(e.target.files[0]);
@@ -24,7 +22,8 @@ function AutomacaoUsuarios() {
 
   const handlePreview = () => {
     if (arquivoSelecionado && dia) {
-      
+
+      console.log(token)     
 
       const formData = new FormData();
       formData.append('file', arquivoSelecionado);
@@ -34,6 +33,7 @@ function AutomacaoUsuarios() {
         .post('http://localhost:8080/admissoes/enviar', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+            'Authorization': `${token}`,
           },
         })
         .then((response) => {
@@ -78,6 +78,7 @@ function AutomacaoUsuarios() {
       axios.post("http://localhost:8080/admissoes/desk",  formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Authorization': `${token}`,
         },
       })
       .then(() => {
@@ -128,10 +129,11 @@ function AutomacaoUsuarios() {
       axios.post("http://localhost:8080/admissoes/concluir", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Authorization': `${token}`,
         },
       })
-      .then(() => {
-        toast.success("Words de colaboradores criados!", {
+      .then(async () => {
+        await toast.success("Words de colaboradores criados!", {
           position: "bottom-left",
           autoClose: 5000,
           hideProgressBar: false,
@@ -141,6 +143,11 @@ function AutomacaoUsuarios() {
           progress: undefined,
           theme: "colored",
         });
+
+        setArquivoEnviado(false);
+        setArquivoSelecionado(null);
+        setDia('');
+
       })
       .catch((error) => {
         toast.error(`Erro ao enviar arquivos: ${error}`, {
@@ -167,6 +174,20 @@ function AutomacaoUsuarios() {
       });
     }
   }
+
+  const handleDateChange = (e) => {
+    const input = e.target.value;
+  
+    // Remove caracteres que não são dígitos
+    const sanitizedInput = input.replace(/\D/g, '');
+  
+    // Valida se existem 4 dígitos consecutivos
+    const isValidInput = /^\d{4}$/.test(sanitizedInput);
+  
+    if (isValidInput || sanitizedInput === '') {
+      setDia(sanitizedInput);
+    }
+  };
   
   return (
     <div className="login-background">
@@ -189,7 +210,8 @@ function AutomacaoUsuarios() {
                 />
                 {arquivoSelecionado && <p className="ml-4">{arquivoSelecionado.name}</p>}
               </div>
-              <Input type='text' placeholder='DiaMes ex.: 1302' value={dia} onChange={(e) => setDia(e.target.value)}/>
+              <Input type='text' value={dia} onChange={(e) => setDia(e.target.value)}/>
+              
               <div className='w-full flex justify-center' > 
                 <button className='bg-orange-500 w-3/6 h-10 rounded-lg mt-5' onClick={handlePreview}>Pré-visualizar</button>
               </div>
@@ -200,13 +222,12 @@ function AutomacaoUsuarios() {
             <HeaderList />
             <div className="mt-3 w-11/12 h-5/6 overflow-y-auto ">
               {usuarios.map((usuario, index) => (
-                <>
-                <div className='w-full mb-5 bg-white h-9 flex rounded-3xl items-center justify-center' key={index}>
-                  <span className='text-sm w-56 ml-5 truncate'>{usuario?.nome}</span>
-                  <span className='text-sm w-28 truncate'>{usuario?.usuario}</span>
-                  <span className='text-sm w-32 truncate'>{usuario?.senha}</span>
-                  <span className='text-sm w-16 truncate'>{usuario?.local}</span>
-                  <span className='text-sm w-64 truncate'>{usuario?.area}</span>
+                <div className='w-full mb-5 bg-white h-9 flex rounded-3xl items-center justify-start' key={index}>
+                  <span className='text-sm w-56 ml-5 mr-1 truncate'>{usuario?.nome}</span>
+                  <span className='text-sm w-28 mr-1 truncate'>{usuario?.usuario}</span>
+                  <span className='text-sm w-32 mr-1 truncate'>{usuario?.senha}</span>
+                  <span className='text-sm w-16 mr-1 truncate'>{usuario?.local}</span>
+                  <span className='text-sm w-64 mr-1 truncate'>{usuario?.area}</span>
                   <span className='text-sm w-64 truncate'>
                     {usuario?.acessos.map((acesso, index) => (
                       <span key={index}>
@@ -216,8 +237,6 @@ function AutomacaoUsuarios() {
                     ))}
                   </span>
                 </div>
-
-                </>
               ))}
             </div>
             
@@ -238,7 +257,7 @@ function AutomacaoUsuarios() {
           </div>
         }
 
-        <ToastContainer />
+        
       </div>
     </div>
 

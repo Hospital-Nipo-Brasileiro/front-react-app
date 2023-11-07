@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import NavBarUser from '../../components/NavBarUser';
 import CustomButton from '../../components/CustomButton';
 import './StyleEntradaEstoque.css'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Input from '../../components/Input';
 
@@ -85,7 +85,6 @@ function EntradaEstoque() {
               <Input type='text' placeholder='nome' value={nome} onChange={handleNomeChange} />
               <Input type='text' placeholder='modelo' value={modelo} onChange={handleModeloChange} />
               <Input type='text' placeholder='descrição' value={descricao} onChange={handleDescricaoChange} />
-              <ToastContainer />
               <CustomButton onclick={handleCriaItem} text='Dar entrada'/>
             </div>
           </div>

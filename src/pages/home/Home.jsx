@@ -1,6 +1,4 @@
 import React from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import "./StyleHome.css"
 import { Link } from 'react-router-dom';
 import NavBarUser from '../../components/NavBarUser';
@@ -11,7 +9,6 @@ function Home() {
         <div className="login-background">
             <div className="app-background">
                 <NavBarUser backbtn={false} divx={true} />
-                <ToastContainer />
 
                 <div className="container-content-home">
                     <div className="container-card-automacao">
