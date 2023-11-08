@@ -10,9 +10,11 @@ export const signIn = async ({ username, password }) => {
 
   try {
     const response = await axios.post(url, body);
-    const token = response.data;
+    const token = response.data.token;
+    const userId = response.data.userId;
     if (token) {
       sessionStorage.setItem("token", token);
+      sessionStorage.setItem("userId", userId);
       return token;
     } else {
       toast.error(`Falha no login. Verifique suas credenciais.`, {

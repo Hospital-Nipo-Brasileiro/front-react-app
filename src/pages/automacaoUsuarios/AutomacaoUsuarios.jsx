@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import NavBarUser from '../../components/NavBarUser';
+import './StyleAutomacaoUsuarios.css'
+import { toast } from 'react-toastify';
+
 import Input from '../../components/Input'
 import CustomButton from '../../components/CustomButton';
-
-import './StyleAutomacaoUsuarios.css'
+import NavBarUser from '../../components/NavBarUser';
 import HeaderList from '../../components/HeaderList';
-import { toast } from 'react-toastify';
 
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
@@ -23,6 +23,20 @@ function AutomacaoUsuarios() {
   const handlePreview = () => {
     if (arquivoSelecionado && dia) {
 
+      if (dia.length !== 4 && !isNaN(dia)) {
+        toast.error('Dia deve ser QUATRO números diamês ex.: 1022.', {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
+        return;
+      }
       console.log(token)     
 
       const formData = new FormData();
@@ -175,19 +189,6 @@ function AutomacaoUsuarios() {
     }
   }
 
-  const handleDateChange = (e) => {
-    const input = e.target.value;
-  
-    // Remove caracteres que não são dígitos
-    const sanitizedInput = input.replace(/\D/g, '');
-  
-    // Valida se existem 4 dígitos consecutivos
-    const isValidInput = /^\d{4}$/.test(sanitizedInput);
-  
-    if (isValidInput || sanitizedInput === '') {
-      setDia(sanitizedInput);
-    }
-  };
   
   return (
     <div className="login-background">

@@ -61,11 +61,6 @@ function Login() {
           progress: undefined,
           theme: "colored",
         });
-
-        setTimeout(() => {
-          navigate("/home");
-        }, 5000)
-        
       } 
       
     } catch (error) {
