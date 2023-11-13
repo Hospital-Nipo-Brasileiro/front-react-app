@@ -123,17 +123,17 @@ function MeuUsuario() {
 
             <div className='flex justify-center w-full mt-16'>
               <button 
-                className='h-12 bg-blue-400 w-4/12 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
+                className='h-12 bg-orange-500 w-4/12 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
                 onClick={() => setModalAlteraSenha(true)}
               >
                 <span>Alterar senha</span>
               </button>
 
               <button 
-                className='h-12 bg-blue-400 w-4/12 ml-5 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
+                className='h-12 bg-orange-500 w-4/12 ml-5 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
                 onClick={() => setModalResetaSenha(true)}
               >
-                <span>Reseta senha</span>
+                <span >Reseta senha</span>
               </button>
             </div>  
           

@@ -1,14 +1,16 @@
 import React from 'react';
 import "./StyleHome.css"
 import { Link } from 'react-router-dom';
-import NavBarUser from '../../components/NavBarUser';
+import StyledAvatar from '../../components/StyledAvatar';
 
 function Home() {
 
     return (
         <div className="login-background">
             <div className="app-background">
-                <NavBarUser backbtn={false} divx={true} />
+                <div className='w-full h-12 rounded-3xl flex justify-end bg-white'>
+                    <StyledAvatar />
+                </div>
 
                 <div className="container-content-home">
                     <div className="container-card-automacao">

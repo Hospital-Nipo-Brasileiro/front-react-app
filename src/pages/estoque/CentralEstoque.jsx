@@ -1,20 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './StyleCentralEstoque.css';
-import StyledAvatar from '../../components/StyledAvatar';
-import BackButton from '../../components/BackButton';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import NavBarUser from '../../components/NavBarUser';
 
 function CentralEstoque() {
-
-  const estoques = [
-    { id: 1, nome: 'TRIAGEM' },
-    { id: 2, nome: 'TEMP' },
-    { id: 3, nome: 'T.I.' },
-    { id: 4, nome: 'CENTRAL'},
-    { id: 5, nome: 'PABX'},
-    { id: 6, saida: 'SAIDA'}
-  ];
 
   useEffect(() => {
     axios.get('http://localhost:8080/estoques')
@@ -29,10 +19,7 @@ function CentralEstoque() {
     <div className="login-background">
       <span className="title-technipo">ESTOQUE</span>
       <div className="app-background" id='app-background-estoque'>
-        <div className="navbar-user">
-          <BackButton />
-          <StyledAvatar />
-        </div>
+        <NavBarUser />
 
         <div className="container-content-estoques">
           <Link to={`/estoques/1`} style={{ textDecoration: "none" }}>
