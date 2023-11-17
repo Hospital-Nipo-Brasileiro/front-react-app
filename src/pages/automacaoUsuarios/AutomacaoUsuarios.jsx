@@ -193,7 +193,7 @@ function AutomacaoUsuarios() {
   return (
     <div className="login-background">
       <span className='title-technipo'>AUTOMAÇÃO</span>
-      <div id='center-searcher' className="app-background">
+      <div className="app-background flex flex-col items-center">
         <NavBarUser backbtn={true} />
 
         {arquivoEnviado === false ? 
