@@ -10,7 +10,7 @@ export default function PrivateRoutes() {
   const { auth } = useAuth();
   
   return (
-    <Routes >
+    <Routes>
       <Route path='/home' element={auth ? <Home /> : <Navigate to="/login" />} />
       <Route path='/meu-usuario' element={auth ? <MeuUsuario /> : <Navigate to="/login" />} />
       <Route path='/automation' element={auth ? <AutomacaoUsuarios /> : <Navigate to="/login" />} />
