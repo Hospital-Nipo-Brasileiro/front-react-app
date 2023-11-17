@@ -1,9 +1,11 @@
 import React from 'react';
 import './StylesTechNipo.css'
+
 import logo from '../../assets/logotype.svg'
 import hospital from '../../assets/initial.svg'
-import { Link } from 'react-router-dom';
+import ti from '../../assets/ti-hospital.svg'
 
+import { Link } from 'react-router-dom';
 
 function TechNipo() {
 
@@ -37,6 +39,10 @@ function TechNipo() {
                 de big data, possibilita a previsão de doenças e a personalização dos cuidados, alinhando-se com as necessidades da instituição e garantindo um
                 ambiente de trabalho mais eficiente e focado na qualidade dos serviços prestados.</span>
 
+            </div>
+
+            <div className='w-full flex justify-center'>
+              <img className='w-[500px] ml-24 mt-10' src={ti} alt='Tecnologia da informação do Hospital' />
             </div>
 
           </div>

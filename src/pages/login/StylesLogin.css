@@ -10,7 +10,8 @@
     transform: translate(-50%, -50%);
     flex-direction: column;
     justify-content: space-between;
-    align-items: center
+    align-items: center;
+    box-shadow: 1px 3px 17px 5px #000;
 }
 
 .align-infos-login {
@@ -83,12 +84,6 @@
         width: 70%;
     }
 
-    .container-card-login{
-        min-width: 90%;
-        background-color: transparent;
-        align-items: center;
-    }
-
     .hnipo{
         display: none;
     }
@@ -98,12 +93,16 @@
     }
 
     .container-card-login {
+        min-width: 90%;
+        background-color: transparent;
+        align-items: center;
         margin-top: 48px;
         padding: 26px 0;
         height: min-content;
         top: auto;
         left: auto;
         transform: none;
+        box-shadow: 1px 3px 17px 5px #000;
     }
 
     .logotipo{
