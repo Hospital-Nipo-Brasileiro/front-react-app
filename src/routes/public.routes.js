@@ -1,21 +1,13 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import TechNipo from '../pages/techNipo/TechNipo'
 import Login from '../pages/login/Login'
+import { Route, Routes } from 'react-router-dom'
 
 export default function PublicRoutes() {
-    const privateRouter = createBrowserRouter([
-        {
-            path: "/",
-            element: <TechNipo />
-        },
-        {
-            path: "/login",
-            element: <Login/>
-        }
-    ])
-
   return (
-    <RouterProvider router={privateRouter} />
+    <Routes>
+      <Route path='/' element={<TechNipo />} />
+      <Route path='/login' element={<Login />} />
+    </Routes>
   )
 }
