@@ -5,10 +5,6 @@ import App from "./App";
 import './index.css'
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import 'buffer';
-// import crypto from 'crypto-browserify';
-import 'stream-browserify';
-// window.crypto = crypto; 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
