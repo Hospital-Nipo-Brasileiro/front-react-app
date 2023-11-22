@@ -36,13 +36,13 @@ function MeuUsuario() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
         });
       })
-  }, [])
+  }, )
 
   const handleAlteraSenha = () => {
     axios.post()
@@ -113,29 +113,35 @@ function MeuUsuario() {
                     </div>
                   </div>
                 </div>
+
+                <div className='flex justify-center w-full mt-16'>
+                  <button 
+                    className='h-12 bg-orange-500 w-4/12 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
+                    onClick={() => setModalAlteraSenha(true)}
+                  >
+                    <span>Alterar senha</span>
+                  </button>
+
+                  <button 
+                    className='h-12 bg-orange-500 w-4/12 ml-5 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
+                    onClick={() => setModalResetaSenha(true)}
+                  >
+                    <span >Reseta senha</span>
+                  </button>
+                </div>  
+
               </>
 
               
             ))
           ) : (
-            <p>Aguardando dados do usuário...</p>
+            <div className='w-full h-full bg-transparent flex items-center justify-center'>
+              <p className='text-2xl font-sans'>Aguardando dados do usuário...</p>
+            </div>
+
           )}
 
-            <div className='flex justify-center w-full mt-16'>
-              <button 
-                className='h-12 bg-orange-500 w-4/12 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
-                onClick={() => setModalAlteraSenha(true)}
-              >
-                <span>Alterar senha</span>
-              </button>
-
-              <button 
-                className='h-12 bg-orange-500 w-4/12 ml-5 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
-                onClick={() => setModalResetaSenha(true)}
-              >
-                <span >Reseta senha</span>
-              </button>
-            </div>  
+            
           
           {modalAlteraSenha && (
             <div className='fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50'>
