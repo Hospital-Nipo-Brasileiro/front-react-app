@@ -64,8 +64,8 @@ function Acessos() {
           </nav>
 
           {pessoas && pessoas.map((pessoa) => (
-            <div className='mt-8 w-10/12 h-10 bg-white rounded-2xl pl-6 pr-6'>
-              <div key={pessoa.ID} className="flex justify-start items-center h-full ml-3 mr-3 w-full">
+            <div className='w-10/12 h-10 bg-white rounded-3xl pl-6 pr-6 mt-8 '>
+              <div key={pessoa.ID} className="flex justify-start items-center h-full mr-3 w-full">
                 <div className="flex justify-center items-center h-full mr-3 ">
                   <span className='w-[40px] font-sans'>{pessoa.ID}</span>
                 </div>
@@ -73,7 +73,7 @@ function Acessos() {
                   <span className='font-sans'>{pessoa.NOME}</span>
                 </div>
                 <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
-                  <span className='font-sans'>{pessoa.SISTEMA}</span>
+                  <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
                 </div>
               </div>
 
