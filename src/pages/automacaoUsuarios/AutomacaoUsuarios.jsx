@@ -44,7 +44,7 @@ function AutomacaoUsuarios() {
       formData.append('diaAdmissao', dia); 
   
       axios
-        .post('http://localhost:8080/admissoes/enviar', formData, {
+        .post('http://10.10.204.54:8080/admissoes/enviar', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `${token}`,
@@ -89,7 +89,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia); 
       
-      axios.post("http://localhost:8080/admissoes/desk",  formData, {
+      axios.post("http://10.10.204.54:8080/admissoes/desk",  formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
@@ -140,7 +140,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia); 
 
-      axios.post("http://localhost:8080/admissoes/concluir", formData, {
+      axios.post("http://10.10.204.54:8080/admissoes/concluir", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
