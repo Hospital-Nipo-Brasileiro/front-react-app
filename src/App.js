@@ -6,7 +6,10 @@ import Login from './pages/login/Login.jsx';
 import Home from './pages/home/Home.jsx';
 import MeuUsuario from './pages/MeuUsuario/index.jsx'
 import AutomacaoUsuarios from './pages/automacaoUsuarios/AutomacaoUsuarios.jsx'
-import BuildPage from './pages/build/BuildPage.jsx'
+import CentralEstoque from './pages/estoque/CentralEstoque.jsx'
+import EstradaEstoque from './pages/estoque/EntradaEstoque.jsx'
+import EstoqueTemp from './pages/estoque/EstoqueTemp.jsx'
+import Acessos from './pages/acessos/Acessos.jsx'
 import { useAuth } from './contexts/AuthContext.js'
 
 export default function App() {
@@ -20,10 +23,10 @@ export default function App() {
         <Route path='/home' element={auth ? <Home /> : <Navigate to="/login" />} />
         <Route path='/meu-usuario' element={auth ? <MeuUsuario /> : <Navigate to="/login" />} />
         <Route path='/automation' element={auth ? <AutomacaoUsuarios /> : <Navigate to="/login" />} />
-        <Route path='/estoques/central' element={auth ? <BuildPage /> : <Navigate to="/login" />} />
-        <Route path='/acessos' element={auth ? <BuildPage /> : <Navigate to="/login" />} />
-        <Route path='/estoques/:id' element={auth ? <BuildPage /> : <Navigate to="/login" />} />
-        <Route path='/estoques/entrada' element={auth ? <BuildPage /> : <Navigate to="/login" />} />
+        <Route path='/estoques/central' element={auth ? <CentralEstoque /> : <Navigate to="/login" />} />
+        <Route path='/acessos' element={auth ? <Acessos /> : <Navigate to="/login" />} />
+        <Route path='/estoques/:id' element={auth ? <EstoqueTemp /> : <Navigate to="/login" />} />
+        <Route path='/estoques/entrada' element={auth ? <EstradaEstoque /> : <Navigate to="/login" />} />
         <Route path="*" element={<NaoEncontrado />} />
       </Routes>
     </BrowserRouter>
