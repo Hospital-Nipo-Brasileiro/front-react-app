@@ -7,7 +7,7 @@ import NavBarUser from '../../components/NavBarUser';
 function CentralEstoque() {
 
   useEffect(() => {
-    axios.get('http://localhost:8080/estoques')
+    axios.get('http://10.10.204.54:8080/estoques')
       .then((response) => {
       })
       .catch((error) => {

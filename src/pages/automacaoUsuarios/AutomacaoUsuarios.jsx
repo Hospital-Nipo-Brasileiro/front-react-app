@@ -16,6 +16,8 @@ function AutomacaoUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
   const token = sessionStorage.getItem('token');
 
+  const BASE_URL = "http://10.10.204.54:8080"
+
   const handleFileChange = (e) => {
     setArquivoSelecionado(e.target.files[0]);
   }
@@ -44,7 +46,7 @@ function AutomacaoUsuarios() {
       formData.append('diaAdmissao', dia); 
   
       axios
-        .post('http://10.10.204.54:8080/admissoes/enviar', formData, {
+        .post(`${BASE_URL}/admissoes/enviar`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `${token}`,
@@ -89,7 +91,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia); 
       
-      axios.post("http://10.10.204.54:8080/admissoes/desk",  formData, {
+      axios.post(`${BASE_URL}/admissoes/desk`,  formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
@@ -140,7 +142,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia); 
 
-      axios.post("http://10.10.204.54:8080/admissoes/concluir", formData, {
+      axios.post(`${BASE_URL}/admissoes/concluir`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
