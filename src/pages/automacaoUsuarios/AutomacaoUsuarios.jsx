@@ -29,7 +29,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: false,
+          pauseOnHover: true,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -44,7 +44,7 @@ function AutomacaoUsuarios() {
       formData.append('diaAdmissao', dia); 
   
       axios
-        .post('http://localhost:8080/admissoes/enviar', formData, {
+        .post('http://10.10.204.54:8080/admissoes/enviar', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `${token}`,
@@ -61,7 +61,7 @@ function AutomacaoUsuarios() {
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
-            pauseOnHover: false,
+            pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
@@ -73,7 +73,7 @@ function AutomacaoUsuarios() {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: false,
+        pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: "colored",
@@ -89,7 +89,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia); 
       
-      axios.post("http://localhost:8080/admissoes/desk",  formData, {
+      axios.post("http://10.10.204.54:8080/admissoes/desk",  formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
@@ -101,7 +101,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: false,
+          pauseOnHover: true,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -112,7 +112,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: false,
+          pauseOnHover: true,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -124,7 +124,7 @@ function AutomacaoUsuarios() {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: false,
+        pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: "colored",
@@ -140,7 +140,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia); 
 
-      axios.post("http://localhost:8080/admissoes/concluir", formData, {
+      axios.post("http://10.10.204.54:8080/admissoes/concluir", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
@@ -152,7 +152,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: false,
+          pauseOnHover: true,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -169,7 +169,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: false,
+          pauseOnHover: true,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -181,7 +181,7 @@ function AutomacaoUsuarios() {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: false,
+        pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: "colored",
@@ -193,7 +193,7 @@ function AutomacaoUsuarios() {
   return (
     <div className="login-background">
       <span className='title-technipo'>AUTOMAÇÃO</span>
-      <div id='center-searcher' className="app-background">
+      <div className="app-background flex flex-col items-center">
         <NavBarUser backbtn={true} />
 
         {arquivoEnviado === false ? 
