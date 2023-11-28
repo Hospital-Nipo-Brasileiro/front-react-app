@@ -125,7 +125,7 @@ function Estoque() {
                   className="bg-white shadow-xl rounded-3xl flex h-10 mb-5 w-full border-0"
                   onClick={() => openModal(item)}
                   key={item.id}
-                >               
+                >
                   <div className="container-item" id="item-id">
                     <span className='span-items'>{item.id}</span>
 
@@ -148,7 +148,7 @@ function Estoque() {
                   <div className="container-item" id='item-item'>
                     <span className='span-items'>{item.ITEM ?? "-"}</span>
                   </div>
-                  
+
                   <div className="container-item" id="item-quantidade-item">
                     <span className='span-items'>{item.QT_ITEM ?? "-"}</span>
                   </div>
@@ -161,7 +161,7 @@ function Estoque() {
                     <span>ID: {selectedItem.id}</span>
                     {isEditing ? (
                       <div className='flex flex-col'>
-                        <Input 
+                        <Input
                           label="Item"
                           value={selectedItem?.ITEM || ""}
                           onChange={(e) => {
@@ -172,7 +172,7 @@ function Estoque() {
                           }}
                         />
 
-                        <Input 
+                        <Input
                           label="Modelo"
                           value={selectedItem?.MODELO || ""}
                           onChange={(e) => {
@@ -183,7 +183,7 @@ function Estoque() {
                           }}
                         />
 
-                        <Input 
+                        <Input
                           label="Descrição"
                           value={selectedItem?.DESCRICAO || ""}
                           onChange={(e) => {
@@ -192,7 +192,7 @@ function Estoque() {
                               DESCRICAO: e.target.value
                             })
                           }}
-                        />                       
+                        />
                       </div>
                     ) : (
                       <div className='flex flex-col'>
@@ -213,7 +213,7 @@ function Estoque() {
                           <CustomButton text='Deletar' />
                         </>
                       )}
-                      
+
                       <CustomButton onclick={closeModal} text='Fechar' />
                     </div>
                   </div>
