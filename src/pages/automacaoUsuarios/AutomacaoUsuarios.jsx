@@ -58,7 +58,7 @@ function AutomacaoUsuarios() {
           console.log(response.data);
         })
         .catch((error) => {
-          toast.error(`Erro ao enviar arquivos: ${error}`, {
+          toast.error(`Erro ao enviar arquivos: ${error.data}`, {
             position: "bottom-left",
             autoClose: 5000,
             hideProgressBar: false,
@@ -97,8 +97,8 @@ function AutomacaoUsuarios() {
           'Authorization': `${token}`,
         },
       })
-      .then(() => {
-        toast.success("Usuários de DeskManager criados!", {
+      .then(async () => {
+        await toast.success("Usuários de DeskManager criados!", {
           position: "bottom-left",
           autoClose: 5000,
           hideProgressBar: false,

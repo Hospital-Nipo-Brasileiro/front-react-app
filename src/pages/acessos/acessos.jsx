@@ -5,12 +5,18 @@ import { toast } from 'react-toastify';
 import ModalCriaPessoas from '../../components/ModalCriaPessoa';
 import ModalPessoa from '../../components/ModalPessoa';
 
+
 function Acessos() {
   const [pessoas, setPessoas] = useState([]);
-  const [totalPessoas, setTotalPessoas] = useState(0);
   const [modalCriaPessoas, setModalCriaPessoas] = useState(false);
-  const [nome, setNome] = useState(null);
-  const [modalPessoa, setModalPessoa] = useState(false);
+  const [selectedPersonID, setSelectedPersonID] = useState(null);
+  const [arraySistemaPessoa, setArraySistemaPessoa] = useState([]);
+  const [name, setName] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [dataAdmissao, setDataAdmissao] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+  const [tipoContrato, setTipoContrato] = useState("");
+  const [categoria, setCategoria] = useState("");
 
   const BASE_URL = "http://10.10.204.54:8080"
   const token = sessionStorage.getItem('token');
@@ -24,9 +30,8 @@ function Acessos() {
         },
       })
       .then((response) => {
-        const [pessoasArray, total] = response.data;
+        const [pessoasArray] = response.data;
         setPessoas(pessoasArray);
-        setTotalPessoas(total);
       })
       .catch((err) => {
         toast.error(err.data, {
@@ -50,12 +55,34 @@ function Acessos() {
     setModalCriaPessoas(false);
   }
 
-  const handleOpenPessoa = () => {
-    setPessoas(true);
+  const handleOpenPessoa = (pessoaID) => {
+    axios.get(`${BASE_URL}/sistemas/pessoa/${pessoaID}`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `${token}`,
+      }
+    })
+      .then((response) => {
+        setArraySistemaPessoa(response);
+        setSelectedPersonID(pessoaID);
+      })
+      .catch((err) => {
+        toast.error(`Erro ao enviar arquivos: ${err.data}`, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      })
+
   }
 
   const handleClosePessoa = () => {
-    setPessoas(false);
+    setSelectedPersonID(null);
   }
 
   return (
@@ -86,15 +113,15 @@ function Acessos() {
           <div className='w-5/6 h-5/6'>
 
             {modalCriaPessoas === true ? <ModalCriaPessoas onCloseModal={handleCloseModalCriaPessoa} /> : null}
-            {modalPessoa === true ? <ModalPessoa onCloseModal={handleClosePessoa} /> : null}
 
 
             {pessoas && pessoas.map((pessoa) => (
               <div
-                className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
-                onClick={handleOpenPessoa}
+                className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8 hover:bg-zinc-300'
+                onClick={() => handleOpenPessoa(pessoa.ID)}
+                key={pessoa?.ID}
               >
-                <div className="flex justify-start items-center h-full mr-3 w-full" key={pessoa?.ID}>
+                <div className="flex justify-start items-center h-full mr-3 w-full">
                   <div className="flex justify-center items-center h-full mr-3 ">
                     <span className='w-[40px] font-sans'>{pessoa.ID}</span>
                   </div>
@@ -105,9 +132,11 @@ function Acessos() {
                     <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
                   </div>
                 </div>
-
               </div>
             ))}
+
+          {selectedPersonID !== null ? <ModalPessoa onCloseModal={handleClosePessoa} /> : null}
+
           </div>
 
           <div className='w-5/6 h-[40px] flex justify-end'>
