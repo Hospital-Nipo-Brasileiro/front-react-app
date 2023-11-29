@@ -16,10 +16,9 @@ function MeuUsuario() {
   const token = sessionStorage.getItem('token');
   const userId = sessionStorage.getItem('userId');
 
-  const BASE_URL = "http://10.10.204.54:8080"
+  const BASE_URL = "http://HSRVWVP00030:8080"
   
   useEffect(() => {
-    console.log(userId);
 
     axios.get(`${BASE_URL}/login/${userId}/infos`, {
       headers: {
@@ -36,13 +35,13 @@ function MeuUsuario() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
         });
       })
-  }, [])
+  }, [token, userId])
 
   const handleAlteraSenha = async () => {
     const bodySenha = {
@@ -69,7 +68,7 @@ function MeuUsuario() {
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -83,7 +82,7 @@ function MeuUsuario() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -100,7 +99,7 @@ function MeuUsuario() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -113,7 +112,7 @@ function MeuUsuario() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",

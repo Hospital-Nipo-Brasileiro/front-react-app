@@ -29,7 +29,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -44,7 +44,7 @@ function AutomacaoUsuarios() {
       formData.append('diaAdmissao', dia); 
   
       axios
-        .post('http://10.10.204.54:8080/admissoes/enviar', formData, {
+        .post('http://HSRVWVP00030:8080/admissoes/enviar', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `${token}`,
@@ -61,7 +61,7 @@ function AutomacaoUsuarios() {
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
-            pauseOnHover: true,
+            pauseOnHover: false,
             draggable: true,
             progress: undefined,
             theme: "colored",
@@ -73,7 +73,7 @@ function AutomacaoUsuarios() {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "colored",
@@ -89,7 +89,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia); 
       
-      axios.post("http://10.10.204.54:8080/admissoes/desk",  formData, {
+      axios.post("http://HSRVWVP00030:8080/admissoes/desk",  formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
@@ -101,7 +101,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -112,7 +112,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -124,7 +124,7 @@ function AutomacaoUsuarios() {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "colored",
@@ -140,7 +140,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia); 
 
-      axios.post("http://10.10.204.54:8080/admissoes/concluir", formData, {
+      axios.post("http://HSRVWVP00030:8080/admissoes/concluir", formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
@@ -152,7 +152,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -169,7 +169,7 @@ function AutomacaoUsuarios() {
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
+          pauseOnHover: false,
           draggable: true,
           progress: undefined,
           theme: "colored",
@@ -181,7 +181,7 @@ function AutomacaoUsuarios() {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "colored",
@@ -244,14 +244,14 @@ function AutomacaoUsuarios() {
             <div className="flex m-5 w-full justify-end">
               <CustomButton
                 text={"Criar Desk"}
-                style={"bg-orange-400"}
+                customSytle={"bg-orange-400"}
                 onclick={criarDeskManager}
               />
 
               <CustomButton
                 text={"Criar Word"}
-                style={"bg-orange-600"}
                 onclick={criarWord}
+                customSytle={"bg-orange-600"}
               />
             </div>
 

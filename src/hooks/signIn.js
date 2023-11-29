@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 export const signIn = async ({ username, password }) => {
-  const url = "http://10.10.204.54:8080/login";
+  const url = "http://HSRVWVP00030:8080/login";
   const body = {
     ds_username: username,
     ds_password: password,
@@ -22,7 +22,7 @@ export const signIn = async ({ username, password }) => {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "colored",
@@ -35,7 +35,7 @@ export const signIn = async ({ username, password }) => {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "colored",
@@ -46,7 +46,7 @@ export const signIn = async ({ username, password }) => {
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "colored",
