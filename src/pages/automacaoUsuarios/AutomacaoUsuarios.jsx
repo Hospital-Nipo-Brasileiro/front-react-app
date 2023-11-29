@@ -201,7 +201,7 @@ function AutomacaoUsuarios() {
             <div className="container-content-send-user">
               <div className="flex items-center justify-start mt-6">
                 <label htmlFor="file-upload" className="px-4 py-2 mb-3 bg-orange-500/50 text-white rounded-xl cursor-pointer">
-                  Selecione um arquivo
+                  Arquivo de admissão
                 </label>
                 <input
                   id="file-upload"
@@ -211,7 +211,12 @@ function AutomacaoUsuarios() {
                 />
                 {arquivoSelecionado && <p className="ml-4">{arquivoSelecionado.name}</p>}
               </div>
-              <Input type='text' value={dia} onChange={(e) => setDia(e.target.value)}/>
+              <Input 
+                type='text' 
+                value={dia} 
+                placeholder='Digite o dia da admissão ex.: 29 de Novembro = 2911'
+                onChange={(e) => setDia(e.target.value)}
+              />
               
               <div className='w-full flex justify-center' > 
                 <button className='bg-orange-500 w-3/6 h-10 rounded-lg mt-5' onClick={handlePreview}>Pré-visualizar</button>

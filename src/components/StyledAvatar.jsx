@@ -40,7 +40,7 @@ function StyledAvatar() {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
       >
-        <Avatar sx={{ width: 40, height: 40 }}>GF</Avatar>
+        <Avatar sx={{ width: 40, height: 40 }} />
       </IconButton>
 
       <Menu
