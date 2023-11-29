@@ -2,21 +2,11 @@ import React, { useEffect, useState } from 'react';
 import NavBarUser from '../../components/NavBarUser';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import ModalCriaPessoas from '../../components/ModalCriaPessoa';
-import ModalPessoa from '../../components/ModalPessoa';
 
 
 function Acessos() {
   const [pessoas, setPessoas] = useState([]);
-  const [modalCriaPessoas, setModalCriaPessoas] = useState(false);
-  const [selectedPersonID, setSelectedPersonID] = useState(null);
-  const [arraySistemaPessoa, setArraySistemaPessoa] = useState([]);
-  const [name, setName] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [dataAdmissao, setDataAdmissao] = useState("");
-  const [dataNascimento, setDataNascimento] = useState("");
-  const [tipoContrato, setTipoContrato] = useState("");
-  const [categoria, setCategoria] = useState("");
+  const [totalPessoas, setTotalPessoas] = useState(0);
 
   const BASE_URL = "http://10.10.204.54:8080"
   const token = sessionStorage.getItem('token');
@@ -30,8 +20,9 @@ function Acessos() {
         },
       })
       .then((response) => {
-        const [pessoasArray] = response.data;
+        const [pessoasArray, total] = response.data;
         setPessoas(pessoasArray);
+        setTotalPessoas(total);
       })
       .catch((err) => {
         toast.error(err.data, {
@@ -46,44 +37,6 @@ function Acessos() {
         });
       })
   }, [token])
-
-  const handleOpenModalCriaPessoa = () => {
-    setModalCriaPessoas(true);
-  }
-
-  const handleCloseModalCriaPessoa = () => {
-    setModalCriaPessoas(false);
-  }
-
-  const handleOpenPessoa = (pessoaID) => {
-    axios.get(`${BASE_URL}/sistemas/pessoa/${pessoaID}`, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `${token}`,
-      }
-    })
-      .then((response) => {
-        setArraySistemaPessoa(response);
-        setSelectedPersonID(pessoaID);
-      })
-      .catch((err) => {
-        toast.error(`Erro ao enviar arquivos: ${err.data}`, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      })
-
-  }
-
-  const handleClosePessoa = () => {
-    setSelectedPersonID(null);
-  }
 
   return (
     <div className="login-background">
@@ -111,17 +64,9 @@ function Acessos() {
           </nav>
 
           <div className='w-5/6 h-5/6'>
-
-            {modalCriaPessoas === true ? <ModalCriaPessoas onCloseModal={handleCloseModalCriaPessoa} /> : null}
-
-
             {pessoas && pessoas.map((pessoa) => (
-              <div
-                className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8 hover:bg-zinc-300'
-                onClick={() => handleOpenPessoa(pessoa.ID)}
-                key={pessoa?.ID}
-              >
-                <div className="flex justify-start items-center h-full mr-3 w-full">
+              <div className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8 '>
+                <div key={pessoa.ID} className="flex justify-start items-center h-full mr-3 w-full">
                   <div className="flex justify-center items-center h-full mr-3 ">
                     <span className='w-[40px] font-sans'>{pessoa.ID}</span>
                   </div>
@@ -132,18 +77,13 @@ function Acessos() {
                     <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
                   </div>
                 </div>
+
               </div>
             ))}
-
-          {selectedPersonID !== null ? <ModalPessoa onCloseModal={handleClosePessoa} /> : null}
-
           </div>
 
           <div className='w-5/6 h-[40px] flex justify-end'>
-            <button
-              className='w-[40px] h-[40px] bg-orange-500 rounded-full flex items-center justify-center'
-              onClick={handleOpenModalCriaPessoa}
-            >
+            <button className='w-[40px] h-[40px] bg-orange-500 rounded-full flex items-center justify-center'>
               <span className='text-4xl text-white'>+</span>
             </button>
           </div>
