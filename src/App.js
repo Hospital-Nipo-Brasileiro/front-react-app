@@ -10,6 +10,7 @@ import CentralEstoque from './pages/estoque/CentralEstoque.jsx'
 import EstradaEstoque from './pages/estoque/EntradaEstoque.jsx'
 import EstoqueTemp from './pages/estoque/EstoqueTemp.jsx'
 import Acessos from './pages/acessos/acessos.jsx'
+import Pessoas from './pages/pessoas/Pessoas.jsx';
 import { useAuth } from './contexts/AuthContext.js'
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
         <Route path='/meu-usuario' element={auth ? <MeuUsuario /> : <Navigate to="/login" />} />
         <Route path='/automation' element={auth ? <AutomacaoUsuarios /> : <Navigate to="/login" />} />
         <Route path='/estoques/central' element={auth ? <CentralEstoque /> : <Navigate to="/login" />} />
+        <Route path='/pessoas' element={auth ? <Pessoas /> : <Navigate to="/login" />} />
         <Route path='/acessos' element={auth ? <Acessos /> : <Navigate to="/login" />} />
         <Route path='/estoques/:id' element={auth ? <EstoqueTemp /> : <Navigate to="/login" />} />
         <Route path='/estoques/entrada' element={auth ? <EstradaEstoque /> : <Navigate to="/login" />} />

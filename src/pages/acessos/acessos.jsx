@@ -12,12 +12,14 @@ function Acessos() {
   const [selectedPersonID, setSelectedPersonID] = useState(null);
   const [totalPessoas, setTotalPessoas] = useState(0);
   const [arraySistemaPessoa, setArraySistemaPessoa] = useState([]);
+  const [arraySistemas, setArraySistemas] = useState([]);
   const [name, setName] = useState("");
   const [cpf, setCpf] = useState("");
   const [dataAdmissao, setDataAdmissao] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [tipoContrato, setTipoContrato] = useState("");
   const [categoria, setCategoria] = useState("");
+  const [sistemas, setSistemas] = useState([]);
 
   const BASE_URL = "http://HSRVWVH00028:8080"
   const token = sessionStorage.getItem('token');
@@ -48,7 +50,16 @@ function Acessos() {
       })
   }, [token])
   const handleOpenModalCriaPessoa = () => {
-    setModalCriaPessoas(true);
+    axios.get(`${BASE_URL}/sistemas`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `${token}`,
+      },
+    })
+      .then((response) => {
+        setArraySistemas(response.data)
+        setModalCriaPessoas(true);
+      })
   }
   const handleCloseModalCriaPessoa = () => {
     setModalCriaPessoas(false);
@@ -62,7 +73,7 @@ function Acessos() {
       }
     })
       .then((response) => {
-        setArraySistemaPessoa(response);
+        setArraySistemaPessoa(response.data);
         setSelectedPersonID(pessoaID);
       })
       .catch((err) => {
@@ -110,7 +121,26 @@ function Acessos() {
           </nav>
           <div className='w-5/6 h-5/6'>
 
-          {modalCriaPessoas === true ? <ModalCriaPessoas onCloseModal={handleCloseModalCriaPessoa} /> : null}
+          {modalCriaPessoas === true ? (
+            <ModalCriaPessoas 
+              onCloseModal={handleCloseModalCriaPessoa} 
+              valueName={name} 
+              setValueName={setName}
+              valueCpf={cpf}
+              setValueCpf={setCpf}
+              valueDtAdmissao={dataAdmissao}
+              setDtAdmissao={setDataAdmissao}
+              valueDtNascimento={dataNascimento}
+              setDtNascimento={setDataNascimento}
+              valueContrato={tipoContrato}
+              setContrato={setTipoContrato}
+              valueCategoria={categoria}
+              setCategoria={setCategoria}
+              valueArraySistemas={arraySistemas}
+              valueSistemas={sistemas}
+              setSistemas={setSistemas}
+            />
+          ) : null}
 
           {pessoas && pessoas.map((pessoa) => (
             <div
