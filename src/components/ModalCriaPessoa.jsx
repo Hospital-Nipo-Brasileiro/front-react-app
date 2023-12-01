@@ -1,38 +1,28 @@
 import React from 'react';
 import Input from './Input';
+import MultiSelect from './SelectIcon/MultiSelect.tsx';
 
-function ModalCriaPessoas(
-  { 
-    onCloseModal,
-    valueName, 
-    setValueName, 
-    valueCpf, 
-    setValueCpf,
-    valueDtAdmissao,
-    setDtAdmissao, 
-    valueDtNascimento, 
-    setDtNascimento,
-    valueContrato, 
-    setContrato,
-    valueCategoria, 
-    setCategoria,
-    valueArraySistemas,
-    valueSistemas,
-    setSistemas
-  }
-) {
+function ModalCriaPessoas({
+  onCloseModal,
+  formData,
+  setFormData,
+  arraySistemas,
+  createPessoa,
+}) {
+  const handleInputChange = (fieldName, value) => {
+    setFormData({ ...formData, [fieldName]: value });
+  };
+
   const handleCloseModal = () => {
     if (onCloseModal) {
       onCloseModal();
     }
-  }
+  };
 
   const handleSave = () => {
-    console.log(`
-      Nome: ${valueName}
-      Cpf: ${valueCpf}
-      `)
-  }
+    console.log(formData.dataAdmissao)
+    createPessoa();
+  };
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
@@ -40,77 +30,60 @@ function ModalCriaPessoas(
 
         <Input
           label={"Nome"}
-          value={valueName}
-          onChange={(e) =>  setValueName(e.target.value)}
-          placeholder=''
+          value={formData.name}
+          onChange={(e) => handleInputChange("name", e.target.value)}
+          placeholder='ex.: Gustavo Fonseca'
           type='text'
         />
 
         <Input
           label={"CPF"}
-          value={valueCpf}
-          onChange={(e) => {setValueCpf(e.target.value)}}
-          placeholder=''
+          value={formData.cpf}
+          onChange={(e) => handleInputChange("cpf", e.target.value)}
+          placeholder='ex.: 12345678911'
           type='text'
         />
 
         <Input
           label={"Data de Admissão"}
-          value={valueDtAdmissao}
-          onChange={(e) => {setDtAdmissao(e.target.value)}}
-          placeholder=''
+          value={formData.dataAdmissao}
+          onChange={(e) => handleInputChange("dataAdmissao", e.target.value)}
           type='date'
         />
 
         <Input
           label={"Data de Nascimento"}
-          value={valueDtNascimento}
-          onChange={(e) => {setDtNascimento(e.target.value)}}
-          placeholder=''
+          value={formData.dataNascimento}
+          onChange={(e) => handleInputChange("dataNascimento", e.target.value)}
           type='date'
         />
 
         <Input
           label={"Tipo de Contrato"}
-          value={valueContrato}
-          onChange={(e) => {setContrato(e.target.value)}}
-          placeholder=''
+          value={formData.tipoContrato}
+          onChange={(e) => handleInputChange("tipoContrato", e.target.value)}
+          placeholder='ex.: CLT'
           type='text'
         />
 
         <Input
           label={"Categoria de Cargo"}
-          value={valueCategoria}
-          onChange={(e) => {setCategoria(e.target.value)}}
-          placeholder=''
+          value={formData.categoria}
+          onChange={(e) => handleInputChange("categoria", e.target.value)}
+          placeholder='ex.: Assistencial'
           type='text'
         />
 
         <div>
           <label className="text-orange-500">Sistemas</label>
-          <div className='flex '>
-            {valueArraySistemas.map((sistema) => (
-              <div key={sistema.id} className="flex items-center mr-10">
-                <input
-                  type="checkbox"
-                  id={sistema.id}
-                  value={sistema.id}
-                  checked={valueSistemas.includes(sistema.id)}
-                  onChange={(e) => {
-                    const isChecked = e.target.checked;
-                    setSistemas((prevSistemas) => {
-                      if (isChecked) {
-                        return [...prevSistemas, sistema.id];
-                      } else {
-                        return prevSistemas.filter((id) => id !== sistema.id);
-                      }
-                    });
-                  }}
-                />
-                <label htmlFor={sistema.id} className="ml-2">{sistema.ds_nome}</label>
-              </div>
-            ))}
-          </div>
+          <MultiSelect
+            name="sistemas"
+            size="normal"
+            optionList={arraySistemas.map((sistema) => ({ label: sistema.ds_nome }))}
+            value={formData.sistemas}
+            valueChange={(newValue) => handleInputChange("sistemas", newValue)}
+            placeholder="Selecione os sistemas"
+          />
         </div>
 
         <div className='flex flex-row justify-end mt-10'>

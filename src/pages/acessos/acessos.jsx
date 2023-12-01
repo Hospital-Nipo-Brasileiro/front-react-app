@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import NavBarUser from '../../components/NavBarUser';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import NavBarUser from '../../components/NavBarUser';
 import ModalCriaPessoas from '../../components/ModalCriaPessoa';
 import ModalPessoa from '../../components/ModalPessoa';
-
 
 function Acessos() {
   const [pessoas, setPessoas] = useState([]);
@@ -13,24 +12,38 @@ function Acessos() {
   const [totalPessoas, setTotalPessoas] = useState(0);
   const [arraySistemaPessoa, setArraySistemaPessoa] = useState([]);
   const [arraySistemas, setArraySistemas] = useState([]);
-  const [name, setName] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [dataAdmissao, setDataAdmissao] = useState("");
-  const [dataNascimento, setDataNascimento] = useState("");
-  const [tipoContrato, setTipoContrato] = useState("");
-  const [categoria, setCategoria] = useState("");
-  const [sistemas, setSistemas] = useState([]);
+  const [formData, setFormData] = useState({
+    name: "",
+    cpf: "",
+    dataAdmissao: "",
+    dataNascimento: "",
+    tipoContrato: "",
+    categoria: "",
+    sistemas: [],
+  });
 
-  const BASE_URL = "http://HSRVWVH00028:8080"
+  const resetFormData = () => {
+    setFormData({
+      name: "",
+      cpf: "",
+      dataAdmissao: "",
+      dataNascimento: "",
+      tipoContrato: "",
+      categoria: "",
+      sistemas: [],
+    });
+  };
+
+  const BASE_URL = "http://HSRVWVH00028:8080";
   const token = sessionStorage.getItem('token');
+
   useEffect(() => {
-    axios.get(`${BASE_URL}/sistemas/pessoas/filtra`,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `${token}`,
-        },
-      })
+    axios.get(`${BASE_URL}/sistemas/pessoas/filtra`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `${token}`,
+      },
+    })
       .then((response) => {
         const [pessoasArray, total] = response.data;
         setPessoas(pessoasArray);
@@ -47,9 +60,10 @@ function Acessos() {
           progress: undefined,
           theme: "colored",
         });
-      })
-  }, [token])
-  const handleOpenModalCriaPessoa = () => {
+      });
+  }, [token]);
+
+  const fetchSistemas = () => {
     axios.get(`${BASE_URL}/sistemas`, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -57,20 +71,63 @@ function Acessos() {
       },
     })
       .then((response) => {
-        setArraySistemas(response.data)
+        setArraySistemas(response.data);
         setModalCriaPessoas(true);
+      });
+  };
+
+  const handleOpenModalCriaPessoa = () => {
+    fetchSistemas();
+  };
+
+  const handleCriaPessoa = () => {
+    const { name, cpf, dataAdmissao, dataNascimento, tipoContrato, categoria, sistemas } = formData;
+    const body = { ds_nome: name, nr_cpf: cpf, dt_admissao: dataAdmissao, dt_nascimento: dataNascimento, tp_contrato: tipoContrato, ds_categoria_cargo: categoria };
+    console.log(body)
+    axios.post(`${BASE_URL}/pessoas`, body, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`,
+      },
+    })
+      .then(async (response) => {
+        await toast.success(response.data, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
+        resetFormData();
       })
-  }
+      .catch((error) => {
+        toast.error(`Erro ao criar pessoa: ${error.data}`, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      });
+  };
+
   const handleCloseModalCriaPessoa = () => {
     setModalCriaPessoas(false);
-  }
+  };
 
   const handleOpenPessoa2 = (pessoaID) => {
     axios.get(`${BASE_URL}/sistemas/pessoas/${pessoaID}/filtra`, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `${token}`,
-      }
+      },
     })
       .then((response) => {
         setArraySistemaPessoa(response.data);
@@ -87,17 +144,16 @@ function Acessos() {
           progress: undefined,
           theme: "colored",
         });
-      })
-
-  }
+      });
+  };
 
   const handleOpenPessoa = (pessoaID) => {
     setSelectedPersonID(pessoaID);
-  }
+  };
 
   const handleClosePessoa = () => {
     setSelectedPersonID(null);
-  }
+  };
 
   return (
     <div className="login-background">
@@ -121,48 +177,37 @@ function Acessos() {
           </nav>
           <div className='w-5/6 h-5/6'>
 
-          {modalCriaPessoas === true ? (
-            <ModalCriaPessoas 
-              onCloseModal={handleCloseModalCriaPessoa} 
-              valueName={name} 
-              setValueName={setName}
-              valueCpf={cpf}
-              setValueCpf={setCpf}
-              valueDtAdmissao={dataAdmissao}
-              setDtAdmissao={setDataAdmissao}
-              valueDtNascimento={dataNascimento}
-              setDtNascimento={setDataNascimento}
-              valueContrato={tipoContrato}
-              setContrato={setTipoContrato}
-              valueCategoria={categoria}
-              setCategoria={setCategoria}
-              valueArraySistemas={arraySistemas}
-              valueSistemas={sistemas}
-              setSistemas={setSistemas}
-            />
-          ) : null}
+            {modalCriaPessoas && (
+              <ModalCriaPessoas
+                onCloseModal={handleCloseModalCriaPessoa}
+                formData={formData}
+                setFormData={setFormData}
+                arraySistemas={arraySistemas}
+                createPessoa={handleCriaPessoa}
+              />
+            )}
 
-          {pessoas && pessoas.map((pessoa) => (
-            <div
-              className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
-              onClick={() => handleOpenPessoa(pessoa.ID)}
-              key={pessoa.ID}
-            >
-              <div className="flex justify-start items-center h-full mr-3 w-full">
-                <div className="flex justify-center items-center h-full mr-3 ">
-                  <span className='w-[40px] font-sans'>{pessoa.ID}</span>
-                </div>
-                <div className="flex justify-start items-center h-full mr-3 w-1/3">
-                  <span className='font-sans'>{pessoa.NOME}</span>
-                </div>
-                <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
-                  <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
+            {pessoas.map((pessoa) => (
+              <div
+                className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
+                onClick={() => handleOpenPessoa(pessoa.ID)}
+                key={pessoa.ID}
+              >
+                <div className="flex justify-start items-center h-full mr-3 w-full">
+                  <div className="flex justify-center items-center h-full mr-3 ">
+                    <span className='w-[40px] font-sans'>{pessoa.ID}</span>
+                  </div>
+                  <div className="flex justify-start items-center h-full mr-3 w-1/3">
+                    <span className='font-sans'>{pessoa.NOME}</span>
+                  </div>
+                  <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
+                    <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
 
-          {selectedPersonID !== null ? <ModalPessoa onCloseModal={handleClosePessoa} /> : null}
+            {selectedPersonID !== null && <ModalPessoa onCloseModal={handleClosePessoa} />}
 
           </div>
 
@@ -177,6 +222,7 @@ function Acessos() {
         </section>
       </div>
     </div>
-  )
+  );
 }
+
 export default Acessos;
