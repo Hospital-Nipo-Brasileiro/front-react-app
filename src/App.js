@@ -9,7 +9,7 @@ import AutomacaoUsuarios from './pages/automacaoUsuarios/AutomacaoUsuarios.jsx'
 import CentralEstoque from './pages/estoque/CentralEstoque.jsx'
 import EstradaEstoque from './pages/estoque/EntradaEstoque.jsx'
 import EstoqueTemp from './pages/estoque/EstoqueTemp.jsx'
-import Acessos from './pages/acessos/acessos.jsx'
+import Acessos from './pages/acessos/AcessosUsuarios.jsx'
 import Pessoas from './pages/pessoas/Pessoas.jsx';
 import { useAuth } from './contexts/AuthContext.js'
 
