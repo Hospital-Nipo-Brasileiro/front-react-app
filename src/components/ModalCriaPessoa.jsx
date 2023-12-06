@@ -20,7 +20,6 @@ function ModalCriaPessoas({
   };
 
   const handleSave = () => {
-    console.log(formData.dataAdmissao)
     createPessoa();
   };
 

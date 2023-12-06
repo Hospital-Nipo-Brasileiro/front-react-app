@@ -21,6 +21,7 @@ function Acessos() {
     categoria: "",
     sistemas: [],
   });
+  const [newlyCreatedPerson, setNewlyCreatedPerson] = useState(null);
 
   const resetFormData = () => {
     setFormData({
@@ -61,7 +62,7 @@ function Acessos() {
           theme: "colored",
         });
       });
-  }, [token]);
+  }, [token, newlyCreatedPerson]);
 
   const fetchSistemas = () => {
     axios.get(`${BASE_URL}/sistemas`, {
@@ -82,8 +83,15 @@ function Acessos() {
 
   const handleCriaPessoa = () => {
     const { name, cpf, dataAdmissao, dataNascimento, tipoContrato, categoria, sistemas } = formData;
-    const body = { ds_nome: name, nr_cpf: cpf, dt_admissao: dataAdmissao, dt_nascimento: dataNascimento, tp_contrato: tipoContrato, ds_categoria_cargo: categoria };
-    console.log(body)
+    const body = {
+      ds_nome: name,
+      nr_cpf: cpf,
+      dt_admissao: dataAdmissao,
+      dt_nascimento: dataNascimento,
+      tp_contrato: tipoContrato,
+      ds_categoria_cargo: categoria
+    };
+  
     axios.post(`${BASE_URL}/pessoas`, body, {
       headers: {
         'Content-Type': 'application/json',
@@ -91,6 +99,9 @@ function Acessos() {
       },
     })
       .then(async (response) => {
+        const newPerson = response.data;
+        setNewlyCreatedPerson(newPerson);
+        setModalCriaPessoas(false);
         await toast.success(response.data, {
           position: "bottom-left",
           autoClose: 5000,
@@ -101,7 +112,34 @@ function Acessos() {
           progress: undefined,
           theme: "colored",
         });
+  
+        const idPessoa = newPerson.id;
+        sistemas.forEach(async (idSistema) => {
 
+          console.log("______________________")
+          console.log(idPessoa)
+          console.log(idSistema)
+
+          const sistemaPessoaBody = {
+            id_pessoa: idPessoa,
+            ds_nome: idSistema,
+            ds_usuario: "oi",
+            ds_senha: "123"
+          };
+  
+          try {
+            await axios.post(`${BASE_URL}/sistemas/pessoas`, sistemaPessoaBody, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `${token}`,
+              },
+            });
+          } catch (error) {
+            // Trate o erro conforme necessário
+            console.error(`Erro ao vincular sistema à pessoa: ${error}`);
+          }
+        });
+  
         resetFormData();
       })
       .catch((error) => {
@@ -175,49 +213,52 @@ function Acessos() {
               </div>
             </div>
           </nav>
-          <div className='w-5/6 h-5/6'>
 
-            {modalCriaPessoas && (
-              <ModalCriaPessoas
-                onCloseModal={handleCloseModalCriaPessoa}
-                formData={formData}
-                setFormData={setFormData}
-                arraySistemas={arraySistemas}
-                createPessoa={handleCriaPessoa}
-              />
-            )}
+          <div className='w-full h-full flex justify-center mt-5'>
+            <div className='w-5/6 h-5/6 overflow-auto'>
 
-            {pessoas.map((pessoa) => (
-              <div
-                className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
-                onClick={() => handleOpenPessoa(pessoa.ID)}
-                key={pessoa.ID}
-              >
-                <div className="flex justify-start items-center h-full mr-3 w-full">
-                  <div className="flex justify-center items-center h-full mr-3 ">
-                    <span className='w-[40px] font-sans'>{pessoa.ID}</span>
-                  </div>
-                  <div className="flex justify-start items-center h-full mr-3 w-1/3">
-                    <span className='font-sans'>{pessoa.NOME}</span>
-                  </div>
-                  <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
-                    <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
+              {modalCriaPessoas && (
+                <ModalCriaPessoas
+                  onCloseModal={handleCloseModalCriaPessoa}
+                  formData={formData}
+                  setFormData={setFormData}
+                  arraySistemas={arraySistemas}
+                  createPessoa={handleCriaPessoa}
+                />
+              )}
+
+              {pessoas.map((pessoa) => (
+                <div
+                  className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
+                  onClick={() => handleOpenPessoa(pessoa.ID)}
+                  key={pessoa.ID}
+                >
+                  <div className="flex justify-start items-center h-full mr-3 w-full">
+                    <div className="flex justify-center items-center h-full mr-3 ">
+                      <span className='w-[40px] font-sans'>{pessoa.ID}</span>
+                    </div>
+                    <div className="flex justify-start items-center h-full mr-3 w-1/3">
+                      <span className='font-sans'>{pessoa.NOME}</span>
+                    </div>
+                    <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
+                      <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
-            {selectedPersonID !== null && <ModalPessoa onCloseModal={handleClosePessoa} />}
+              {selectedPersonID !== null && <ModalPessoa onCloseModal={handleClosePessoa} />}
 
-          </div>
+            </div>
 
-          <div className='w-5/6 h-[40px] flex justify-end'>
-            <button
-              className='w-[40px] h-[40px] bg-orange-500 rounded-full flex items-center justify-center'
-              onClick={handleOpenModalCriaPessoa}
-            >
-              <span className='text-4xl text-white'>+</span>
-            </button>
+            <div className='h-5/6 flex justify-end flex-col ml-3'>
+              <button
+                className='w-[40px] h-[40px] bg-orange-500 rounded-full flex items-center justify-center mt-3'
+                onClick={handleOpenModalCriaPessoa}
+              >
+                <span className='text-4xl text-white'>+</span>
+              </button>
+            </div>
           </div>
         </section>
       </div>
