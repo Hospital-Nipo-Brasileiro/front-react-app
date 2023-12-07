@@ -116,10 +116,6 @@ function Acessos() {
         const idPessoa = newPerson.id;
         sistemas.forEach(async (idSistema) => {
 
-          console.log("______________________")
-          console.log(idPessoa)
-          console.log(idSistema)
-
           const sistemaPessoaBody = {
             id_pessoa: idPessoa,
             ds_nome: idSistema,
@@ -135,7 +131,6 @@ function Acessos() {
               },
             });
           } catch (error) {
-            // Trate o erro conforme necessário
             console.error(`Erro ao vincular sistema à pessoa: ${error}`);
           }
         });
@@ -160,33 +155,31 @@ function Acessos() {
     setModalCriaPessoas(false);
   };
 
-  const handleOpenPessoa2 = (pessoaID) => {
-    axios.get(`${BASE_URL}/sistemas/pessoas/${pessoaID}/filtra`, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `${token}`,
-      },
-    })
-      .then((response) => {
-        setArraySistemaPessoa(response.data);
-        setSelectedPersonID(pessoaID);
-      })
-      .catch((err) => {
-        toast.error(`Erro ao enviar arquivos: ${err.data}`, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      });
-  };
-
-  const handleOpenPessoa = (pessoaID) => {
+  const handleOpenPessoa = async (pessoaID) => {
     setSelectedPersonID(pessoaID);
+
+    try {
+      const response = await axios.get(`${BASE_URL}/sistemas/pessoas/${pessoaID}/filtra`, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `${token}`,
+        },
+      });
+  
+      setArraySistemaPessoa(response.data);
+      console.log(arraySistemaPessoa)
+    } catch (err) {
+      toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
 
   const handleClosePessoa = () => {
@@ -247,7 +240,12 @@ function Acessos() {
                 </div>
               ))}
 
-              {selectedPersonID !== null && <ModalPessoa onCloseModal={handleClosePessoa} />}
+              {selectedPersonID !== null && (
+                <ModalPessoa 
+                  onCloseModal={handleClosePessoa} 
+                  arraySistemaPessoa={arraySistemaPessoa}
+                />
+              )}
 
             </div>
 
