@@ -31,6 +31,8 @@ function Acessos() {
       dataNascimento: "",
       tipoContrato: "",
       categoria: "",
+      usuario: "",
+      senha: "",
       sistemas: [],
     });
   };
@@ -119,8 +121,8 @@ function Acessos() {
           const sistemaPessoaBody = {
             id_pessoa: idPessoa,
             ds_nome: idSistema,
-            ds_usuario: "oi",
-            ds_senha: "123"
+            ds_usuario: formData.usuario,
+            ds_senha: formData.senha
           };
   
           try {

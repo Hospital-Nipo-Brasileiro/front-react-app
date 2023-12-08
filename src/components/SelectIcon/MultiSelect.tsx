@@ -34,7 +34,7 @@ export default function MultiSelect(props: MultiSelectProps) {
 
   const optionList: SelectListItemProps[] = useMemo(() => {
     const defaultOptionList = [...props.optionList, ...extraOptions]
-      .filter((option) => option.label.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1)
+      .filter((option) => option.label && option.label.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1)
       .map((option) => ({ ...option, selected: value?.includes(option.label) || false }))
     const tempOptions: SelectListItemProps[] = [{ label: searchTerm, selected: false }]
     if (defaultOptionList.length === 0) {
@@ -47,7 +47,7 @@ export default function MultiSelect(props: MultiSelectProps) {
       setActiveItem(defaultOptionList[0])
     }
     return defaultOptionList
-  }, [props.optionList, value, searchTerm, extraOptions])
+  }, [props.optionList, value, searchTerm, extraOptions])  
 
   const mappedValue: SelectListItemProps[] = useMemo(
     () =>
