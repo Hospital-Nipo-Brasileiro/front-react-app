@@ -3,6 +3,8 @@ import Input from './Input.jsx';
 import Select from './Select/Select.jsx';
 import MultiSelect from './SelectIcon/MultiSelect.tsx';
 import { FormatacaoDeAcessos } from '../services/FormatacaoDeUsuario.js';
+import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 function ModalCriaPessoas({
   onCloseModal,
@@ -11,6 +13,7 @@ function ModalCriaPessoas({
   arraySistemas,
   createPessoa,
 }) {
+
   const handleInputChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
   };
@@ -35,38 +38,74 @@ function ModalCriaPessoas({
   };
 
   const setUsuario = async () => {
-    let local = "HNB"
     let localCode = ""
     let tipoContratoCode = ""
 
-    const localCodeRecebido = await FormatacaoDeAcessos.formatarLocal(local, localCode);
+    const localCodeRecebido = await FormatacaoDeAcessos.formatarLocal(formData.local, localCode);
     
     const tipoContratoRecebido = await FormatacaoDeAcessos.formatarTipoContrato(formData.tipoContrato, tipoContratoCode);
     const cpfUser = await FormatacaoDeAcessos.formatarCPFUsuario(formData.cpf)
 
     const usuarioFormatado = `${localCodeRecebido}${tipoContratoRecebido}${cpfUser}`;
 
-    return setFormData.usuario = usuarioFormatado
+    return usuarioFormatado
   }
 
   const setSenha = async () => {
     let localCode = ""
-    let local = "HNB"
 
-    const localSenhaRecebida = await FormatacaoDeAcessos.formatarLocalSenha(local, localCode);
+    const localSenhaRecebida = await FormatacaoDeAcessos.formatarLocalSenha(formData.local, localCode);
     const cpfPassword = await FormatacaoDeAcessos.formatarCPFSenha(formData.cpf)
     const dataAdmissao = await FormatacaoDeAcessos.formatarDataAdmissao(formData.dataAdmissao)
 
     const senhaFormatada = `${localSenhaRecebida}@${cpfPassword}*${dataAdmissao}`;
-    
-    return setFormData.senha = senhaFormatada;
+
+    return senhaFormatada;
+  }
+
+  const validaCamposDeAcessos = () => {
+    let acessoExistente = false;
+    let acessoPendente = [];
+  
+    if (formData.local === "") {
+      acessoPendente.push("local");
+    }
+    if(formData.cpf === ""){
+      acessoPendente.push("cpf")
+    }
+    if(formData.dataAdmissao === "") {
+      acessoPendente.push("dataAdmissao")
+    }
+    if(formData.tipoContrato === "") {
+      acessoPendente.push("tipoContrato")
+    }
+    if(acessoPendente.length === 0) {
+      acessoExistente = true;
+      return acessoExistente
+    }
+
+    return acessoPendente;
   }
 
   const handleSetAcessos = async () => {
+    const camposNecessarios = validaCamposDeAcessos();
+
+    if(camposNecessarios !== true) {
+      return toast.error("Necessário inserir os devidos acessos acessos", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+
     const usuarioFormatado = await setUsuario();
     const senhaFormatada = await setSenha();
-
-    // Atualize os valores dos campos "Usuário" e "Senha"
+    
     setFormData({
       ...formData,
       usuario: usuarioFormatado,
@@ -74,8 +113,32 @@ function ModalCriaPessoas({
     });
   };
 
+  const validaAcessosSetados = () => {
+    let acessoExistente = false;
+    if(formData.usuario !== undefined && formData.senha !== undefined) {
+      acessoExistente = true;
+    }
+
+    return acessoExistente
+  }
+
   const handleSave = () => {
-    createPessoa();
+    const acessosExistentes = validaAcessosSetados()
+
+    if(acessosExistentes === false) {
+      return toast.error("Necessário setar acessos", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else{
+      createPessoa();
+    }
   };
 
   return (
@@ -84,19 +147,17 @@ function ModalCriaPessoas({
 
         <div className='w-full flex justify-between'>
           <div className="w-2/6 mb-3 mr-3">
-            <Select
-              label={"Local"}
-              options={[
-                { label: 'HNB', value: 'HNB' },
-                { label: 'CMD', value: 'CMD' },
-                { label: 'SMA', value: 'SMA' },
-              ]}
-              onSelect={(selectedOption) => {
-                formData.local = selectedOption.value;
-                handleInputChange('local', selectedOption.value);
-              }
-              }
-            />
+          <Select
+            label={"Local"}
+            options={[
+              { label: 'HNB', value: 'HNB' },
+              { label: 'CMD', value: 'CMD' },
+              { label: 'SMA', value: 'SMA' },
+            ]}
+            onSelect={(response) => {
+              handleInputChange("local", response);
+            }}
+          />
 
           </div>
           <button 
@@ -146,23 +207,51 @@ function ModalCriaPessoas({
         </div>
 
         <div className='flex flex-row h-20 justify-between'>
-          <Input
+          
+          <div className='w-3/6 mr-3 flex flex-col'>
+            <Select
+              label={"Tipo de Contrato"}
+              options={[
+                { label: 'CLT', value: 'CLT' },
+                { label: 'TEMPORÁRIO', value: 'Temporário' },
+                { label: 'TERCEIRO', value: 'Terceiro' },
+              ]}
+              onSelect={(response) => {
+                handleInputChange("tipoContrato", response);
+              }}
+            />
+          </div>
+
+          <div className='w-3/6 ml-3 flex flex-col'>
+            <Select
+              label={"Categoria de Cargo"}
+              options={[
+                { label: 'Assitencial', value: 'Assitencial' },
+                { label: 'Administrativo', value: 'TemporárioAdministrativo' }
+              ]}
+              onSelect={(response) => {
+                handleInputChange("tipoContrato", response);
+              }}
+            />
+          </div>
+
+          {/* <Input
             label={"Tipo de Contrato"}
             value={formData.tipoContrato}
             divStyled={"w-3/6 mr-3"}
             onChange={(e) => handleInputChange("tipoContrato", e.target.value)}
             placeholder='ex.: CLT'
             type='text'
-          />
+          /> */}
 
-          <Input
+          {/* <Input
             label={"Categoria de Cargo"}
             value={formData.categoria}
             divStyled={"w-3/6 ml-3"}
             onChange={(e) => handleInputChange("categoria", e.target.value)}
             placeholder='ex.: Assistencial'
             type='text'
-          />
+          /> */}
         </div>
 
         <div className='flex flex-row h-20 justify-between'>

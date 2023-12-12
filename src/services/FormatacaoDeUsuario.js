@@ -74,13 +74,12 @@ export class FormatacaoDeAcessos {
   }
 
   static async formatarDataAdmissao(date) {
-    const dataObj = new Date(date);
-
-    const dia = ('0' + dataObj.getDate()).slice(-2);
-    const mes = ('0' + (dataObj.getMonth() + 1)).slice(-2);
-
+    const dataObj = new Date(date + 'T00:00:00Z');
+  
+    const dia = ('0' + dataObj.getUTCDate()).slice(-2);
+    const mes = ('0' + (dataObj.getUTCMonth() + 1)).slice(-2);
+  
     const resultado = dia + mes;
-    console.log(resultado);
     return resultado; 
   }
 }
