@@ -226,32 +226,14 @@ function ModalCriaPessoas({
             <Select
               label={"Categoria de Cargo"}
               options={[
-                { label: 'Assitencial', value: 'Assitencial' },
-                { label: 'Administrativo', value: 'TemporárioAdministrativo' }
+                { label: 'Assistencial', value: 'Assistencial' },
+                { label: 'Administrativo', value: 'Administrativo' }
               ]}
               onSelect={(response) => {
-                handleInputChange("tipoContrato", response);
+                handleInputChange("categoria", response);
               }}
             />
           </div>
-
-          {/* <Input
-            label={"Tipo de Contrato"}
-            value={formData.tipoContrato}
-            divStyled={"w-3/6 mr-3"}
-            onChange={(e) => handleInputChange("tipoContrato", e.target.value)}
-            placeholder='ex.: CLT'
-            type='text'
-          /> */}
-
-          {/* <Input
-            label={"Categoria de Cargo"}
-            value={formData.categoria}
-            divStyled={"w-3/6 ml-3"}
-            onChange={(e) => handleInputChange("categoria", e.target.value)}
-            placeholder='ex.: Assistencial'
-            type='text'
-          /> */}
         </div>
 
         <div className='flex flex-row h-20 justify-between'>
@@ -261,6 +243,7 @@ function ModalCriaPessoas({
             divStyled={"w-3/6 mr-3"}
             type='text'
             disabled={true}
+            placeholder='clique em setar acessos'
           />
 
           <Input
@@ -269,6 +252,7 @@ function ModalCriaPessoas({
             divStyled={"w-3/6 ml-3"}
             type='text'
             disabled={true}
+            placeholder='clique em setar acessos'
           />
         </div>
 
