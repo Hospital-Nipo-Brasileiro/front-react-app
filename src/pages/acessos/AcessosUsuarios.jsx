@@ -246,6 +246,7 @@ function Acessos() {
                 <ModalPessoa 
                   onCloseModal={handleClosePessoa} 
                   arraySistemaPessoa={arraySistemaPessoa}
+                  token={token}
                 />
               )}
 
