@@ -10,7 +10,8 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [deletedUserId, setDeletedUserId] = useState(null);
+  const [updatedUser, setUpdatedUser] = useState(false);
 
   const handleCloseModal = () => {
     if (onCloseModal) {
@@ -83,21 +84,23 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
     setEditingUserId(null)
   }
 
-  const handleOpenConfirmationModal = () => {
-    setShowConfirmationModal(true);
+  const handleOpenDeleteConfirmation = (id) => {
+    console.log("Abre modal", id)
+    setDeletedUserId(id);
   };
 
-  const handleCloseConfirmationModal = () => {
-    setShowConfirmationModal(false);
+  const handleCloseDeleteConfirmation = () => {
+    setDeletedUserId(null);
   };
 
   const handleDeleteConfirmation = (id) => {
-    // Perform the delete operation here
+    console.log("clicar em confirmar", id)
     handleInativaAcesso(id);
-    setShowConfirmationModal(false);
+    setDeletedUserId(null);
   };
   
   const handleInativaAcesso = (id) => {
+    console.log("função de excluir", id)
     axios.delete(`${BASE_URL}/sistemas/pessoas/${id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -115,7 +118,14 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
           progress: undefined,
           theme: "colored",
         });
-        handleOpenConfirmationModal()
+
+        // Atualizar o estado local com a nova lista de usuários
+        const novoArraySistemaPessoa = arraySistemaPessoa[0].filter(pessoa => pessoa.ID_SISTEMA_PESSOA !== id);
+
+        arraySistemaPessoa[0] = novoArraySistemaPessoa;
+
+        // Certifique-se de chamar a função setUpdatedUser para sinalizar a atualização
+        setUpdatedUser(true);
       })
       .catch(async (err) => {
         await toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, {
@@ -133,8 +143,10 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
 
   return (
     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+
       <div className="absolute w-2/3 h-4/6 bg-white rounded-lg p-8 flex flex-col">
 
+        <h1 className='text-xl text-orange-600 font-bold'>{arraySistemaPessoa[0][0]?.NOME}</h1>
         <div className='w-full h-full mb-10 overflow-auto'>
           {arraySistemaPessoa[0] && arraySistemaPessoa[0].length >= 1 && arraySistemaPessoa[0][0]?.SISTEMA !== null ? (
             arraySistemaPessoa[0].map((acesso) => (
@@ -179,7 +191,12 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
                         <span
                           className='cursor-pointer text-orange-600'
                           title='Excluir'
-                          onClick={() => handleOpenConfirmationModal()}
+                          onClick={() => 
+                            {
+                              console.log("ACESSO: ", acesso?.ID_SISTEMA_PESSOA)
+                              handleOpenDeleteConfirmation(acesso?.ID_SISTEMA_PESSOA)
+                            }
+                          }
                         >
                           <FontAwesomeIcon icon={faTrash} />
                         </span>
@@ -210,28 +227,28 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
                       )
                     }
 
-                    {showConfirmationModal && (
+                    {deletedUserId === acesso.ID_SISTEMA_PESSOA ? (
                       <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
                         <div className="absolute w-2/3 h-1/3 bg-white rounded-lg p-8 flex flex-col">
-                          <span className="text-xl font-bold mb-4">Confirmar Exclusão</span>
-                          <span className="mb-4">Tem certeza que deseja excluir este acesso?</span>
+                          <span className="text-xl font-bold mb-4">Confirmar Desativação</span>
+                          <span className="mb-4">Tem certeza que deseja desativar este acesso?</span>
                           <div className="flex justify-end">
                             <button
                               className="bg-orange-500 w-1/5 mr-4 h-[60px] rounded-2xl text-white"
-                              onClick={() => handleDeleteConfirmation(editingUserId)}
+                              onClick={() => handleDeleteConfirmation(deletedUserId)}
                             >
                               Confirmar
                             </button>
                             <button
                               className="bg-gray-300 w-1/5 h-[60px] rounded-2xl"
-                              onClick={handleCloseConfirmationModal}
+                              onClick={handleCloseDeleteConfirmation}
                             >
                               Cancelar
                             </button>
                           </div>
                         </div>
                       </div>
-                    )}
+                    ): (<></>)}
                   </div>
       
                 </div>

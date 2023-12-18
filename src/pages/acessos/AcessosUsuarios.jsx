@@ -9,8 +9,8 @@ function Acessos() {
   const [pessoas, setPessoas] = useState([]);
   const [modalCriaPessoas, setModalCriaPessoas] = useState(false);
   const [selectedPersonID, setSelectedPersonID] = useState(null);
-  const [totalPessoas, setTotalPessoas] = useState(0);
   const [arraySistemaPessoa, setArraySistemaPessoa] = useState([]);
+  const [updatedUser, setUpdatedUser] = useState(false);
   const [arraySistemas, setArraySistemas] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -48,9 +48,7 @@ function Acessos() {
       },
     })
       .then((response) => {
-        const [pessoasArray, total] = response.data;
-        setPessoas(pessoasArray);
-        setTotalPessoas(total);
+        setPessoas(response.data);
       })
       .catch((err) => {
         toast.error(err.data, {
@@ -157,33 +155,32 @@ function Acessos() {
     setModalCriaPessoas(false);
   };
 
-  const handleOpenPessoa = async (pessoaID) => {
+  const handleOpenPessoa = (pessoaID) => {
     setSelectedPersonID(pessoaID);
-
-    try {
-      const response = await axios.get(`${BASE_URL}/sistemas/pessoas/${pessoaID}/filtra`, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `${token}`,
-        },
-      });
-  
-      setArraySistemaPessoa(response.data);
-      console.log(arraySistemaPessoa)
-    } catch (err) {
-      toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+    axios.get(`${BASE_URL}/sistemas/pessoas/${pessoaID}/filtra`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${token}`,
+      },
+    })
+      .then((response) => {
+        setArraySistemaPessoa(response.data);
+        console.log(arraySistemaPessoa)
+      })
+      .catch ((err) => {
+        toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      })
     }
-  };
-
+    
   const handleClosePessoa = () => {
     setSelectedPersonID(null);
   };
