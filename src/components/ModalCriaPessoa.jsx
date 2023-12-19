@@ -90,11 +90,11 @@ function ModalCriaPessoas({
       setErrorStatus(addErrorStatus("dataAdmissao"));
       acessoPendente.push("dataAdmissao");
     }
-    if (formData.tipoContrato === undefined) {
+    if (formData.tipoContrato !== "A") {
       setErrorStatus(addErrorStatus("tipoContrato"));
       acessoPendente.push("tipoContrato");
     }
-    if (formData.categoria === " ") {
+    if (formData.categoria !== "Administrativo" || formData.categoria !== "Assistencial") {
       setErrorStatus(addErrorStatus("categoria"));
       acessoPendente.push("categoria");
     }

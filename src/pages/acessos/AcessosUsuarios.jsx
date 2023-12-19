@@ -4,10 +4,12 @@ import { toast } from 'react-toastify';
 import NavBarUser from '../../components/NavBarUser';
 import ModalCriaPessoas from '../../components/ModalCriaPessoa';
 import ModalPessoa from '../../components/ModalPessoa';
+import ModalRightButton from '../../components/ModalRightButton';
 
 function Acessos() {
   const [pessoas, setPessoas] = useState([]);
   const [modalCriaPessoas, setModalCriaPessoas] = useState(false);
+  const [modalButtonRight, setModalButtonRight] = useState(false);
   const [selectedPersonID, setSelectedPersonID] = useState(null);
   const [arraySistemaPessoa, setArraySistemaPessoa] = useState([]);
   const [updatedUser, setUpdatedUser] = useState(false);
@@ -22,6 +24,11 @@ function Acessos() {
     sistemas: [],
   });
   const [newlyCreatedPerson, setNewlyCreatedPerson] = useState(null);
+
+  const handleContextMenu = (e) => {
+    e.preventDefault();
+    setModalButtonRight(true);
+  }
 
   const resetFormData = () => {
     setFormData({
@@ -195,6 +202,7 @@ function Acessos() {
                 <div
                   className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
                   onClick={() => handleOpenPessoa(pessoa.ID)}
+                  onContextMenu={handleContextMenu}
                   key={pessoa?.ID}
                 >
                   <div className="flex justify-start items-center h-full mr-3 w-full">
@@ -227,6 +235,10 @@ function Acessos() {
                   arraySistemaPessoa={arraySistemaPessoa}
                   token={token}
                 />
+              )}
+
+              {modalButtonRight !== false  && (
+                <ModalRightButton />
               )}
 
             </div>
