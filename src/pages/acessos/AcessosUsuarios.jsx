@@ -43,112 +43,86 @@ function Acessos() {
   useEffect(() => {
     axios.get(`${BASE_URL}/sistemas/pessoas/filtra`, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': 'application/json',
         'Authorization': `${token}`,
       },
     })
       .then((response) => {
-        setPessoas(response.data);
+        setPessoas(response.data[0]);
       })
       .catch((err) => {
-        toast.error(err.data, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        handleError(err, "Erro ao obter pessoas");
       });
-  }, [token, newlyCreatedPerson]);
+  }, [token, newlyCreatedPerson, updatedUser]);
 
-  const fetchSistemas = () => {
-    axios.get(`${BASE_URL}/sistemas`, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `${token}`,
-      },
-    })
-      .then((response) => {
-        setArraySistemas(response.data);
-        setModalCriaPessoas(true);
+  const fetchSistemas = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/sistemas`, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `${token}`,
+        },
       });
+      setArraySistemas(response.data);
+      setModalCriaPessoas(true);
+    } catch (error) {
+      handleError(error, "Erro ao obter sistemas");
+    }
   };
 
   const handleOpenModalCriaPessoa = () => {
     fetchSistemas();
   };
 
-  const handleCriaPessoa = () => {
-    const { name, cpf, dataAdmissao, dataNascimento, tipoContrato, categoria, sistemas } = formData;
+  const handleCriaPessoa = async () => {
+    const { name, cpf, dataAdmissao, dataNascimento, tipoContrato, categoria, sistemas, usuario, senha } = formData;
     const body = {
       ds_nome: name,
       nr_cpf: cpf,
       dt_admissao: dataAdmissao,
       dt_nascimento: dataNascimento,
       tp_contrato: tipoContrato,
-      ds_categoria_cargo: categoria
+      ds_categoria_cargo: categoria,
     };
-  
-    axios.post(`${BASE_URL}/pessoas`, body, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${token}`,
-      },
-    })
-      .then(async (response) => {
-        const newPerson = response.data;
-        setNewlyCreatedPerson(newPerson);
-        setModalCriaPessoas(false);
-        await toast.success(response.data, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-  
-        const idPessoa = newPerson.id;
-        sistemas.forEach(async (idSistema) => {
 
-          const sistemaPessoaBody = {
-            id_pessoa: idPessoa,
-            ds_nome: idSistema,
-            ds_usuario: formData.usuario,
-            ds_senha: formData.senha
-          };
-  
-          try {
-            await axios.post(`${BASE_URL}/sistemas/pessoas`, sistemaPessoaBody, {
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `${token}`,
-              },
-            });
-          } catch (error) {
-            console.error(`Erro ao vincular sistema à pessoa: ${error}`);
-          }
-        });
-  
-        resetFormData();
-      })
-      .catch((error) => {
-        toast.error(`Erro ao criar pessoa: ${error.data}`, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+    try {
+      const response = await axios.post(`${BASE_URL}/pessoas`, body, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`,
+        },
       });
+
+      const newPerson = response.data;
+      setNewlyCreatedPerson(newPerson);
+      setModalCriaPessoas(false);
+      toast.success(response.data, toastConfig);
+
+      const idPessoa = newPerson.id;
+      await Promise.all(sistemas.map(async (idSistema) => {
+        const sistemaPessoaBody = {
+          id_pessoa: idPessoa,
+          ds_nome: idSistema,
+          ds_usuario: usuario,
+          ds_senha: senha,
+        };
+
+        try {
+          await axios.post(`${BASE_URL}/sistemas/pessoas`, sistemaPessoaBody, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `${token}`,
+            },
+          });
+        } catch (error) {
+          console.error(`Erro ao vincular sistema à pessoa: ${error}`);
+        }
+      }));
+
+      resetFormData();
+    } catch (error) {
+      handleError(error, "Erro ao criar pessoa");
+    }
   };
 
   const handleCloseModalCriaPessoa = () => {
@@ -156,33 +130,42 @@ function Acessos() {
   };
 
   const handleOpenPessoa = (pessoaID) => {
-    setSelectedPersonID(pessoaID);
     axios.get(`${BASE_URL}/sistemas/pessoas/${pessoaID}/filtra`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`,
       },
     })
-      .then((response) => {
-        setArraySistemaPessoa(response.data);
-        console.log(arraySistemaPessoa)
+    .then((response) => {
+      setSelectedPersonID(pessoaID);
+      setArraySistemaPessoa(response.data);
+    })
+      .catch((err) => {
+        handleError(err, "Erro ao obter acessos da pessoa");
       })
-      .catch ((err) => {
-        toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      })
-    }
-    
+      .finally(() => {
+        setUpdatedUser(true);
+      });
+  };
+
   const handleClosePessoa = () => {
     setSelectedPersonID(null);
+  };
+
+  const toastConfig = {
+    position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+  };
+
+  const handleError = (error, message) => {
+    console.error(`${message}: ${error.data}`);
+    toast.error(`${message}: ${error.data}`, toastConfig);
   };
 
   return (
@@ -208,22 +191,11 @@ function Acessos() {
 
           <div className='w-full h-full flex justify-center mt-5'>
             <div className='w-5/6 h-5/6 overflow-auto'>
-
-              {modalCriaPessoas && (
-                <ModalCriaPessoas
-                  onCloseModal={handleCloseModalCriaPessoa}
-                  formData={formData}
-                  setFormData={setFormData}
-                  arraySistemas={arraySistemas}
-                  createPessoa={handleCriaPessoa}
-                />
-              )}
-
               {pessoas.map((pessoa) => (
                 <div
                   className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
                   onClick={() => handleOpenPessoa(pessoa.ID)}
-                  key={pessoa.ID}
+                  key={pessoa?.ID}
                 >
                   <div className="flex justify-start items-center h-full mr-3 w-full">
                     <div className="flex justify-center items-center h-full mr-3 ">
@@ -238,6 +210,16 @@ function Acessos() {
                   </div>
                 </div>
               ))}
+
+              {modalCriaPessoas && (
+                <ModalCriaPessoas
+                  onCloseModal={handleCloseModalCriaPessoa}
+                  formData={formData}
+                  setFormData={setFormData}
+                  arraySistemas={arraySistemas}
+                  createPessoa={handleCriaPessoa}
+                />
+              )}
 
               {selectedPersonID !== null && (
                 <ModalPessoa 

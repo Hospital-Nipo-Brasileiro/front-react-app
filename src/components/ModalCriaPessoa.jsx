@@ -14,12 +14,15 @@ function ModalCriaPessoas({
   createPessoa,
 }) {
 
+  const [errorStatus, setErrorStatus] = useState([]);
+
   const handleInputChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
   };
 
   const handleCloseModal = () => {
     if (onCloseModal) {
+      setErrorStatus([])
       onCloseModal();
       resetFormData();
     }
@@ -67,25 +70,43 @@ function ModalCriaPessoas({
     let acessoExistente = false;
     let acessoPendente = [];
   
-    if (formData.local === "") {
+    const addErrorStatus = (value) => (prevErrorStatus) => {
+      return prevErrorStatus ? [...prevErrorStatus, value] : [value];
+    };
+  
+    if (formData.name === "") {
+      setErrorStatus(addErrorStatus("name"));
+      acessoPendente.push("name");
+    }
+    if (formData.local === undefined) {
+      setErrorStatus(addErrorStatus("local"));
       acessoPendente.push("local");
     }
-    if(formData.cpf === ""){
-      acessoPendente.push("cpf")
+    if (formData.cpf === "") {
+      setErrorStatus(addErrorStatus("cpf"));
+      acessoPendente.push("cpf");
     }
-    if(formData.dataAdmissao === "") {
-      acessoPendente.push("dataAdmissao")
+    if (formData.dataAdmissao === "") {
+      setErrorStatus(addErrorStatus("dataAdmissao"));
+      acessoPendente.push("dataAdmissao");
     }
-    if(formData.tipoContrato === "") {
-      acessoPendente.push("tipoContrato")
+    if (formData.tipoContrato === undefined) {
+      setErrorStatus(addErrorStatus("tipoContrato"));
+      acessoPendente.push("tipoContrato");
     }
-    if(acessoPendente.length === 0) {
+    if (formData.categoria === " ") {
+      setErrorStatus(addErrorStatus("categoria"));
+      acessoPendente.push("categoria");
+    }
+    if (acessoPendente.length === 0) {
+      setErrorStatus(null);
       acessoExistente = true;
-      return acessoExistente
+      return acessoExistente;
     }
-
+  
     return acessoPendente;
-  }
+  };
+  
 
   const handleSetAcessos = async () => {
     const camposNecessarios = validaCamposDeAcessos();
@@ -123,6 +144,21 @@ function ModalCriaPessoas({
   }
 
   const handleSave = () => {
+    const camposNecessarios = validaCamposDeAcessos();
+
+    if(camposNecessarios !== true) {
+      return toast.error("Necessário inserir os devidos acessos acessos", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+
     const acessosExistentes = validaAcessosSetados()
 
     if(acessosExistentes === false) {
@@ -157,6 +193,7 @@ function ModalCriaPessoas({
             onSelect={(response) => {
               handleInputChange("local", response);
             }}
+            divStyle={`${errorStatus.includes("local") ? 'border-red-600 text-red-600' : ''}`}
           />
 
           </div>
@@ -173,6 +210,7 @@ function ModalCriaPessoas({
             label={"Nome"}
             value={formData.name}
             divStyled={"w-3/6 mr-3"}
+            customStyled={`${errorStatus.includes("name") ? 'border-red-600 text-red-600' : ''}`}
             onChange={(e) => handleInputChange("name", e.target.value)}
             placeholder='ex.: Gustavo Fonseca'
             type='text'
@@ -182,6 +220,7 @@ function ModalCriaPessoas({
             label={"CPF"}
             value={formData.cpf}
             divStyled={"w-3/6 ml-3"}
+            customStyled={`${errorStatus.includes("cpf") ? 'border-red-600 text-red-600' : ''}`}
             onChange={(e) => handleInputChange("cpf", e.target.value)}
             placeholder='ex.: 12345678911'
             type='text'
@@ -193,6 +232,7 @@ function ModalCriaPessoas({
             label={"Data de Admissão"}
             value={formData.dataAdmissao}
             divStyled={"w-3/6 mr-3"}
+            customStyled={`${errorStatus.includes("dataAdmissao") ? 'border-red-600 text-red-600' : ''}`}
             onChange={(e) => handleInputChange("dataAdmissao", e.target.value)}
             type='date'
           />
@@ -201,6 +241,7 @@ function ModalCriaPessoas({
             label={"Data de Nascimento"}
             value={formData.dataNascimento}
             divStyled={"w-3/6 ml-3"}
+            customStyled={`${errorStatus.includes("dataNascimento") ? 'border-red-600 text-red-600' : ''}`}
             onChange={(e) => handleInputChange("dataNascimento", e.target.value)}
             type='date'
           />
@@ -219,6 +260,7 @@ function ModalCriaPessoas({
               onSelect={(response) => {
                 handleInputChange("tipoContrato", response);
               }}
+              divStyle={`${errorStatus.includes("tipoContrato") ? 'border-red-600 text-red-600' : ''}`}
             />
           </div>
 
@@ -232,6 +274,7 @@ function ModalCriaPessoas({
               onSelect={(response) => {
                 handleInputChange("categoria", response);
               }}
+              divStyle={`${errorStatus.includes("categoria") ? 'border-red-600 text-red-600' : ''}`}
             />
           </div>
         </div>
@@ -239,6 +282,7 @@ function ModalCriaPessoas({
         <div className='flex flex-row h-20 justify-between'>
           <Input
             label={"Usuário"}
+            customStyled={`${errorStatus.includes("usuario") ? 'border-red-600 text-red-600' : ''}`}
             value={formData.usuario}
             divStyled={"w-3/6 mr-3"}
             type='text'
@@ -250,6 +294,7 @@ function ModalCriaPessoas({
             label={"Senha"}
             value={formData.senha}
             divStyled={"w-3/6 ml-3"}
+            customStyled={`${errorStatus.includes("senha") ? 'border-red-600 text-red-600' : ''}`}
             type='text'
             disabled={true}
             placeholder='clique em setar acessos'

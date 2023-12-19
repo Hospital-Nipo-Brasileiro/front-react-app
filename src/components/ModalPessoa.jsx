@@ -11,7 +11,6 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
   const [deletedUserId, setDeletedUserId] = useState(null);
-  const [updatedUser, setUpdatedUser] = useState(false);
 
   const handleCloseModal = () => {
     if (onCloseModal) {
@@ -85,7 +84,6 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
   }
 
   const handleOpenDeleteConfirmation = (id) => {
-    console.log("Abre modal", id)
     setDeletedUserId(id);
   };
 
@@ -94,13 +92,11 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
   };
 
   const handleDeleteConfirmation = (id) => {
-    console.log("clicar em confirmar", id)
     handleInativaAcesso(id);
     setDeletedUserId(null);
   };
   
   const handleInativaAcesso = (id) => {
-    console.log("função de excluir", id)
     axios.delete(`${BASE_URL}/sistemas/pessoas/${id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -118,14 +114,6 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
           progress: undefined,
           theme: "colored",
         });
-
-        // Atualizar o estado local com a nova lista de usuários
-        const novoArraySistemaPessoa = arraySistemaPessoa[0].filter(pessoa => pessoa.ID_SISTEMA_PESSOA !== id);
-
-        arraySistemaPessoa[0] = novoArraySistemaPessoa;
-
-        // Certifique-se de chamar a função setUpdatedUser para sinalizar a atualização
-        setUpdatedUser(true);
       })
       .catch(async (err) => {
         await toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, {
@@ -148,9 +136,9 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
 
         <h1 className='text-xl text-orange-600 font-bold'>{arraySistemaPessoa[0][0]?.NOME}</h1>
         <div className='w-full h-full mb-10 overflow-auto'>
-          {arraySistemaPessoa[0] && arraySistemaPessoa[0].length >= 1 && arraySistemaPessoa[0][0]?.SISTEMA !== null ? (
+          {arraySistemaPessoa && arraySistemaPessoa[0].length >= 1 && arraySistemaPessoa[0][0]?.SISTEMA !== null ? (
             arraySistemaPessoa[0].map((acesso) => (
-              <div className='w-full h-24 bg-slate-100 rounded-2xl p-3 mt-5' key={acesso?.ID}>
+              <div className='w-full h-24 bg-slate-100 rounded-2xl p-3 mt-5' key={acesso?.ID_SISTEMA_PESSOA}>
                 <div className='flex flex-col'>
                   <div className='flex'>
                     <span className='w-20 text-orange-500 font-bold'>Sistema: </span>
