@@ -50,7 +50,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
 
         const pessoaAtualizada = response.data;
@@ -76,7 +76,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       })
 
@@ -112,7 +112,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       })
       .catch(async (err) => {
@@ -124,7 +124,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       })
   }
@@ -141,12 +141,12 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
               <div className='w-full h-24 bg-slate-100 rounded-2xl p-3 mt-5' key={acesso?.ID_SISTEMA_PESSOA}>
                 <div className='flex flex-col'>
                   <div className='flex'>
-                    <span className='w-20 text-orange-500 font-bold'>Sistema: </span>
+                    <span className='w-20 text-lime-500 font-bold'>Sistema: </span>
                     <span>{acesso?.SISTEMA}</span>
                   </div>
                   <div className='flex justify-between'>
                     <div className='flex flex-row w-full'>
-                      <span className='text-orange-500 w-20'>Usuário: </span>
+                      <span className='text-lime-500 w-20'>Usuário: </span>
                       {editingUserId === acesso.ID_SISTEMA_PESSOA ? (
                         <input
                           className="bg-slate-200 p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-orange-600 focus:border-orange-600"
@@ -161,7 +161,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
                     {editingUserId === acesso.ID_SISTEMA_PESSOA ? (
                       <div>
                         <button
-                          className='bg-orange-500 w-20 rounded-xl text-white'
+                          className='bg-lime-400 w-20 rounded-xl text-white'
                           onClick={() => handleAlteraAcesso(acesso.ID_SISTEMA_PESSOA)}
                         >
                           Salvar
@@ -193,7 +193,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
                     )}
                   </div>
                   <div className='flex w-full'>
-                    <span className='w-20 text-orange-500'>Senha: </span>
+                    <span className='w-20 text-lime-500'>Senha: </span>
                     {editingUserId === acesso.ID_SISTEMA_PESSOA ? (
                       <>
                         <input
@@ -222,7 +222,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
                           <span className="mb-4">Tem certeza que deseja desativar este acesso?</span>
                           <div className="flex justify-end">
                             <button
-                              className="bg-orange-500 w-1/5 mr-4 h-[60px] rounded-2xl text-white"
+                              className="bg-lime-400 w-1/5 mr-4 h-[60px] rounded-2xl text-white"
                               onClick={() => handleDeleteConfirmation(deletedUserId)}
                             >
                               Confirmar
@@ -245,7 +245,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
             ) : (
             <div className='w-full h-full flex flex-col items-center'>
               <span>Usuário não contem nenhum sistema vinculado.</span>
-              <button className='w-36 h-16 bg-orange-500 text-white rounded-2xl mt-10'>
+              <button className='w-36 h-16 bg-lime-400 text-white rounded-2xl mt-10'>
                 Adicionar novo sistema
               </button>
             </div>
@@ -255,7 +255,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
       </div>
 
         <button
-          className='bg-orange-500 w-1/5 mr-10 h-[60px] rounded-2xl'
+          className='bg-lime-400 w-1/5 mr-10 h-[60px] rounded-2xl'
           onClick={handleCloseModal}
           >
           <span className='text-white text-xl'>Fechar</span>

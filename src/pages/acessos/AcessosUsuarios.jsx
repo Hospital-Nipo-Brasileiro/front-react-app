@@ -5,6 +5,7 @@ import NavBarUser from '../../components/NavBarUser';
 import ModalCriaPessoas from '../../components/ModalCriaPessoa';
 import ModalPessoa from '../../components/ModalPessoa';
 import ModalRightButton from '../../components/ModalRightButton';
+import BackgroundTN from '../../components/BackgroundTN';
 
 function Acessos() {
   const [pessoas, setPessoas] = useState([]);
@@ -143,10 +144,10 @@ function Acessos() {
         'Authorization': `${token}`,
       },
     })
-    .then((response) => {
-      setSelectedPersonID(pessoaID);
-      setArraySistemaPessoa(response.data);
-    })
+      .then((response) => {
+        setSelectedPersonID(pessoaID);
+        setArraySistemaPessoa(response.data);
+      })
       .catch((err) => {
         handleError(err, "Erro ao obter acessos da pessoa");
       })
@@ -167,7 +168,7 @@ function Acessos() {
     pauseOnHover: false,
     draggable: true,
     progress: undefined,
-    theme: "colored",
+    theme: "light",
   };
 
   const handleError = (error, message) => {
@@ -176,85 +177,83 @@ function Acessos() {
   };
 
   return (
-    <div className="login-background">
-      <span className='title-technipo'>ACESSOS</span>
-      <div id='center-searcher' className="app-background">
-        <NavBarUser backbtn={true} />
+    <BackgroundTN title="ACESSOS" customStyledApp={"flex flex-col items-center"}>
+      <NavBarUser backbtn={true} />
 
-        <section className="w-5/6 h-5/6 rounded-3xl bg-black/50 m-12 flex flex-col items-center">
-          <nav className="w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center">
-            <div className="w-10/12 flex justify-start pl-6 pr-6">
-              <div className="flex justify-center items-center h-full mr-3 ">
-                <span className='w-[40px] font-sans font-bold'>id</span>
-              </div>
-              <div className="flex justify-start items-center h-full mr-3 w-1/3">
-                <span className='font-sans font-bold'>nome</span>
-              </div>
-              <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
-                <span className='font-sans font-bold'>acessos</span>
-              </div>
+      <section className="w-5/6 h-5/6 rounded-2xl bg-black/50 m-12 flex flex-col items-center">
+        <nav className="w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center">
+          <div className="w-10/12 flex justify-start pl-6 pr-6">
+            <div className="flex justify-center items-center h-full mr-3 ">
+              <span className='w-[40px] font-sans font-bold'>id</span>
             </div>
-          </nav>
-
-          <div className='w-full h-full flex justify-center mt-5'>
-            <div className='w-5/6 h-5/6 overflow-auto'>
-              {pessoas.map((pessoa) => (
-                <div
-                  className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
-                  onClick={() => handleOpenPessoa(pessoa.ID)}
-                  onContextMenu={handleContextMenu}
-                  key={pessoa?.ID}
-                >
-                  <div className="flex justify-start items-center h-full mr-3 w-full">
-                    <div className="flex justify-center items-center h-full mr-3 ">
-                      <span className='w-[40px] font-sans'>{pessoa.ID}</span>
-                    </div>
-                    <div className="flex justify-start items-center h-full mr-3 w-1/3">
-                      <span className='font-sans'>{pessoa.NOME}</span>
-                    </div>
-                    <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
-                      <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-              {modalCriaPessoas && (
-                <ModalCriaPessoas
-                  onCloseModal={handleCloseModalCriaPessoa}
-                  formData={formData}
-                  setFormData={setFormData}
-                  arraySistemas={arraySistemas}
-                  createPessoa={handleCriaPessoa}
-                />
-              )}
-
-              {selectedPersonID !== null && (
-                <ModalPessoa 
-                  onCloseModal={handleClosePessoa} 
-                  arraySistemaPessoa={arraySistemaPessoa}
-                  token={token}
-                />
-              )}
-
-              {modalButtonRight !== false  && (
-                <ModalRightButton />
-              )}
-
+            <div className="flex justify-start items-center h-full mr-3 w-1/3">
+              <span className='font-sans font-bold'>nome</span>
             </div>
-
-            <div className='h-5/6 flex justify-end flex-col ml-3'>
-              <button
-                className='w-[40px] h-[40px] bg-orange-500 rounded-full flex items-center justify-center mt-3'
-                onClick={handleOpenModalCriaPessoa}
-              >
-                <span className='text-4xl text-white'>+</span>
-              </button>
+            <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
+              <span className='font-sans font-bold'>acessos</span>
             </div>
           </div>
-        </section>
-      </div>
-    </div>
+        </nav>
+
+        <div className='w-full h-full flex justify-center mt-5'>
+          <div className='w-5/6 h-5/6 overflow-auto'>
+            {pessoas.map((pessoa) => (
+              <div
+                className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
+                onClick={() => handleOpenPessoa(pessoa.ID)}
+                onContextMenu={handleContextMenu}
+                key={pessoa?.ID}
+              >
+                <div className="flex justify-start items-center h-full mr-3 w-full">
+                  <div className="flex justify-center items-center h-full mr-3 ">
+                    <span className='w-[40px] font-sans'>{pessoa.ID}</span>
+                  </div>
+                  <div className="flex justify-start items-center h-full mr-3 w-1/3">
+                    <span className='font-sans'>{pessoa.NOME}</span>
+                  </div>
+                  <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
+                    <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {modalCriaPessoas && (
+              <ModalCriaPessoas
+                onCloseModal={handleCloseModalCriaPessoa}
+                formData={formData}
+                setFormData={setFormData}
+                arraySistemas={arraySistemas}
+                createPessoa={handleCriaPessoa}
+              />
+            )}
+
+            {selectedPersonID !== null && (
+              <ModalPessoa
+                onCloseModal={handleClosePessoa}
+                arraySistemaPessoa={arraySistemaPessoa}
+                token={token}
+              />
+            )}
+
+            {modalButtonRight !== false && (
+              <ModalRightButton />
+            )}
+
+          </div>
+
+          <div className='h-5/6 flex justify-end flex-col ml-3'>
+            <button
+              className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
+              onClick={handleOpenModalCriaPessoa}
+            >
+              <span className='text-4xl text-white'>+</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </BackgroundTN>
+
   );
 }
 

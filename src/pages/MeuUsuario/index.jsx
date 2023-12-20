@@ -38,7 +38,7 @@ function MeuUsuario() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       })
   }, [token, userId])
@@ -71,7 +71,7 @@ function MeuUsuario() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       })
       .catch((err) => {
@@ -85,7 +85,7 @@ function MeuUsuario() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       });
   };
@@ -102,7 +102,7 @@ function MeuUsuario() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
         setModalResetaSenha(false)
       })
@@ -115,7 +115,7 @@ function MeuUsuario() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       })
   }
@@ -136,35 +136,35 @@ function MeuUsuario() {
                 </div>
               
                 <div className='w-full flex h-10 items-center mb-2' key={index}>
-                  <label className='text-orange-500 font-semibold'>Usuário: </label>
+                  <label className='text-lime-500 font-semibold'>Usuário: </label>
                   <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
                     <span className=''>{user.USUARIO}</span>
                   </div>
                 </div>
 
                 <div className='w-full flex h-10 items-center mb-2' key={index}>
-                  <label className='text-orange-500 font-semibold'>Email: </label>
+                  <label className='text-lime-500 font-semibold'>Email: </label>
                   <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
                     <span className=''>{user.EMAIL}</span>
                   </div>
                 </div>
 
                 <div className='w-full flex h-10 items-center mb-2' key={index}>
-                  <label className='text-orange-500 font-semibold'>CPF: </label>
+                  <label className='text-lime-500 font-semibold'>CPF: </label>
                   <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
                     <span className=''>{user.CPF}</span>
                   </div>
                 </div>
 
                 <div className='w-full flex h-10 items-center mb-2' key={index}>
-                  <label className='text-orange-500 font-semibold'>Admissão: </label>
+                  <label className='text-lime-500 font-semibold'>Admissão: </label>
                   <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
                     <span className=''>{user.ADMISSAO}</span>
                   </div>
                 </div>
 
                 <div className='w-full flex h-10 items-center mb-2' key={index}>
-                  <label className='text-orange-500 font-semibold '>Nascimento: </label>
+                  <label className='text-lime-500 font-semibold '>Nascimento: </label>
                   <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
                     <span className=''>{user.NASCIMENTO}</span>
                   </div>
@@ -172,14 +172,14 @@ function MeuUsuario() {
 
                 <div className='flex flex-row'>
                   <div className='w-full flex h-10 items-center mb-2' key={index}>
-                    <label className='text-orange-500 font-semibold'>Contrato: </label>
+                    <label className='text-lime-500 font-semibold'>Contrato: </label>
                     <div className='w-3/4 mr-3 ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
                       <span className=''>{user.TIPO_DE_CONTRATO}</span>
                     </div>
                   </div>
 
                   <div className='w-full flex h-10 items-center mb-2' key={index}>
-                    <label className='text-orange-500 font-semibold '>Categoria: </label>
+                    <label className='text-lime-500 font-semibold '>Categoria: </label>
                     <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
                       <span className=''>{user.CATEGORIA}</span>
                     </div>
@@ -188,14 +188,14 @@ function MeuUsuario() {
 
                 <div className='flex flex-row'>
                   <div className='w-full flex h-10 items-center mb-2' key={index}>
-                    <label className='text-orange-500 font-semibold'>Cargo: </label>
+                    <label className='text-lime-500 font-semibold'>Cargo: </label>
                     <div className='w-3/4 mr-3 ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
                       <span className=''>{user.CARGO}</span>
                     </div>
                   </div>
 
                   <div className='w-full flex h-10 items-center mb-2' key={index}>
-                    <label className='text-orange-500 font-semibold '>Setor: </label>
+                    <label className='text-lime-500 font-semibold '>Setor: </label>
                     <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
                       <span className=''>{user.SETOR}</span>
                     </div>
@@ -211,14 +211,14 @@ function MeuUsuario() {
 
             <div className='flex justify-center w-full mt-10'>
               <button 
-                className='h-12 bg-orange-500 w-4/12 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
+                className='h-12 bg-lime-400 w-4/12 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
                 onClick={() => setModalAlteraSenha(true)}
               >
                 <span>Alterar senha</span>
               </button>
 
               <button 
-                className='h-12 bg-orange-500 w-4/12 ml-5 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
+                className='h-12 bg-lime-400 w-4/12 ml-5 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
                 onClick={() => setModalResetaSenha(true)}
               >
                 <span >Reseta senha</span>
@@ -283,7 +283,7 @@ function MeuUsuario() {
             <div className='fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-auto'>
               <div className='fixed bg-white rounded-xl p-6 m-4 max-w-xl'> 
                 <p className=''>Tem certeza que deseja resetar sua senha para 
-                  <span className='text-orange-500'>"Hospital@2023"</span>
+                  <span className='text-lime-500'>"Hospital@2023"</span>
                   ??
                 </p>
 
@@ -293,7 +293,7 @@ function MeuUsuario() {
                     onClick={handleResetaSenha}
                   >Resetar</button>
                   <button 
-                    className='ml-5 mt-5 px-4 py-2 bg-orange-500 text-white rounded-md'
+                    className='ml-5 mt-5 px-4 py-2 bg-lime-400 text-white rounded-md'
                     onClick={() => setModalResetaSenha(false)}
                   >Cancelar</button>
 

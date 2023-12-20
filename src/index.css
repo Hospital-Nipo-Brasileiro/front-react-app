@@ -12,15 +12,15 @@ p{
 }
 
 ::-webkit-scrollbar {
-    width: 12px; /* Largura da barra de rolagem */
+    width: 8px; /* Largura da barra de rolagem */
   }
   
 ::-webkit-scrollbar-thumb {
-    background-color: orange; /* Cor do polegar (thumb) */
+    background-color: rgb(255, 255, 255); /* Cor do polegar (thumb) */
     border-radius: 10px; /* Borda arredondada do polegar */
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #D1D5DB; /* Cor da trilha (track) */
+    background-color: #d1d5db63; /* Cor da trilha (track) */
     border-radius: 10px; /* Borda arredondada da trilha */
 }

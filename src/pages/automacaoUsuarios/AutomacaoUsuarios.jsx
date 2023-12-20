@@ -34,7 +34,7 @@ function AutomacaoUsuarios() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
 
         return;
@@ -66,7 +66,7 @@ function AutomacaoUsuarios() {
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "colored",
+            theme: "light",
           });
         });
     } else {
@@ -78,7 +78,7 @@ function AutomacaoUsuarios() {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "light",
       });
     }
   };
@@ -106,7 +106,7 @@ function AutomacaoUsuarios() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       }).catch((error) => {
         toast.error(error, {
@@ -117,7 +117,7 @@ function AutomacaoUsuarios() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       });
     } else {
@@ -129,7 +129,7 @@ function AutomacaoUsuarios() {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "light",
       });
     }
 
@@ -157,7 +157,7 @@ function AutomacaoUsuarios() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
 
         setArquivoEnviado(false);
@@ -174,7 +174,7 @@ function AutomacaoUsuarios() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       });
     } else {
@@ -186,7 +186,7 @@ function AutomacaoUsuarios() {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "light",
       });
     }
   }
@@ -202,7 +202,7 @@ function AutomacaoUsuarios() {
           <div className="w-5/6 h-4/6 mt-16 mb-16 bg-black/30 shadow-xl rounded-3xl flex flex-col justify-between items-center">          
             <div className="container-content-send-user">
               <div className="flex items-center justify-start mt-6">
-                <label htmlFor="file-upload" className="px-4 py-2 mb-3 bg-orange-500/50 text-white rounded-xl cursor-pointer">
+                <label htmlFor="file-upload" className="px-4 py-2 mb-3 bg-lime-400/50 text-white rounded-xl cursor-pointer">
                   Selecione um arquivo
                 </label>
                 <input
@@ -216,7 +216,7 @@ function AutomacaoUsuarios() {
               <Input type='text' value={dia} onChange={(e) => setDia(e.target.value)}/>
               
               <div className='w-full flex justify-center' > 
-                <button className='bg-orange-500 w-3/6 h-10 rounded-lg mt-5' onClick={handlePreview}>Pré-visualizar</button>
+                <button className='bg-lime-400 w-3/6 h-10 rounded-lg mt-5' onClick={handlePreview}>Pré-visualizar</button>
               </div>
             </div>
           </div> 
@@ -246,7 +246,7 @@ function AutomacaoUsuarios() {
             <div className="flex m-5 w-full justify-end">
               <CustomButton
                 text={"Criar Desk"}
-                style={"bg-orange-400"}
+                style={"bg-lime-600"}
                 onclick={criarDeskManager}
               />
 

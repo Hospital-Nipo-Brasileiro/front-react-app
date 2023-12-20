@@ -25,7 +25,7 @@ export const signIn = async ({ username, password }) => {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "light",
       });
     }
   } catch (error) {
@@ -38,7 +38,7 @@ export const signIn = async ({ username, password }) => {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "light",
       });
     } else {
       toast.error(`${error.response.data}`, {
@@ -49,7 +49,7 @@ export const signIn = async ({ username, password }) => {
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "light",
       });
     }
   }

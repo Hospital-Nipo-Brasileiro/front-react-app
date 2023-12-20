@@ -120,7 +120,7 @@ function ModalCriaPessoas({
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "light",
       });
     }
 
@@ -155,7 +155,7 @@ function ModalCriaPessoas({
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "light",
       });
     }
 
@@ -170,7 +170,7 @@ function ModalCriaPessoas({
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: "light",
       });
     } else{
       createPessoa();
@@ -198,7 +198,7 @@ function ModalCriaPessoas({
 
           </div>
           <button 
-            className='w-2/6 h-8 bg-orange-400 rounded-xl mt-5'
+            className='w-2/6 h-8 bg-lime-600 rounded-xl mt-5'
             onClick={handleSetAcessos}
           >
             <span className='text-white'>setar acessos</span>
@@ -302,7 +302,7 @@ function ModalCriaPessoas({
         </div>
 
         <div>
-          <label className="text-orange-500">Sistemas</label>
+          <label className="text-lime-500">Sistemas</label>
           <MultiSelect
             name="sistemas"
             size="normal"
@@ -315,14 +315,14 @@ function ModalCriaPessoas({
 
         <div className='flex flex-row justify-end mt-10'>
           <button
-            className='bg-orange-500 w-1/5 mr-10 h-[60px] rounded-2xl'
+            className='bg-lime-400 w-1/5 mr-10 h-[60px] rounded-2xl'
             onClick={handleCloseModal}
           >
             <span className='text-white text-xl'>Fechar</span>
           </button>
           
           <button
-            className='bg-orange-500 w-1/5 h-[60px] rounded-2xl'
+            className='bg-lime-400 w-1/5 h-[60px] rounded-2xl'
             onClick={handleSave}
           >
             <span className='text-white text-xl'>Salvar</span>

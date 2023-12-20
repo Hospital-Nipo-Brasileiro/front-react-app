@@ -33,7 +33,7 @@ function EntradaEstoque() {
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "colored",
+            theme: "light",
           });
         } else {
           toast.error(response.data.error, {
@@ -44,7 +44,7 @@ function EntradaEstoque() {
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "colored",
+            theme: "light",
           });
         }
       })
@@ -57,7 +57,7 @@ function EntradaEstoque() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
       });
   }

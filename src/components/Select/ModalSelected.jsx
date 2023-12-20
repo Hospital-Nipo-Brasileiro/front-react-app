@@ -8,7 +8,7 @@ const ModalSelected = ({ children, onClose }) => {
       <div className="bg-white border p-2 w-[170px] h-[190px] rounded-lg overflow-auto">
         {children}
         <button
-          className="mt-1 bg-orange-500 text-white px-4 py-2 rounded-md"
+          className="mt-1 bg-lime-400 text-white px-4 py-2 rounded-md"
           onClick={onClose}
         >
           Fechar

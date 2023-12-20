@@ -6,6 +6,7 @@ import logo from '../../assets/logotype.svg'
 import hnipo from '../../assets/hnipo.svg'
 import { useAuth } from '../../contexts/AuthContext';
 import { signIn } from '../../hooks/signIn';
+import BackgroundTN from '../../components/BackgroundTN';
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -31,7 +32,7 @@ function Login() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
         return;
       } else if (!password || password === undefined) {
@@ -43,12 +44,12 @@ function Login() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
         return;
       }
-      const token = await signIn({username, password});
-      if(token) {
+      const token = await signIn({ username, password });
+      if (token) {
         login();
 
         await toast.success('Login bem-sucedido!', {
@@ -59,10 +60,10 @@ function Login() {
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "colored",
+          theme: "light",
         });
-      } 
-      
+      }
+
     } catch (error) {
       toast.error("Falha ao fazer login. Verifique suas credenciais.");
     }
@@ -70,55 +71,59 @@ function Login() {
 
 
   return (
-    <div className="login-background">
-      <span className='title-technipo'>LOGIN</span>
-      <div className="app-background">
+    <BackgroundTN title={"LOGIN"}>
+      <div className="flex justify-between">
 
-        <div className="container-logo-login">
-          <div className="logotipo-img-txt">
-            <img src={logo} alt="logotipo" className='logotipo' />
-            <div className="txt-logotipo">
-              <span className='txt-logotipo-subtitle'>Beneficiência Nipo Brasileira de São Paulo</span>
-              <span className='txt-logotipo-title'>Hospital Nipo-Brasileiro</span>
-            </div>
-          </div>
+        <div className="flex flex-row">
+          <img
+            src={logo}
+            alt="logotipo"
+            className='
+              mt-5 ml-5
+              md:w-full
+              w-10  
+            '/>
         </div>
 
-        <div className="container-card-login">
-          <div className="container-content-login-without-copyright">
-            <img src={hnipo} alt='' className='hnipo' />
-            <div className="align-infos-login">
-              <div className="container-input">
-                <label className='label-input'>username:</label>
-                <div className='container-input-without-label'>
-                  <input
-                    type='text'
-                    className='inputs'
-                    id='username'
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="container-input">
-                <label className='label-input'>password:</label>
-                <input
-                  type='password'
-                  className='inputs'
-                  id='password'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-
-              <button className='btn-login' id='login-screen-login' onClick={handleSignIn}>login</button>
+        <div className="absolute w-[30%] h-[83.5%] bg-white flex flex-col rounded-t-xl justify-between align-center shadow-2xl shadow-black top-[16.5%] left-[33.333%]">
+          <img src={hnipo} alt='' className='w-full' />
+          <div className="mt-3 mb-20 mx-12 flex flex-col items-center">
+            <div className="w-full">
+              <label 
+                className='font-sans font-semibold text-base'
+              >
+                username:
+              </label>
+              <input
+                type='text'
+                className='bg-[#d9d9d9] border-0 w-full rounded-lg my-0 focus-visible:outline-none'
+                id='username'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
             </div>
+
+            <div className="container-input">
+              <label
+                className='font-sans font-semibold text-base'
+              >
+                password:
+              </label>
+              <input
+                type='password'
+                className='inputs'
+                id='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <button className='btn-login' id='login-screen-login' onClick={handleSignIn}>login</button>
           </div>
           <span className='copyright-span'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>
         </div>
       </div>
-    </div>
+    </BackgroundTN>
   );
 }
 
