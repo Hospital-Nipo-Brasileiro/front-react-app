@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 function TechNipo() {
 
   return (
-    <div className="login-background">
-      <span className='title-technipo'>TECHNIPO</span>
+    <div className="bg-[#2A4A25] w-full h-full flex justify-center">
+      <span className='absolute text-6xl font-sans text-white'>TECHNIPO</span>
       <div className="app-background">
         <div>
           <div className="container-logo-login">
@@ -33,7 +33,7 @@ function TechNipo() {
             <div className="container-info-ti">
               <div className="container-subtitle-ti"><span className='subtitle-ti'>Potencializando a Eficiência e Inovação para o Cuidado ao Paciente</span></div>
               <img src={hospital} className='img-hospital' alt='paciente de um hospital sendo atendido por um doutor utilizando um tablet' />
-              <span className='text-ti'>A Tecnologia da Informação (TI) em um hospital desempenha uma missão crítica para a organização, potencializando a
+              <span className='font-sans text-white mt-5 text-xs'>A Tecnologia da Informação (TI) em um hospital desempenha uma missão crítica para a organização, potencializando a
                 eficiência e inovação no cuidado ao paciente. Através de sistemas de gestão integrados e acesso a informações em tempo real, a TI otimiza processos,
                 permitindo decisões mais informadas e reduzindo erros médicos. Além disso, a adoção de tecnologias inovadoras, como inteligência artificial e análise
                 de big data, possibilita a previsão de doenças e a personalização dos cuidados, alinhando-se com as necessidades da instituição e garantindo um

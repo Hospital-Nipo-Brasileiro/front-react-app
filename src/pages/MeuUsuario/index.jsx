@@ -16,10 +16,9 @@ function MeuUsuario() {
   const token = sessionStorage.getItem('token');
   const userId = sessionStorage.getItem('userId');
 
-  const BASE_URL = "http://10.10.204.54:8080"
+  const BASE_URL = "http://HSRVWVP00030:8080"
   
   useEffect(() => {
-    console.log(userId);
 
     axios.get(`${BASE_URL}/login/${userId}/infos`, {
       headers: {
@@ -42,7 +41,7 @@ function MeuUsuario() {
           theme: "colored",
         });
       })
-  }, [])
+  }, [token, userId])
 
   const handleAlteraSenha = async () => {
     const bodySenha = {
@@ -178,12 +177,12 @@ function MeuUsuario() {
                       <span className=''>{user.TIPO_DE_CONTRATO}</span>
                     </div>
                   </div>
-                </div>
 
-                <div className='w-full flex h-10 items-center mb-2' key={index}>
-                  <label className='text-orange-500 font-semibold'>Usuário: </label>
-                  <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
-                    <span className=''>{user.USUARIO}</span>
+                  <div className='w-full flex h-10 items-center mb-2' key={index}>
+                    <label className='text-orange-500 font-semibold '>Categoria: </label>
+                    <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
+                      <span className=''>{user.CATEGORIA}</span>
+                    </div>
                   </div>
                 </div>
 
@@ -201,9 +200,10 @@ function MeuUsuario() {
                       <span className=''>{user.SETOR}</span>
                     </div>
                   </div>
-
                 </div>
-              </>              
+              </>
+
+              
             ))
           ) : (
             <p>Aguardando dados do usuário...</p>
@@ -225,78 +225,82 @@ function MeuUsuario() {
               </button>
             </div>  
           
-            {modalAlteraSenha && (
-              <div className='fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50'>
-                <div className='fixed bg-white rounded-xl p-6 m-4 max-w-md'>
-                  <h2 className="text-xl font-bold mb-4 text-orange-700">Alterar senha</h2>
+          {modalAlteraSenha && (
+            <div className='fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50'>
+              <div className='fixed bg-white rounded-xl p-6 m-4 max-w-md'>
+                <h2 className="text-xl font-bold mb-4 text-orange-700">Alterar senha</h2>
 
-                  <input
-                    type="password"
-                    placeholder="Senha atual"
-                    value={senhaAtual}
-                    onChange={(e) => setSenhaAtual(e.target.value)}
-                    className={`block w-full p-2 mb-3 border rounded-md ${errorStatus ? 'border-red-600' : ''}`}
-                  />
+                <input
+                  type="password"
+                  placeholder="Senha atual"
+                  value={senhaAtual}
+                  onChange={(e) => setSenhaAtual(e.target.value)}
+                  className={`block w-full p-2 mb-3 border rounded-md ${errorStatus ? 'border-red-600' : ''}`}
+                />
 
-                  <input
-                    type="password"
-                    placeholder="Nova senha"
-                    value={novaSenha}
-                    onChange={(e) => setNovaSenha(e.target.value)}
-                    className={`block w-full p-2 mb-3 border rounded-md ${errorStatus ? 'border-red-600 text-red-600' : ''}`}
-                  />
+                <input
+                  type="password"
+                  placeholder="Nova senha"
+                  value={novaSenha}
+                  onChange={(e) => setNovaSenha(e.target.value)}
+                  className={`block w-full p-2 mb-3 border rounded-md ${errorStatus ? 'border-red-600 text-red-600' : ''}`}
+                />
 
-                  <input
-                    type="password"
-                    placeholder="Confirmar nova senha"
-                    value={confirmaSenha}
-                    onChange={(e) => setConfirmaSenha(e.target.value)}
-                    className={`block w-full p-2 mb-3 border rounded-md ${errorStatus ? 'border-red-600 text-red-600' : ''}`}
-                  />
+                <input
+                  type="password"
+                  placeholder="Confirmar nova senha"
+                  value={confirmaSenha}
+                  onChange={(e) => setConfirmaSenha(e.target.value)}
+                  className={`block w-full p-2 mb-3 border rounded-md ${errorStatus ? 'border-red-600 text-red-600' : ''}`}
+                />
 
+                <div className="flex justify-end">
+                  <button
+                    onClick={handleAlteraSenha}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                  >
+                    Salvar
+                  </button>
 
-                    <button
-                      onClick={() => {
-                        setErrorStatus(false);
-                        setSenhaAtual("");
-                        setNovaSenha("");
-                        setConfirmaSenha("");
-                        setModalAlteraSenha(false);
-                      }}
-                      className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2"
-                    >
-                      Fechar
-                    </button>
-                  </div>
-              </div>
-            )}
-
-            {modalResetaSenha && (
-              <div className='fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-auto'>
-                <div className='fixed bg-white rounded-xl p-6 m-4 max-w-xl'>
-                  <p className=''>Tem certeza que deseja resetar sua senha para
-                    <span className='text-orange-500'>"Hospital@2023"</span>
-                    ??
-                  </p>
-
-                  <div className='flex w-full justify-end'> 
-                    <button
-                      className='ml-5 mt-5 px-4 py-2 bg-green-500 text-white rounded-md'
-                      onClick={handleResetaSenha}
-                    >
-                      Resetar
-                    </button>
-
-                    <button 
-                      className='ml-5 mt-5 px-4 py-2 bg-orange-500 text-white rounded-md'
-                      onClick={() => setModalResetaSenha(false)}
-                    >
-                      Cancelar
-                    </button>
-                  </div>
+                  <button
+                    onClick={() => {
+                      setErrorStatus(false);
+                      setSenhaAtual("");
+                      setNovaSenha("");
+                      setConfirmaSenha("");
+                      setModalAlteraSenha(false);
+                    }}
+                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2"
+                  >
+                    Fechar
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
+          )}
+
+          {modalResetaSenha && (
+            <div className='fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-auto'>
+              <div className='fixed bg-white rounded-xl p-6 m-4 max-w-xl'> 
+                <p className=''>Tem certeza que deseja resetar sua senha para 
+                  <span className='text-orange-500'>"Hospital@2023"</span>
+                  ??
+                </p>
+
+                <div className='flex w-full justify-end'> 
+                  <button
+                    className='ml-5 mt-5 px-4 py-2 bg-green-500 text-white rounded-md'
+                    onClick={handleResetaSenha}
+                  >Resetar</button>
+                  <button 
+                    className='ml-5 mt-5 px-4 py-2 bg-orange-500 text-white rounded-md'
+                    onClick={() => setModalResetaSenha(false)}
+                  >Cancelar</button>
+
+                </div>
+              </div>
+            </div>
+          )}
 
           </div>
         </div>

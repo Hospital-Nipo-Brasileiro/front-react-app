@@ -19,7 +19,7 @@ function EntradaEstoque() {
       ds_item: descricao
     };
 
-    axios.post("http://10.10.204.54:8080/itens", body)
+    axios.post("http://HSRVWVH00028:8080/itens", body)
       .then((response) => {
         if (response.status === 200) {
           setNome("");
