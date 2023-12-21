@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import NavBarUser from '../../components/NavBarUser';
 import axios from 'axios';
 import './StyleEstoqueTemp.css';
-import lupa from '../../assets/lupa.svg'
+// import lupa from '../../assets/lupa.svg'
 import { useLocation } from 'react-router-dom';
 import CustomButton from '../../components/CustomButton';
 import Input from '../../components/Input'

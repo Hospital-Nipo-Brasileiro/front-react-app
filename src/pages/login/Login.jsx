@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import './StylesLogin.css'
 import logo from '../../assets/logotype.svg'
 import hnipo from '../../assets/hnipo.svg'
 import { useAuth } from '../../contexts/AuthContext';
@@ -73,7 +72,7 @@ function Login() {
 
   return (
     <BackgroundTN title={"LOGIN"} Height={"h-screen"}>
-      <div className="flex flex-col justify-center md:flex-row md:justify-between">
+      <div className="flex flex-col h-full justify-between md:flex-row md:justify-between md:h-auto">
 
         <div className="flex flex-row">
           <img
@@ -128,8 +127,21 @@ function Login() {
               text='Login'
             />
           </div>
-          <span className='copyright-span'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>
+
+          
         </div>
+
+        <div className='md:hidden flex items-center justify-center w-full'>
+            <span 
+              className='
+                text-zinc-700 m-5
+                text-xs
+                sm:text-sm
+              '
+            >
+              All rights reseved by TechNipo©2023. Created by Gustavo Fonseca
+            </span>
+          </div>
 
 
 
@@ -182,7 +194,7 @@ function Login() {
               />
             </div>
           </div>
-          <span className='copyright-span'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>
+          <span className='text-zinc-700 m-5'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>
         </div>
       </div>
     </BackgroundTN>

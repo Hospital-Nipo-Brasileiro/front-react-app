@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import NavBarUser from '../../components/NavBarUser';
+import BackgroundTN from '../../components/BackgroundTN';
 
 function MeuUsuario() {
   const [usuario, setUsuario] = useState([]);
@@ -17,7 +18,7 @@ function MeuUsuario() {
   const userId = sessionStorage.getItem('userId');
 
   const BASE_URL = "http://HSRVWVP00030:8080"
-  
+
   useEffect(() => {
 
     axios.get(`${BASE_URL}/login/${userId}/infos`, {
@@ -49,14 +50,14 @@ function MeuUsuario() {
       novaSenha: novaSenha,
       confirmaNovaSenha: confirmaSenha
     };
-  
+
     const config = {
       headers: {
-        'Content-Type': 'application/json', 
+        'Content-Type': 'application/json',
         'Authorization': `${token}`
       }
     };
-  
+
     await axios.put(`${BASE_URL}/login/${userId}`, bodySenha, config)
       .then((response) => {
         setSenhaAtual("");
@@ -89,7 +90,7 @@ function MeuUsuario() {
         });
       });
   };
-  
+
 
   const handleResetaSenha = () => {
     axios.put(`${BASE_URL}/login/${userId}/reset`)
@@ -121,20 +122,18 @@ function MeuUsuario() {
   }
 
   return (
-    <div className="login-background">
-      <span className='title-technipo'>USUÁRIO</span>
-      <div className="app-background flex flex-col items-center">
-        <NavBarUser />
+    <BackgroundTN title={""} customStyledApp={"flex flex-col items-center"}>
+      <NavBarUser />
 
-        <div className="flex flex-col w-3/6 h-5/6 bg-white rounded-xl items-center mt-10">
-          <div className='flex flex-col w-4/5 h-4/6'>
+      <div className="flex flex-col w-3/6 h-5/6 bg-white rounded-xl items-center mt-10">
+        <div className='flex flex-col w-4/5 h-4/6'>
           {usuario[0] ? (
             usuario[0].map((user, index) => (
               <>
                 <div className='flex w-full justify-center'>
                   <h1 className='font-bold font-sans text-orange-700 text-3xl mb-10 mt-6'>{user.NOME}</h1>
                 </div>
-              
+
                 <div className='w-full flex h-10 items-center mb-2' key={index}>
                   <label className='text-lime-500 font-semibold'>Usuário: </label>
                   <div className='w-full ml-3 pl-3 bg-stone-200 h-10 flex items-center rounded-xl'>
@@ -203,28 +202,28 @@ function MeuUsuario() {
                 </div>
               </>
 
-              
+
             ))
           ) : (
             <p>Aguardando dados do usuário...</p>
           )}
 
-            <div className='flex justify-center w-full mt-10'>
-              <button 
-                className='h-12 bg-lime-400 w-4/12 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
-                onClick={() => setModalAlteraSenha(true)}
-              >
-                <span>Alterar senha</span>
-              </button>
+          <div className='flex justify-center w-full mt-10'>
+            <button
+              className='h-12 bg-lime-400 w-4/12 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
+              onClick={() => setModalAlteraSenha(true)}
+            >
+              <span>Alterar senha</span>
+            </button>
 
-              <button 
-                className='h-12 bg-lime-400 w-4/12 ml-5 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
-                onClick={() => setModalResetaSenha(true)}
-              >
-                <span >Reseta senha</span>
-              </button>
-            </div>  
-          
+            <button
+              className='h-12 bg-lime-400 w-4/12 ml-5 filter drop-shadow-md rounded-xl border-0 font-mono text-white text-lg transition duration-300 hover:scale-103'
+              onClick={() => setModalResetaSenha(true)}
+            >
+              <span >Reseta senha</span>
+            </button>
+          </div>
+
           {modalAlteraSenha && (
             <div className='fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50'>
               <div className='fixed bg-white rounded-xl p-6 m-4 max-w-md'>
@@ -281,18 +280,18 @@ function MeuUsuario() {
 
           {modalResetaSenha && (
             <div className='fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-auto'>
-              <div className='fixed bg-white rounded-xl p-6 m-4 max-w-xl'> 
-                <p className=''>Tem certeza que deseja resetar sua senha para 
+              <div className='fixed bg-white rounded-xl p-6 m-4 max-w-xl'>
+                <p className=''>Tem certeza que deseja resetar sua senha para
                   <span className='text-lime-500'>"Hospital@2023"</span>
                   ??
                 </p>
 
-                <div className='flex w-full justify-end'> 
+                <div className='flex w-full justify-end'>
                   <button
                     className='ml-5 mt-5 px-4 py-2 bg-green-500 text-white rounded-md'
                     onClick={handleResetaSenha}
                   >Resetar</button>
-                  <button 
+                  <button
                     className='ml-5 mt-5 px-4 py-2 bg-lime-400 text-white rounded-md'
                     onClick={() => setModalResetaSenha(false)}
                   >Cancelar</button>
@@ -302,10 +301,10 @@ function MeuUsuario() {
             </div>
           )}
 
-          </div>
         </div>
       </div>
-    </div>
+    </BackgroundTN>
+
   );
 }
 

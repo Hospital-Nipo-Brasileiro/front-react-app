@@ -206,13 +206,13 @@ function Acessos() {
               >
                 <div className="flex justify-start items-center h-full mr-3 w-full">
                   <div className="flex justify-center items-center h-full mr-3 ">
-                    <span className='w-[40px] font-sans'>{pessoa.ID}</span>
+                    <span className='w-[40px] font-sans truncate'>{pessoa.ID}</span>
                   </div>
                   <div className="flex justify-start items-center h-full mr-3 w-1/3">
-                    <span className='font-sans'>{pessoa.NOME}</span>
+                    <span className='font-sans truncate'>{pessoa.NOME}</span>
                   </div>
                   <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
-                    <span className='font-sans'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
+                    <span className='font-sans truncate'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
                   </div>
                 </div>
               </div>
