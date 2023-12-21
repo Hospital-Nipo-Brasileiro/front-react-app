@@ -72,10 +72,10 @@ function Login() {
 
 
   return (
-    <BackgroundTN title={"LOGIN"}>
-      <div className="flex justify-between">
+    <BackgroundTN title={"LOGIN"} Height={"h-screen"}>
+      <div className="flex flex-col justify-center md:flex-row md:justify-between">
 
-        <div className="hidden md:flex flex-row">
+        <div className="flex flex-row">
           <img
             src={logo}
             alt="logotipo"
@@ -87,7 +87,7 @@ function Login() {
         </div>
 
         {/* RESPONSIVIDADE PARA CELULAR */}
-        <div className="mt-3 mb-20 mx-12 md:hidden flex flex-col items-center">
+        <div className="mt-20 mb-20 mx-12 md:hidden flex flex-col items-center">
           <div className="w-full">
             <label
               className='font-sans font-semibold text-base'
@@ -123,16 +123,24 @@ function Login() {
           <div className='w-full 2xl:px-32 xl:px-20 mt-8'>
             <CustomButton
               onclick={handleSignIn}
+              bgDefault={false}
+              bgColor={"bg-white text-emerald-400 font-bold"}
               text='Login'
             />
           </div>
+          <span className='copyright-span'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>
         </div>
-        <span className='copyright-span'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>
 
 
 
         {/* RESPONSIVIDADE PARA COMPUTADOR */}
-        <div className="absolute w-[30%] h-[83.5%] bg-white flex flex-col rounded-t-xl justify-between align-center shadow-2xl shadow-black top-[16.5%] left-[33.333%]">
+        <div
+          className="
+            hidden 
+            md:absolute md:w-[45%] md:h-[83.5%] md:bg-white md:flex md:flex-col md:rounded-t-xl md:justify-between md:align-center md:shadow-2xl md:shadow-black md:top-[16.5%] md:left-[29.333%]
+            xl:w-[30%] xl:left-[33.333%]
+            "
+        >
           <img src={hnipo} alt='' className='w-full' />
           <div className="mt-3 mb-20 mx-12 flex flex-col items-center">
             <div className="w-full">

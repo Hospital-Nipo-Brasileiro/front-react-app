@@ -19,7 +19,7 @@ function EntradaEstoque() {
       ds_item: descricao
     };
 
-    axios.post("http://HSRVWVH00028:8080/itens", body)
+    axios.post("http://localhost:8080/itens", body)
       .then((response) => {
         if (response.status === 200) {
           setNome("");
@@ -78,17 +78,17 @@ function EntradaEstoque() {
       <span className='title-technipo'>ESTOQUE</span>
 
       <div id='center-searcher' className="app-background">
-        <NavBarUser screenPath="/estoques/central"/>
+        <NavBarUser screenPath="/estoques/central" />
         <div className="container-searcher">
           <div className="container-items">
             <div className="container-content-items">
               <Input type='text' placeholder='nome' value={nome} onChange={handleNomeChange} />
               <Input type='text' placeholder='modelo' value={modelo} onChange={handleModeloChange} />
               <Input type='text' placeholder='descrição' value={descricao} onChange={handleDescricaoChange} />
-              <CustomButton onclick={handleCriaItem} text='Dar entrada'/>
+              <CustomButton onclick={handleCriaItem} text='Dar entrada' />
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     </div>
   );

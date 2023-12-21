@@ -5,8 +5,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
-  const BASE_URL = `http://HSRVWVH00028:8080`
+function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
+  const BASE_URL = `http://localhost:8080`
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
@@ -22,7 +22,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
     setEditingUserId(userId);
 
     const userToEdit = arraySistemaPessoa[0].find(user => user.ID_SISTEMA_PESSOA === userId);
-  
+
     if (userToEdit) {
       setEditedUsername(userToEdit.USERNAME);
       setEditedSenha(userToEdit.SENHA);
@@ -34,7 +34,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
       ds_usuario: editedUsername,
       ds_senha: editedSenha
     }
-    
+
     axios.put(`${BASE_URL}/sistemas/pessoas/${id}`, body, {
       headers: {
         'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
     handleInativaAcesso(id);
     setDeletedUserId(null);
   };
-  
+
   const handleInativaAcesso = (id) => {
     axios.delete(`${BASE_URL}/sistemas/pessoas/${id}`, {
       headers: {
@@ -154,7 +154,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
                           value={editedUsername}
                           onChange={(e) => setEditedUsername(e.target.value)}
                         />
-                        ) : (
+                      ) : (
                         <span>{acesso?.USERNAME}</span>
                       )}
                     </div>
@@ -179,11 +179,10 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
                         <span
                           className='cursor-pointer text-orange-600'
                           title='Excluir'
-                          onClick={() => 
-                            {
-                              console.log("ACESSO: ", acesso?.ID_SISTEMA_PESSOA)
-                              handleOpenDeleteConfirmation(acesso?.ID_SISTEMA_PESSOA)
-                            }
+                          onClick={() => {
+                            console.log("ACESSO: ", acesso?.ID_SISTEMA_PESSOA)
+                            handleOpenDeleteConfirmation(acesso?.ID_SISTEMA_PESSOA)
+                          }
                           }
                         >
                           <FontAwesomeIcon icon={faTrash} />
@@ -201,18 +200,18 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
                           type="text"
                           value={editedSenha}
                           onChange={(e) => setEditedSenha(e.target.value)}
-                          />
-                        
+                        />
+
                         <div className='w-2/4 flex justify-end'>
-                          <button 
+                          <button
                             className='bg-orange-600 w-20 rounded-xl text-white'
                             onClick={() => setEditingUserId(null)}
-                            >Cancelar</button>
+                          >Cancelar</button>
                         </div>
                       </>
-                      ) : (
-                        <span>{acesso?.SENHA}</span>
-                      )
+                    ) : (
+                      <span>{acesso?.SENHA}</span>
+                    )
                     }
 
                     {deletedUserId === acesso.ID_SISTEMA_PESSOA ? (
@@ -236,13 +235,13 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
                           </div>
                         </div>
                       </div>
-                    ): (<></>)}
+                    ) : (<></>)}
                   </div>
-      
+
                 </div>
               </div>
             ))
-            ) : (
+          ) : (
             <div className='w-full h-full flex flex-col items-center'>
               <span>Usuário não contem nenhum sistema vinculado.</span>
               <button className='w-36 h-16 bg-lime-400 text-white rounded-2xl mt-10'>
@@ -252,15 +251,15 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token}) {
           )}
 
 
-      </div>
+        </div>
 
         <button
           className='bg-lime-400 w-1/5 mr-10 h-[60px] rounded-2xl'
           onClick={handleCloseModal}
-          >
+        >
           <span className='text-white text-xl'>Fechar</span>
         </button>
-        
+
       </div>
     </div>
   );
