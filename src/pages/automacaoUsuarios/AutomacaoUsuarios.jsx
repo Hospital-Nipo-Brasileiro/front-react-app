@@ -242,18 +242,21 @@ function AutomacaoUsuarios() {
             ))}
           </div>
 
-          <div className="flex m-5 w-full justify-end">
-            <CustomButton
-              text={"Criar Desk"}
-              customStyle={"bg-lime-600"}
-              onclick={criarDeskManager}
-            />
+          <div className='flex justify-end my-5 w-5/6' >
 
-            <CustomButton
-              text={"Criar Word"}
-              customStyle={"bg-orange-600"}
-              onclick={criarWord}
-            />
+            <div className='w-1/6 h-12'>
+              <CustomButton
+                text={"Criar Desk"}
+                onclick={criarDeskManager}
+              />  
+            </div>
+
+            <div className='w-1/6 h-12 ml-5'>
+              <CustomButton
+                text={"Criar Word"}
+                onclick={criarWord}
+              />
+            </div>
           </div>
 
         </div>
