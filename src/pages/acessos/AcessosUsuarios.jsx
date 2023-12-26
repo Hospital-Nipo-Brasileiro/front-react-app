@@ -45,7 +45,7 @@ function Acessos() {
     });
   };
 
-  const BASE_URL = "https://back-dev-technipo.vercel.app/:8080";
+  const BASE_URL = "https://back-dev-technipo.vercel.app:8080";
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
