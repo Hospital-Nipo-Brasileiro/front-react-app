@@ -134,7 +134,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
 
       <div className="absolute w-2/3 h-4/6 bg-white rounded-lg p-8 flex flex-col">
 
-        <h1 className='text-xl text-orange-600 font-bold'>{arraySistemaPessoa[0][0]?.NOME}</h1>
+        <h1 className='text-xl text-emerald-600 font-bold'>{arraySistemaPessoa[0][0]?.NOME}</h1>
         <div className='w-full h-full mb-10 overflow-auto'>
           {arraySistemaPessoa && arraySistemaPessoa[0].length >= 1 && arraySistemaPessoa[0][0]?.SISTEMA !== null ? (
             arraySistemaPessoa[0].map((acesso) => (
@@ -149,7 +149,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
                       <span className='text-lime-500 w-20'>Usuário: </span>
                       {editingUserId === acesso.ID_SISTEMA_PESSOA ? (
                         <input
-                          className="bg-slate-200 p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-orange-600 focus:border-orange-600"
+                          className="bg-slate-200 p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
                           type="text"
                           value={editedUsername}
                           onChange={(e) => setEditedUsername(e.target.value)}
@@ -177,7 +177,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
                           <FontAwesomeIcon icon={faPencilAlt} />
                         </span>
                         <span
-                          className='cursor-pointer text-orange-600'
+                          className='cursor-pointer text-emerald-600'
                           title='Excluir'
                           onClick={() => {
                             console.log("ACESSO: ", acesso?.ID_SISTEMA_PESSOA)
@@ -196,7 +196,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
                     {editingUserId === acesso.ID_SISTEMA_PESSOA ? (
                       <>
                         <input
-                          className="bg-slate-200 w-2/4 mb-1 p-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-orange-600 focus:border-orange-600"
+                          className="bg-slate-200 w-2/4 mb-1 p-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
                           type="text"
                           value={editedSenha}
                           onChange={(e) => setEditedSenha(e.target.value)}
@@ -204,7 +204,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
 
                         <div className='w-2/4 flex justify-end'>
                           <button
-                            className='bg-orange-600 w-20 rounded-xl text-white'
+                            className='bg-emerald-600 w-20 rounded-xl text-white'
                             onClick={() => setEditingUserId(null)}
                           >Cancelar</button>
                         </div>
@@ -215,7 +215,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
                     }
 
                     {deletedUserId === acesso.ID_SISTEMA_PESSOA ? (
-                      <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+                      <div className="fixed bg-black bg-opacity-50 top-0 left-0 w-full h-full flex items-center justify-center z-50">
                         <div className="absolute w-2/3 h-1/3 bg-white rounded-lg p-8 flex flex-col">
                           <span className="text-xl font-bold mb-4">Confirmar Desativação</span>
                           <span className="mb-4">Tem certeza que deseja desativar este acesso?</span>

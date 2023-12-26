@@ -150,7 +150,7 @@ export default function MultiSelect(props: MultiSelectProps) {
         onKeyDown={handleKeyDown}
         onMouseMove={removeActiveItem}
         className={
-          'bg-slate-100 group cursor-text relative flex justify-start gap-2 w-full rounded-xl border border-solid my-1 h-9 focus-within:border-orange-500 focus-within:ring-1 focus-within:ring-offset-white focus-within:ring-orange-600 focus-within:ring-offset-0 px-1 ' +
+          'bg-slate-100 group cursor-text relative flex justify-start gap-2 w-full rounded-xl border border-solid my-1 h-9 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-offset-white focus-within:ring-emerald-600 focus-within:ring-offset-0 px-1 ' +
           (props.size === 'small' ? ' text-sm' : '')
         }
       >

@@ -12,7 +12,7 @@ function TechNipo() {
 
   return (
     <BackgroundTN title="TECHNIPO">
-      <div className="flex justify-between">
+      <div className="flex justify-between mt-3 md:mt-0">
         <div className="flex flex-row">
             <img 
               src={logo} 
@@ -69,8 +69,8 @@ function TechNipo() {
                 2xl:text-4xl
                 xl:text-3xl
                 lg:text-2xl
-                md:text-lg
-                text-4xl
+                md:text-xl md:font-normal
+                text-xl font-bold
               '
             >
               Potencializando a Eficiência e Inovação para o Cuidado ao Paciente

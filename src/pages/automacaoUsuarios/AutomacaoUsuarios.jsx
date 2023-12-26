@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import './StyleAutomacaoUsuarios.css'
 import { toast } from 'react-toastify';
 
 import Input from '../../components/Input'
@@ -40,7 +39,7 @@ function AutomacaoUsuarios() {
 
         return;
       }
-      console.log(token)
+
 
       const formData = new FormData();
       formData.append('file', arquivoSelecionado);
@@ -199,7 +198,7 @@ function AutomacaoUsuarios() {
 
       {arquivoEnviado === false ?
         <div className="w-5/6 h-4/6 mt-16 mb-16 bg-black/30 shadow-xl rounded-3xl flex flex-col justify-between items-center">
-          <div className="container-content-send-user">
+          <div className="mt-10 w-5/6 h-5/6 flex flex-col">
             <div className="flex items-center justify-start mt-6">
               <label htmlFor="file-upload" className="px-4 py-2 mb-3 bg-lime-400/50 text-white rounded-xl cursor-pointer">
                 Selecione um arquivo

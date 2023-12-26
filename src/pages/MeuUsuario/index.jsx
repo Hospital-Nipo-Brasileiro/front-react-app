@@ -131,7 +131,7 @@ function MeuUsuario() {
             usuario[0].map((user, index) => (
               <>
                 <div className='flex w-full justify-center'>
-                  <h1 className='font-bold font-sans text-orange-700 text-3xl mb-10 mt-6'>{user.NOME}</h1>
+                  <h1 className='font-bold font-sans text-emerald-700 text-3xl mb-10 mt-6'>{user.NOME}</h1>
                 </div>
 
                 <div className='w-full flex h-10 items-center mb-2' key={index}>
@@ -227,7 +227,7 @@ function MeuUsuario() {
           {modalAlteraSenha && (
             <div className='fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50'>
               <div className='fixed bg-white rounded-xl p-6 m-4 max-w-md'>
-                <h2 className="text-xl font-bold mb-4 text-orange-700">Alterar senha</h2>
+                <h2 className="text-xl font-bold mb-4 text-emerald-700">Alterar senha</h2>
 
                 <input
                   type="password"

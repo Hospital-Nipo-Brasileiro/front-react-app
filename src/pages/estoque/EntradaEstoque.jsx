@@ -6,6 +6,7 @@ import './StyleEntradaEstoque.css'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Input from '../../components/Input';
+import BackgroundTN from '../../components/BackgroundTN';
 
 function EntradaEstoque() {
   const [nome, setNome] = useState("");
@@ -74,23 +75,20 @@ function EntradaEstoque() {
   }
 
   return (
-    <div className="login-background">
-      <span className='title-technipo'>ESTOQUE</span>
-
-      <div id='center-searcher' className="app-background">
-        <NavBarUser screenPath="/estoques/central" />
-        <div className="container-searcher">
-          <div className="container-items">
-            <div className="container-content-items">
-              <Input type='text' placeholder='nome' value={nome} onChange={handleNomeChange} />
-              <Input type='text' placeholder='modelo' value={modelo} onChange={handleModeloChange} />
-              <Input type='text' placeholder='descrição' value={descricao} onChange={handleDescricaoChange} />
-              <CustomButton onclick={handleCriaItem} text='Dar entrada' />
-            </div>
+    <BackgroundTN>
+      <NavBarUser screenPath="/estoques/central" />
+      <div className="container-searcher">
+        <div className="container-items">
+          <div className="container-content-items">
+            <Input type='text' placeholder='nome' value={nome} onChange={handleNomeChange} />
+            <Input type='text' placeholder='modelo' value={modelo} onChange={handleModeloChange} />
+            <Input type='text' placeholder='descrição' value={descricao} onChange={handleDescricaoChange} />
+            <CustomButton onclick={handleCriaItem} text='Dar entrada' />
           </div>
         </div>
       </div>
-    </div>
+    </BackgroundTN>
+
   );
 }
 

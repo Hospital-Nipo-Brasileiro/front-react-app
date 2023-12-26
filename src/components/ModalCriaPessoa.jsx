@@ -90,11 +90,11 @@ function ModalCriaPessoas({
       setErrorStatus(addErrorStatus("dataAdmissao"));
       acessoPendente.push("dataAdmissao");
     }
-    if (formData.tipoContrato !== "A") {
+    if (formData.tipoContrato === "") {
       setErrorStatus(addErrorStatus("tipoContrato"));
       acessoPendente.push("tipoContrato");
     }
-    if (formData.categoria !== "Administrativo" || formData.categoria !== "Assistencial") {
+    if (formData.categoria === "") {
       setErrorStatus(addErrorStatus("categoria"));
       acessoPendente.push("categoria");
     }
@@ -110,6 +110,7 @@ function ModalCriaPessoas({
 
   const handleSetAcessos = async () => {
     const camposNecessarios = validaCamposDeAcessos();
+    console.log(camposNecessarios)
 
     if(camposNecessarios !== true) {
       return toast.error("Necessário inserir os devidos acessos acessos", {
@@ -193,7 +194,7 @@ function ModalCriaPessoas({
             onSelect={(response) => {
               handleInputChange("local", response);
             }}
-            divStyle={`${errorStatus.includes("local") ? 'border-red-600 text-red-600' : ''}`}
+            divStyle={`${errorStatus?.includes("local") ? 'border-red-600 bg-red-100' : ''}`}
           />
 
           </div>
@@ -210,7 +211,7 @@ function ModalCriaPessoas({
             label={"Nome"}
             value={formData.name}
             divStyled={"w-3/6 mr-3"}
-            customStyled={`${errorStatus.includes("name") ? 'border-red-600 text-red-600' : ''}`}
+            customStyled={`${errorStatus?.includes("name") ? 'border-red-600 bg-red-100' : ''}`}
             onChange={(e) => handleInputChange("name", e.target.value)}
             placeholder='ex.: Gustavo Fonseca'
             type='text'
@@ -220,7 +221,7 @@ function ModalCriaPessoas({
             label={"CPF"}
             value={formData.cpf}
             divStyled={"w-3/6 ml-3"}
-            customStyled={`${errorStatus.includes("cpf") ? 'border-red-600 text-red-600' : ''}`}
+            customStyled={`${errorStatus?.includes("cpf") ? 'border-red-600 bg-red-100' : ''}`}
             onChange={(e) => handleInputChange("cpf", e.target.value)}
             placeholder='ex.: 12345678911'
             type='text'
@@ -232,7 +233,7 @@ function ModalCriaPessoas({
             label={"Data de Admissão"}
             value={formData.dataAdmissao}
             divStyled={"w-3/6 mr-3"}
-            customStyled={`${errorStatus.includes("dataAdmissao") ? 'border-red-600 text-red-600' : ''}`}
+            customStyled={`${errorStatus?.includes("dataAdmissao") ? 'border-red-600 bg-red-100' : ''}`}
             onChange={(e) => handleInputChange("dataAdmissao", e.target.value)}
             type='date'
           />
@@ -241,7 +242,7 @@ function ModalCriaPessoas({
             label={"Data de Nascimento"}
             value={formData.dataNascimento}
             divStyled={"w-3/6 ml-3"}
-            customStyled={`${errorStatus.includes("dataNascimento") ? 'border-red-600 text-red-600' : ''}`}
+            customStyled={`${errorStatus?.includes("dataNascimento") ? 'border-red-600 bg-red-100' : ''}`}
             onChange={(e) => handleInputChange("dataNascimento", e.target.value)}
             type='date'
           />
@@ -260,7 +261,7 @@ function ModalCriaPessoas({
               onSelect={(response) => {
                 handleInputChange("tipoContrato", response);
               }}
-              divStyle={`${errorStatus.includes("tipoContrato") ? 'border-red-600 text-red-600' : ''}`}
+              divStyle={`${errorStatus?.includes("tipoContrato") ? 'border-red-600 bg-red-100' : ''}`}
             />
           </div>
 
@@ -274,7 +275,7 @@ function ModalCriaPessoas({
               onSelect={(response) => {
                 handleInputChange("categoria", response);
               }}
-              divStyle={`${errorStatus.includes("categoria") ? 'border-red-600 text-red-600' : ''}`}
+              divStyle={`${errorStatus?.includes("categoria") ? 'border-red-600 bg-red-100' : ''}`}
             />
           </div>
         </div>
@@ -282,7 +283,7 @@ function ModalCriaPessoas({
         <div className='flex flex-row h-20 justify-between'>
           <Input
             label={"Usuário"}
-            customStyled={`${errorStatus.includes("usuario") ? 'border-red-600 text-red-600' : ''}`}
+            customStyled={`${errorStatus?.includes("usuario") ? 'border-red-600 bg-red-100' : ''}`}
             value={formData.usuario}
             divStyled={"w-3/6 mr-3"}
             type='text'
@@ -294,7 +295,7 @@ function ModalCriaPessoas({
             label={"Senha"}
             value={formData.senha}
             divStyled={"w-3/6 ml-3"}
-            customStyled={`${errorStatus.includes("senha") ? 'border-red-600 text-red-600' : ''}`}
+            customStyled={`${errorStatus?.includes("senha") ? 'border-red-600 bg-red-100' : ''}`}
             type='text'
             disabled={true}
             placeholder='clique em setar acessos'

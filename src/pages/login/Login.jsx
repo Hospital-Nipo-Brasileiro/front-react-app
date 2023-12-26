@@ -123,8 +123,9 @@ function Login() {
             <CustomButton
               onclick={handleSignIn}
               bgDefault={false}
-              bgColor={"bg-white text-emerald-400 font-bold"}
+              bgColor={"bg-white font-bold"}
               text='Login'
+              textColor={"text-emerald-400"}
             />
           </div>
 
