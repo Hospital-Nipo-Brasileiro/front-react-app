@@ -19,7 +19,7 @@ function Estoque() {
 
   useEffect(() => {
     axios
-      .get(`http://HSRVWVH00028:8080/estoques/${id}/itens`)
+      .get(`https://back-dev-technipo.vercel.app/:8080/estoques/${id}/itens`)
       .then((response) => {
         setItens(response.data);
       })
@@ -67,7 +67,7 @@ function Estoque() {
         ds_item: selectedItem?.ESTOQUE,
       };
 
-      await axios.put(`http://HSRVWVH00028:8080/itens/${selectedItem.id}`, body);
+      await axios.put(`https://back-dev-technipo.vercel.app/:8080/itens/${selectedItem.id}`, body);
       // setItens(updatedItems);
       toggleEdit();
     } catch (error) {
