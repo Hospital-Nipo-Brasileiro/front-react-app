@@ -45,7 +45,7 @@ function Acessos() {
     });
   };
 
-  const BASE_URL = "https://back-dev-technipo.vercel.app:8080";
+  const BASE_URL = "http://HSRVWVH00028:8080";
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
@@ -138,6 +138,7 @@ function Acessos() {
   };
 
   const handleOpenPessoa = (pessoaID) => {
+    fetchSistemas()
     axios.get(`${BASE_URL}/sistemas/pessoas/${pessoaID}/filtra`, {
       headers: {
         'Content-Type': 'application/json',
@@ -232,6 +233,9 @@ function Acessos() {
               <ModalPessoa
                 onCloseModal={handleClosePessoa}
                 arraySistemaPessoa={arraySistemaPessoa}
+                arraySistemas={arraySistemas}
+                formData={formData}
+                setFormData={setFormData}
                 token={token}
               />
             )}

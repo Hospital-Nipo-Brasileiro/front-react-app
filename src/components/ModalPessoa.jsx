@@ -4,13 +4,20 @@ import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Input from './Input';
+import MultiSelect from './SelectIcon/MultiSelect.tsx';
 
-function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
-  const BASE_URL = `https://back-dev-technipo.vercel.app:8080`
+function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, formData, setFormData }) {
+  const BASE_URL = `http://HSRVWVH00028:8080`
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
   const [deletedUserId, setDeletedUserId] = useState(null);
+  const [vinculaUser, setVinculaUser] = useState(null);
+
+  const handleInputChange = (fieldName, value) => {
+    setFormData({ ...formData, [fieldName]: value });
+  };
 
   const handleCloseModal = () => {
     if (onCloseModal) {
@@ -127,6 +134,14 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
           theme: "light",
         });
       })
+  }
+
+  const handleOpenVinculaUser = (userId) => {
+    setVinculaUser(userId);
+  }
+
+  const handleCloseVinculaUser = (userId) => {
+    setVinculaUser(null);
   }
 
   return (
@@ -253,12 +268,57 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token }) {
 
         </div>
 
-        <button
-          className='bg-lime-400 w-1/5 mr-10 h-[60px] rounded-2xl'
-          onClick={handleCloseModal}
-        >
-          <span className='text-white text-xl'>Fechar</span>
-        </button>
+        <div className='w-full flex justify-end'>
+          <button
+            className='bg-lime-400 w-1/5 mr-5 h-[60px] rounded-2xl '
+            onClick={handleOpenVinculaUser}
+          >
+            <span className='text-white text-xl'>Adicionar Acessos</span>
+          </button>
+
+          {vinculaUser !== null ? (
+            <div className="fixed top-10 left-0 w-full h-full flex items-center justify-center z-50">
+              <div className="absolute w-2/3 h-[60%] bg-white rounded-lg p-8 flex flex-col">
+                <div className='bg-pink-800 w-2/5'>
+                  <Input 
+                    label={"Usuário"}
+                    placeholder='HC12345678'
+                    
+                  />
+
+                  <Input 
+                    label={"Senha"}
+                    placeholder='Hospital@2024'
+
+                  />
+
+                  <div>
+                    <label className="text-lime-500">Sistemas</label>
+                    <MultiSelect
+                      name="sistemas"
+                      size="normal"
+                      optionList={arraySistema.map((sistema) => ({ label: sistema.ds_nome }))}
+                      value={formData.sistemas}
+                      valueChange={(newValue) => handleInputChange("sistemas", newValue)}
+                      placeholder="Selecione os sistemas"
+                    />
+                  </div>
+
+                </div>
+              </div>
+            </div>  
+          ) : (
+            <>
+            </>
+          )}
+
+          <button
+            className='bg-lime-400 w-1/5 ml-5 h-[60px] rounded-2xl'
+            onClick={handleCloseModal}
+          >
+            <span className='text-white text-xl'>Fechar</span>
+          </button>
+        </div>
 
       </div>
     </div>
