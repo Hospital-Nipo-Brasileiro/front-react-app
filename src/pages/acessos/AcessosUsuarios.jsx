@@ -138,7 +138,6 @@ function Acessos() {
   };
 
   const handleOpenPessoa = (pessoaID) => {
-    fetchSistemas()
     axios.get(`${BASE_URL}/sistemas/pessoas/${pessoaID}/filtra`, {
       headers: {
         'Content-Type': 'application/json',

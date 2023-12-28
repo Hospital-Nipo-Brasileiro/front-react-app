@@ -13,7 +13,7 @@ function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, fo
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
   const [deletedUserId, setDeletedUserId] = useState(null);
-  const [vinculaUser, setVinculaUser] = useState(null);
+  const [vinculaUser, setVinculaUser] = useState(false);
 
   const handleInputChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
@@ -136,12 +136,12 @@ function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, fo
       })
   }
 
-  const handleOpenVinculaUser = (userId) => {
-    setVinculaUser(userId);
+  const handleOpenVinculaUser = () => {
+    setVinculaUser(true);
   }
 
-  const handleCloseVinculaUser = (userId) => {
-    setVinculaUser(null);
+  const handleCloseVinculaUser = () => {
+    setVinculaUser(false);
   }
 
   return (
@@ -152,7 +152,7 @@ function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, fo
         <h1 className='text-xl text-emerald-600 font-bold'>{arraySistemaPessoa[0][0]?.NOME}</h1>
         <div className='w-full h-full mb-10 overflow-auto'>
           {arraySistemaPessoa && arraySistemaPessoa[0].length >= 1 && arraySistemaPessoa[0][0]?.SISTEMA !== null ? (
-            arraySistemaPessoa[0].map((acesso) => (
+           arraySistemaPessoa[0].map((acesso) => (
               <div className='w-full h-24 bg-slate-100 rounded-2xl p-3 mt-5' key={acesso?.ID_SISTEMA_PESSOA}>
                 <div className='flex flex-col'>
                   <div className='flex'>
@@ -251,6 +251,50 @@ function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, fo
                         </div>
                       </div>
                     ) : (<></>)}
+
+{vinculaUser === true ? (
+            <div className="fixed top-10 left-0 w-full h-full flex items-center justify-center z-50">
+              <div className="absolute w-2/3 h-[60%] bg-white rounded-lg p-8 flex flex-col justify-between">
+                <div className='w-2/5'>
+                  <Input 
+                    label={"Usuário"}
+                    placeholder='HC12345678'
+                    
+                  />
+
+                  <Input 
+                    label={"Senha"}
+                    placeholder='Hospital@2024'
+
+                  />
+
+                  <div>
+                    <label className="text-lime-500">Sistemas</label>
+                    <MultiSelect
+                      name="sistemas"
+                      size="normal"
+                      optionList={arraySistema?.map((sistema) => ({ label: sistema.ds_nome })) || []}
+                      value={formData.sistemas}
+                      valueChange={(newValue) => handleInputChange("sistemas", newValue)}
+                      placeholder="Selecione os sistemas"
+                    />
+
+                  </div>
+
+
+                  
+                </div>
+                <div className='flex justify-end'>
+                    <button 
+                      className='bg-lime-400 w-1/5 ml-5 h-[60px] rounded-2xl'
+                      onClick={handleCloseVinculaUser}
+                    >
+                      <span className='text-white text-xl'>Close</span>
+                    </button>
+                  </div>    
+              </div>
+            </div>  
+          ) : (null)}
                   </div>
 
                 </div>
@@ -276,41 +320,7 @@ function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, fo
             <span className='text-white text-xl'>Adicionar Acessos</span>
           </button>
 
-          {vinculaUser !== null ? (
-            <div className="fixed top-10 left-0 w-full h-full flex items-center justify-center z-50">
-              <div className="absolute w-2/3 h-[60%] bg-white rounded-lg p-8 flex flex-col">
-                <div className='bg-pink-800 w-2/5'>
-                  <Input 
-                    label={"Usuário"}
-                    placeholder='HC12345678'
-                    
-                  />
-
-                  <Input 
-                    label={"Senha"}
-                    placeholder='Hospital@2024'
-
-                  />
-
-                  <div>
-                    <label className="text-lime-500">Sistemas</label>
-                    <MultiSelect
-                      name="sistemas"
-                      size="normal"
-                      optionList={arraySistema.map((sistema) => ({ label: sistema.ds_nome }))}
-                      value={formData.sistemas}
-                      valueChange={(newValue) => handleInputChange("sistemas", newValue)}
-                      placeholder="Selecione os sistemas"
-                    />
-                  </div>
-
-                </div>
-              </div>
-            </div>  
-          ) : (
-            <>
-            </>
-          )}
+          
 
           <button
             className='bg-lime-400 w-1/5 ml-5 h-[60px] rounded-2xl'

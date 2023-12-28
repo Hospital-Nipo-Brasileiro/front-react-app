@@ -96,7 +96,6 @@ function Login() {
             <input
               type='text'
               className='bg-[#d9d9d9] border-0 w-full rounded-lg my-3 focus-visible:outline-none shadow-black shadow-2xl px-2'
-              id='username'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               style={{ boxShadow: '4px 7px 10px 0px rgba(0, 0, 0, 0.50)' }}
@@ -112,7 +111,6 @@ function Login() {
             <input
               type='password'
               className='bg-[#d9d9d9] border-0 w-full rounded-lg my-3 focus-visible:outline-none shadow-black shadow-2xl px-2'
-              id='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={{ boxShadow: '4px 7px 10px 0px rgba(0, 0, 0, 0.50)' }}
@@ -165,7 +163,6 @@ function Login() {
               <input
                 type='text'
                 className='bg-[#d9d9d9] border-0 w-full rounded-lg my-3 focus-visible:outline-none shadow-black shadow-2xl px-2'
-                id='username'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 style={{ boxShadow: '4px 7px 10px 0px rgba(0, 0, 0, 0.50)' }}
@@ -181,7 +178,6 @@ function Login() {
               <input
                 type='password'
                 className='bg-[#d9d9d9] border-0 w-full rounded-lg my-3 focus-visible:outline-none shadow-black shadow-2xl px-2'
-                id='password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 style={{ boxShadow: '4px 7px 10px 0px rgba(0, 0, 0, 0.50)' }}
