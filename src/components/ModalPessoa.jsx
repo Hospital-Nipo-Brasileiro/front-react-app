@@ -8,7 +8,7 @@ import Input from './Input';
 import MultiSelect from './SelectIcon/MultiSelect.tsx';
 
 function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, formData, setFormData }) {
-  const BASE_URL = `http://HSRVWVH00028:8080`
+  const BASE_URL = `https://dev-technipo.vercel.app:8080`
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
