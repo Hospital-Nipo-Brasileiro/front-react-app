@@ -7,9 +7,14 @@ import { toast } from 'react-toastify';
 import Input from './Input';
 import MultiSelect from './SelectIcon/MultiSelect.tsx';
 
+<<<<<<< HEAD
 
 function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFormData }) {
   const BASE_URL = `http://HSRVWVH00028:8080`
+=======
+function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, formData, setFormData }) {
+  const BASE_URL = `https://dev-technipo.vercel.app:8080`
+>>>>>>> a97558544eebc08ddb25573193842f932e41964a
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');

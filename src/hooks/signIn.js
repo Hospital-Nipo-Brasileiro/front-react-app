@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 export const signIn = async ({ username, password }) => {
-  const url = "http://HSRVWVH00028:8080/login";
+  const url = "https://dev-technipo.vercel.app:8080/login";
   const body = {
     ds_username: username,
     ds_password: password,
