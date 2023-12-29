@@ -314,19 +314,19 @@ function ModalCriaPessoas({
           />
         </div>
 
-        <div className='flex flex-row justify-end mt-10'>
+        <div className='flex flex-row justify-end mt-10'>         
           <button
-            className='bg-lime-400 w-1/5 mr-10 h-[60px] rounded-2xl'
-            onClick={handleCloseModal}
-          >
-            <span className='text-white text-xl'>Fechar</span>
-          </button>
-          
-          <button
-            className='bg-lime-400 w-1/5 h-[60px] rounded-2xl'
+            className='bg-lime-400 w-1/5 h-[60px] mr-10 rounded-2xl'
             onClick={handleSave}
           >
             <span className='text-white text-xl'>Salvar</span>
+          </button>
+
+          <button
+            className='bg-lime-900 w-1/5 h-[60px] rounded-2xl'
+            onClick={handleCloseModal}
+          >
+            <span className='text-white text-xl'>Fechar</span>
           </button>
         </div>
       </div>

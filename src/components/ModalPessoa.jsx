@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
@@ -7,13 +7,41 @@ import { toast } from 'react-toastify';
 import Input from './Input';
 import MultiSelect from './SelectIcon/MultiSelect.tsx';
 
-function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, formData, setFormData }) {
+
+function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFormData }) {
   const BASE_URL = `http://HSRVWVH00028:8080`
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
   const [deletedUserId, setDeletedUserId] = useState(null);
   const [vinculaUser, setVinculaUser] = useState(false);
+  const [arraySistema, setArraySistemas] = useState([])
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/sistemas`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `${token}`,
+      },
+    })
+      .then(response => {
+        setArraySistemas(response.data)
+      })
+      .catch(error => {
+        console.error('Erro ao obter opções de sistema:', error);
+      });
+  }, []);
+
+  const toastConfig = {
+    position: "bottom-left",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
 
   const handleInputChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
@@ -142,6 +170,38 @@ function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, fo
 
   const handleCloseVinculaUser = () => {
     setVinculaUser(false);
+    setFormData("")
+  }
+
+  const vinculaUsuarioAUmSistema = () => {
+    const {usuario, senha, sistemas} = formData;
+
+    try {
+      sistemas.forEach((sistema) => {
+        const sistemaPessoaBody = {
+          id_pessoa: arraySistemaPessoa[0][0]?.ID,
+          ds_nome: sistema,
+          ds_usuario: usuario,
+          ds_senha: senha,
+        };
+      
+      console.log(sistemaPessoaBody)
+  
+      axios.post(`${BASE_URL}/sistemas/pessoas`, sistemaPessoaBody, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`,
+        },
+      })
+        .catch((error) => {
+          toast.error(`${error.data}`, toastConfig);
+        })
+      })
+      toast.success(`Usuário vinculado a acessos`, toastConfig);
+    } catch (error) {
+      toast.error(`error.data`, toastConfig);
+      handleCloseVinculaUser()
+    }
   }
 
   return (
@@ -152,7 +212,7 @@ function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, fo
         <h1 className='text-xl text-emerald-600 font-bold'>{arraySistemaPessoa[0][0]?.NOME}</h1>
         <div className='w-full h-full mb-10 overflow-auto'>
           {arraySistemaPessoa && arraySistemaPessoa[0].length >= 1 && arraySistemaPessoa[0][0]?.SISTEMA !== null ? (
-           arraySistemaPessoa[0].map((acesso) => (
+            arraySistemaPessoa[0].map((acesso) => (
               <div className='w-full h-24 bg-slate-100 rounded-2xl p-3 mt-5' key={acesso?.ID_SISTEMA_PESSOA}>
                 <div className='flex flex-col'>
                   <div className='flex'>
@@ -252,20 +312,45 @@ function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, fo
                       </div>
                     ) : (<></>)}
 
-{vinculaUser === true ? (
-            <div className="fixed top-10 left-0 w-full h-full flex items-center justify-center z-50">
+
+                  </div>
+
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className='w-full h-full flex flex-col items-center justify-center'>
+              <span className='text-xl'>Usuário não contem nenhum sistema vinculado.</span>
+            </div>
+          )}
+
+
+        </div>
+
+        <div className='w-full flex justify-end'>
+          <button
+            className='bg-lime-400 w-1/5 mr-5 h-[60px] rounded-2xl '
+            onClick={handleOpenVinculaUser}
+          >
+            <span className='text-white text-xl'>Adicionar Acessos</span>
+          </button>
+
+          {vinculaUser === true ? (
+            <div className="fixed top-7 left-0 w-full h-full flex items-center justify-center z-50">
               <div className="absolute w-2/3 h-[60%] bg-white rounded-lg p-8 flex flex-col justify-between">
                 <div className='w-2/5'>
-                  <Input 
+                  <Input
                     label={"Usuário"}
-                    placeholder='HC12345678'
-                    
+                    placeholder='Digite o usuário'
+                    value={formData.usuario}
+                    onChange={(e) => handleInputChange("usuario", e.target.value)}
                   />
 
-                  <Input 
+                  <Input
                     label={"Senha"}
-                    placeholder='Hospital@2024'
-
+                    placeholder='Digite a senha'
+                    value={formData.senha}
+                    onChange={(e) => handleInputChange("senha", e.target.value)}
                   />
 
                   <div>
@@ -281,49 +366,27 @@ function ModalPessoa({ onCloseModal, arraySistema, arraySistemaPessoa, token, fo
 
                   </div>
 
-
-                  
                 </div>
                 <div className='flex justify-end'>
-                    <button 
-                      className='bg-lime-400 w-1/5 ml-5 h-[60px] rounded-2xl'
-                      onClick={handleCloseVinculaUser}
-                    >
-                      <span className='text-white text-xl'>Close</span>
-                    </button>
-                  </div>    
-              </div>
-            </div>  
-          ) : (null)}
-                  </div>
-
+                  <button
+                    className='bg-lime-400 w-1/5 ml-5 h-[60px] rounded-2xl'
+                    onClick={vinculaUsuarioAUmSistema}
+                  >
+                    <span className='text-white text-xl'>Vincular</span>
+                  </button>
+                  <button
+                    className='bg-lime-900 w-1/5 ml-5 h-[60px] rounded-2xl'
+                    onClick={handleCloseVinculaUser}
+                  >
+                    <span className='text-white text-xl'>Fechar</span>
+                  </button>
                 </div>
               </div>
-            ))
-          ) : (
-            <div className='w-full h-full flex flex-col items-center'>
-              <span>Usuário não contem nenhum sistema vinculado.</span>
-              <button className='w-36 h-16 bg-lime-400 text-white rounded-2xl mt-10'>
-                Adicionar novo sistema
-              </button>
             </div>
-          )}
-
-
-        </div>
-
-        <div className='w-full flex justify-end'>
-          <button
-            className='bg-lime-400 w-1/5 mr-5 h-[60px] rounded-2xl '
-            onClick={handleOpenVinculaUser}
-          >
-            <span className='text-white text-xl'>Adicionar Acessos</span>
-          </button>
-
-          
+          ) : (null)}
 
           <button
-            className='bg-lime-400 w-1/5 ml-5 h-[60px] rounded-2xl'
+            className='bg-lime-900 w-1/5 ml-5 h-[60px] rounded-2xl'
             onClick={handleCloseModal}
           >
             <span className='text-white text-xl'>Fechar</span>

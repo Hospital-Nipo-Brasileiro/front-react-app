@@ -25,6 +25,7 @@ function Acessos() {
     sistemas: [],
   });
   const [newlyCreatedPerson, setNewlyCreatedPerson] = useState(null);
+  const [filtro, setFiltro] = useState("");
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -192,12 +193,26 @@ function Acessos() {
             <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
               <span className='font-sans font-bold'>acessos</span>
             </div>
+            
+            <input 
+              className='w-60 bg-lime-400 my-1 rounded-2xl pl-1' 
+              type='text'
+              placeholder='Nome'
+              value={filtro}
+              onChange={(e) => setFiltro(e.target.value)}
+            />
+            
           </div>
         </nav>
 
         <div className='w-full h-full flex justify-center mt-5'>
           <div className='w-5/6 h-5/6 overflow-auto'>
-            {pessoas.map((pessoa) => (
+            {pessoas
+              .filter((pessoa) =>
+                pessoa.NOME.toLowerCase().includes(filtro.toLowerCase()) ||
+                pessoa.ID.toString().includes(filtro)
+              )
+              .map((pessoa) => (
               <div
                 className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
                 onClick={() => handleOpenPessoa(pessoa.ID)}
