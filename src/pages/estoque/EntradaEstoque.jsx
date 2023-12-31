@@ -20,7 +20,7 @@ function EntradaEstoque() {
       ds_item: descricao
     };
 
-    axios.post("https://dev-technipo.vercel.app:8080/itens", body)
+    axios.post("http://localhost:8080/itens", body)
       .then((response) => {
         if (response.status === 200) {
           setNome("");

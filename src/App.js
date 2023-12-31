@@ -12,6 +12,7 @@ import EstoqueTemp from './pages/estoque/EstoqueTemp.jsx'
 import Acessos from './pages/acessos/AcessosUsuarios.jsx'
 import Pessoas from './pages/pessoas/Pessoas.jsx';
 import { useAuth } from './contexts/AuthContext.js'
+import Admin from './pages/admin/Admin.jsx';
 
 export default function App() {
   const { auth } = useAuth();
@@ -29,6 +30,7 @@ export default function App() {
         <Route path='/acessos' element={auth ? <Acessos /> : <Navigate to="/login" />} />
         <Route path='/estoques/:id' element={auth ? <EstoqueTemp /> : <Navigate to="/login" />} />
         <Route path='/estoques/entrada' element={auth ? <EstradaEstoque /> : <Navigate to="/login" />} />
+        <Route path='/admin' element={auth ? <Admin /> : <Navigate to="/login" />} />
         <Route path="*" element={<NaoEncontrado />} />
       </Routes>
     </BrowserRouter>

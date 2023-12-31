@@ -9,7 +9,7 @@ import MultiSelect from './SelectIcon/MultiSelect.tsx';
 
 
 function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFormData }) {
-  const BASE_URL = `http://HSRVWVH00028:8080`
+  const BASE_URL = `http://localhost:8080`
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
@@ -198,6 +198,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
         })
       })
       toast.success(`Usuário vinculado a acessos`, toastConfig);
+      handleCloseVinculaUser()
     } catch (error) {
       toast.error(`error.data`, toastConfig);
       handleCloseVinculaUser()

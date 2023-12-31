@@ -46,7 +46,7 @@ function Acessos() {
     });
   };
 
-  const BASE_URL = "https://dev-technipo.vercel.app:8080";
+  const BASE_URL = "http://localhost:8080";
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
@@ -181,9 +181,9 @@ function Acessos() {
     <BackgroundTN title="ACESSOS" customStyledApp={"flex flex-col items-center"}>
       <NavBarUser backbtn={true} />
 
-      <section className="w-5/6 h-5/6 rounded-2xl bg-black/50 m-12 flex flex-col items-center">
+      <section className="w-5/6 h-5/6 rounded-3xl bg-black/50 m-12 flex flex-col items-center">
         <nav className="w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center">
-          <div className="w-10/12 flex justify-start pl-6 pr-6">
+          <div className="w-10/12 flex justify-start px-6">
             <div className="flex justify-center items-center h-full mr-3 ">
               <span className='w-[40px] font-sans font-bold'>id</span>
             </div>
@@ -194,15 +194,19 @@ function Acessos() {
               <span className='font-sans font-bold'>acessos</span>
             </div>
             
-            <input 
-              className='w-60 bg-lime-400 my-1 rounded-2xl pl-1' 
-              type='text'
-              placeholder='Nome'
-              value={filtro}
-              onChange={(e) => setFiltro(e.target.value)}
-            />
+            <div className='flex justify-end'>
+              <input 
+                className='w-30 bg-lime-400 my-1 rounded-2xl pl-1 absolute' 
+                type='text'
+                placeholder='Nome'
+                value={filtro}
+                onChange={(e) => setFiltro(e.target.value)}
+              />
+            </div>
             
           </div>
+
+          <div className='w-[40px] ml-3'/>
         </nav>
 
         <div className='w-full h-full flex justify-center mt-5'>
@@ -214,7 +218,7 @@ function Acessos() {
               )
               .map((pessoa) => (
               <div
-                className='w-full h-10 bg-white rounded-3xl pl-6 pr-6 mt-8'
+                className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
                 onClick={() => handleOpenPessoa(pessoa.ID)}
                 onContextMenu={handleContextMenu}
                 key={pessoa?.ID}
@@ -253,14 +257,13 @@ function Acessos() {
                 token={token}
               />
             )}
-{/* 
+            {/* 
             {modalButtonRight !== false && (
               <ModalRightButton />
             )} */}
-
           </div>
 
-          <div className='h-5/6 flex justify-end flex-col ml-3'>
+          <div className='flex justify-end flex-col ml-3 h-5/6'>
             <button
               className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
               onClick={handleOpenModalCriaPessoa}

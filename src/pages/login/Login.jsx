@@ -69,6 +69,11 @@ function Login() {
     }
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSignIn();
+    }
+  };
 
   return (
     <BackgroundTN title={"LOGIN"} Height={"h-screen"}>
@@ -98,6 +103,7 @@ function Login() {
               className='bg-[#d9d9d9] border-0 w-full rounded-lg my-3 focus-visible:outline-none shadow-black shadow-2xl px-2'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              onKeyDown={handleKeyPress}
               style={{ boxShadow: '4px 7px 10px 0px rgba(0, 0, 0, 0.50)' }}
             />
           </div>
@@ -113,6 +119,7 @@ function Login() {
               className='bg-[#d9d9d9] border-0 w-full rounded-lg my-3 focus-visible:outline-none shadow-black shadow-2xl px-2'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={handleKeyPress}
               style={{ boxShadow: '4px 7px 10px 0px rgba(0, 0, 0, 0.50)' }}
             />
           </div>
@@ -165,6 +172,7 @@ function Login() {
                 className='bg-[#d9d9d9] border-0 w-full rounded-lg my-3 focus-visible:outline-none shadow-black shadow-2xl px-2'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                onKeyDown={handleKeyPress}
                 style={{ boxShadow: '4px 7px 10px 0px rgba(0, 0, 0, 0.50)' }}
               />
             </div>
@@ -180,6 +188,7 @@ function Login() {
                 className='bg-[#d9d9d9] border-0 w-full rounded-lg my-3 focus-visible:outline-none shadow-black shadow-2xl px-2'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={handleKeyPress}
                 style={{ boxShadow: '4px 7px 10px 0px rgba(0, 0, 0, 0.50)' }}
               />
             </div>
