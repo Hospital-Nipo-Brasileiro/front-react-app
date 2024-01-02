@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 
 function Admin() {
   const [logins, setLogins] = useState([]);
+  const [modalLogin, setModalLogin] = useState(false);
+
 
   const toastConfig = {
     position: "bottom-left",
@@ -28,6 +30,10 @@ function Admin() {
       }
     })
   }, [])
+
+  const handleOpenCriaLogin = () => {
+    setModalLogin(true)
+  }
 
   return (
     <BackgroundTN title="ADMIN" customStyledApp={"flex flex-col items-center"}>
@@ -51,6 +57,7 @@ function Admin() {
               />
             </div>
           </div>
+          <div className='w-[40px] ml-3'/>
         </nav>
 
         <div className='w-full h-full flex justify-center mt-5'>
@@ -70,6 +77,15 @@ function Admin() {
                 </div>
               </div> 
             ))}
+          </div>
+
+          <div className='flex justify-end flex-col ml-3 h-5/6'>
+            <button
+              className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
+              onClick={handleOpenCriaLogin}
+            >
+              <span className='text-4xl text-white'>+</span>
+            </button>
           </div>
         </div>
       </section>
