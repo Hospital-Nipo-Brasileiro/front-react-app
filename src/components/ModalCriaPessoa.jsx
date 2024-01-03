@@ -110,7 +110,6 @@ function ModalCriaPessoas({
 
   const handleSetAcessos = async () => {
     const camposNecessarios = validaCamposDeAcessos();
-    console.log(camposNecessarios)
 
     if(camposNecessarios !== true) {
       return toast.error("Necessário inserir os devidos acessos acessos", {
@@ -249,7 +248,6 @@ function ModalCriaPessoas({
         </div>
 
         <div className='flex flex-row h-20 justify-between'>
-          
           <div className='w-3/6 mr-3 flex flex-col'>
             <Select
               label={"Tipo de Contrato"}
@@ -270,7 +268,8 @@ function ModalCriaPessoas({
               label={"Categoria de Cargo"}
               options={[
                 { label: 'Assistencial', value: 'Assistencial' },
-                { label: 'Administrativo', value: 'Administrativo' }
+                { label: 'Administrativo', value: 'Administrativo' },
+                { label: '', value: '' }
               ]}
               onSelect={(response) => {
                 handleInputChange("categoria", response);

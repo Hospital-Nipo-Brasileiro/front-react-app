@@ -200,7 +200,9 @@ function Login() {
               />
             </div>
           </div>
-          <span className='text-zinc-700 m-5'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>
+          <div className='flex items-center justify-center w-full'>
+            <span className='text-zinc-700 m-3 text-sm'>All rights reseved by TechNipo©2023. Created by Gustavo Fonseca</span>
+          </div>
         </div>
       </div>
     </BackgroundTN>

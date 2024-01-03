@@ -46,7 +46,7 @@ function Acessos() {
     });
   };
 
-  const BASE_URL = "http://localhost:8080";
+  const BASE_URL = "http://hsrvwvh00028:8080";
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
@@ -181,98 +181,102 @@ function Acessos() {
     <BackgroundTN title="ACESSOS" customStyledApp={"flex flex-col items-center"}>
       <NavBarUser backbtn={true} />
 
-      <section className="w-5/6 h-5/6 rounded-3xl bg-black/50 m-12 flex flex-col items-center">
-        <nav className="w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center">
-          <div className="w-10/12 flex justify-start px-6">
-            <div className="flex justify-center items-center h-full mr-3 ">
-              <span className='w-[40px] font-sans font-bold'>id</span>
-            </div>
-            <div className="flex justify-start items-center h-full mr-3 w-1/3">
-              <span className='font-sans font-bold'>nome</span>
-            </div>
-            <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
-              <span className='font-sans font-bold'>acessos</span>
-            </div>
-            
-            <div className='flex justify-end'>
-              <input 
-                className='w-30 bg-lime-400 my-1 rounded-2xl pl-1 absolute' 
-                type='text'
-                placeholder='Nome'
-                value={filtro}
-                onChange={(e) => setFiltro(e.target.value)}
-              />
-            </div>
-            
-          </div>
+      <div className='w-full h-full flex justify-center items-center'>
 
-          <div className='w-[40px] ml-3'/>
-        </nav>
+        <section className="w-5/6 h-5/6 my-3 rounded-3xl bg-black/50 flex flex-col items-center">
+          <nav className="w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center">
+            <div className="w-10/12 flex justify-start px-6">
+              <div className="flex justify-center items-center h-full mr-3 ">
+                <span className='w-[40px] font-sans font-bold'>id</span>
+              </div>
+              <div className="flex justify-start items-center h-full mr-3 w-1/3">
+                <span className='font-sans font-bold'>nome</span>
+              </div>
+              <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
+                <span className='font-sans font-bold'>acessos</span>
+              </div>
+              
+              <div className='flex justify-end'>
+                <input 
+                  className='w-30 bg-lime-400 my-1 rounded-2xl pl-1 absolute'
+                  type='text'
+                  placeholder='Nome'
+                  value={filtro}
+                  onChange={(e) => setFiltro(e.target.value)}
+                />
+              </div>
+              
+            </div>
 
-        <div className='w-full h-full flex justify-center mt-5'>
-          <div className='w-5/6 h-5/6 overflow-auto'>
-            {pessoas
-              .filter((pessoa) =>
-                pessoa.NOME.toLowerCase().includes(filtro.toLowerCase()) ||
-                pessoa.ID.toString().includes(filtro)
-              )
-              .map((pessoa) => (
-              <div
-                className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
-                onClick={() => handleOpenPessoa(pessoa.ID)}
-                onContextMenu={handleContextMenu}
-                key={pessoa?.ID}
-              >
-                <div className="flex justify-start items-center h-full mr-3 w-full">
-                  <div className="flex justify-center items-center h-full mr-3 ">
-                    <span className='w-[40px] font-sans truncate'>{pessoa.ID}</span>
-                  </div>
-                  <div className="flex justify-start items-center h-full mr-3 w-1/3">
-                    <span className='font-sans truncate'>{pessoa.NOME}</span>
-                  </div>
-                  <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
-                    <span className='font-sans truncate'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
+            <div className='w-[40px] ml-3'/>
+          </nav>
+
+          <div className='w-full h-full flex justify-center mt-5'>
+            <div className='w-5/6 h-5/6 overflow-auto'>
+              {pessoas
+                .filter((pessoa) =>
+                  pessoa.NOME.toLowerCase().includes(filtro.toLowerCase()) ||
+                  pessoa.ID.toString().includes(filtro)
+                )
+                .map((pessoa) => (
+                <div
+                  className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
+                  onClick={() => handleOpenPessoa(pessoa.ID)}
+                  onContextMenu={handleContextMenu}
+                  key={pessoa?.ID}
+                >
+                  <div className="flex justify-start items-center h-full mr-3 w-full">
+                    <div className="flex justify-center items-center h-full mr-3 ">
+                      <span className='w-[40px] font-sans truncate'>{pessoa.ID}</span>
+                    </div>
+                    <div className="flex justify-start items-center h-full mr-3 w-1/3">
+                      <span className='font-sans truncate'>{pessoa.NOME}</span>
+                    </div>
+                    <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
+                      <span className='font-sans truncate'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
-            {modalCriaPessoas && (
-              <ModalCriaPessoas
-                onCloseModal={handleCloseModalCriaPessoa}
-                formData={formData}
-                setFormData={setFormData}
-                arraySistemas={arraySistemas}
-                createPessoa={handleCriaPessoa}
-              />
-            )}
+              {modalCriaPessoas && (
+                <ModalCriaPessoas
+                  onCloseModal={handleCloseModalCriaPessoa}
+                  formData={formData}
+                  setFormData={setFormData}
+                  arraySistemas={arraySistemas}
+                  createPessoa={handleCriaPessoa}
+                />
+              )}
 
-            {selectedPersonID !== null && (
-              <ModalPessoa
-                onCloseModal={handleClosePessoa}
-                arraySistemaPessoa={arraySistemaPessoa}
-                arraySistemas={arraySistemas}
-                formData={formData}
-                setFormData={setFormData}
-                token={token}
-              />
-            )}
-            {/* 
-            {modalButtonRight !== false && (
-              <ModalRightButton />
-            )} */}
+              {selectedPersonID !== null && (
+                <ModalPessoa
+                  onCloseModal={handleClosePessoa}
+                  arraySistemaPessoa={arraySistemaPessoa}
+                  arraySistemas={arraySistemas}
+                  formData={formData}
+                  setFormData={setFormData}
+                  token={token}
+                />
+              )}
+              {/* 
+              {modalButtonRight !== false && (
+                <ModalRightButton />
+              )} */}
+            </div>
+
+            <div className='flex justify-end flex-col ml-3 h-5/6'>
+              <button
+                className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
+                onClick={handleOpenModalCriaPessoa}
+              >
+                <span className='text-4xl text-white'>+</span>
+              </button>
+            </div>
           </div>
+        </section>
+      </div>
 
-          <div className='flex justify-end flex-col ml-3 h-5/6'>
-            <button
-              className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
-              onClick={handleOpenModalCriaPessoa}
-            >
-              <span className='text-4xl text-white'>+</span>
-            </button>
-          </div>
-        </div>
-      </section>
     </BackgroundTN>
 
   );

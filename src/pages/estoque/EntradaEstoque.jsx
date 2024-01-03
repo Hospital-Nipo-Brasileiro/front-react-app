@@ -20,7 +20,7 @@ function EntradaEstoque() {
       ds_item: descricao
     };
 
-    axios.post("http://localhost:8080/itens", body)
+    axios.post("http://hsrvwvh00028:8080/itens", body)
       .then((response) => {
         if (response.status === 200) {
           setNome("");

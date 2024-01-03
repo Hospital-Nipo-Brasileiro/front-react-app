@@ -24,7 +24,7 @@ const Select = ({ options, onSelect, label, divStyle}) => {
         className={`w-full h-8 mt-1 px-1 flex items-center border rounded-xl bg-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 ${divStyle}`}
         onClick={handleButtonClick}
       >
-        <span>{selectedOption ? selectedOption.label : 'Selecione o Local'}</span>
+        <span>{selectedOption ? selectedOption.label : `Selecione o ${label.toLowerCase()}`}</span>
       </div>
 
       {modalOpen && (
