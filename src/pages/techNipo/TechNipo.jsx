@@ -67,9 +67,9 @@ function TechNipo() {
               className='
                 font-dm-sans text-white
                 2xl:text-4xl
-                xl:text-3xl
-                lg:text-2xl
-                md:text-xl md:font-normal
+                xl:text-2xl
+                lg:text-xl
+                md:text-lg md:font-normal
                 text-xl font-bold
               '
             >
