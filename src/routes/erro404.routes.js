@@ -5,7 +5,7 @@ import NaoEncontrado from '../pages/NaoEncontrado/NaoEncontrado.jsx'
 function Erro404Route() {
   return(
     <Routes>
-        <Route path="*" element={<NaoEncontrado />} />
+        <Route path='*' element={<NaoEncontrado />} />
     </Routes>
   );
 }

@@ -11,13 +11,13 @@ export default function PrivateRoutes() {
   
   return (
     <Routes>
-      <Route path='/home' element={auth ? <Home /> : <Navigate to="/login" />} />
-      <Route path='/meu-usuario' element={auth ? <MeuUsuario /> : <Navigate to="/login" />} />
-      <Route path='/automation' element={auth ? <AutomacaoUsuarios /> : <Navigate to="/login" />} />
-      <Route path='/estoques/central' element={auth ? <BuildPage /> : <Navigate to="/login" />} />
-      <Route path='/acessos' element={auth ? <BuildPage /> : <Navigate to="/login" />} />
-      <Route path='/estoques/:id' element={auth ? <BuildPage /> : <Navigate to="/login" />} />
-      <Route path='/estoques/entrada' element={auth ? <BuildPage /> : <Navigate to="/login" />} />
+      <Route path='/home' element={auth ? <Home /> : <Navigate to='/login' />} />
+      <Route path='/meu-usuario' element={auth ? <MeuUsuario /> : <Navigate to='/login' />} />
+      <Route path='/automation' element={auth ? <AutomacaoUsuarios /> : <Navigate to='/login' />} />
+      <Route path='/estoques/central' element={auth ? <BuildPage /> : <Navigate to='/login' />} />
+      <Route path='/acessos' element={auth ? <BuildPage /> : <Navigate to='/login' />} />
+      <Route path='/estoques/:id' element={auth ? <BuildPage /> : <Navigate to='/login' />} />
+      <Route path='/estoques/entrada' element={auth ? <BuildPage /> : <Navigate to='/login' />} />
     </Routes>
   )
 }

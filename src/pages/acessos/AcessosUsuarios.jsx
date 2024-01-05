@@ -16,16 +16,16 @@ function Acessos() {
   const [updatedUser, setUpdatedUser] = useState(false);
   const [arraySistemas, setArraySistemas] = useState([]);
   const [formData, setFormData] = useState({
-    name: "",
-    cpf: "",
-    dataAdmissao: "",
-    dataNascimento: "",
-    tipoContrato: "",
-    categoria: "",
+    name: '',
+    cpf: '',
+    dataAdmissao: '',
+    dataNascimento: '',
+    tipoContrato: '',
+    categoria: '',
     sistemas: [],
   });
   const [newlyCreatedPerson, setNewlyCreatedPerson] = useState(null);
-  const [filtro, setFiltro] = useState("");
+  const [filtro, setFiltro] = useState('');
 
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -34,19 +34,19 @@ function Acessos() {
 
   const resetFormData = () => {
     setFormData({
-      name: "",
-      cpf: "",
-      dataAdmissao: "",
-      dataNascimento: "",
-      tipoContrato: "",
-      categoria: "",
-      usuario: "",
-      senha: "",
+      name: '',
+      cpf: '',
+      dataAdmissao: '',
+      dataNascimento: '',
+      tipoContrato: '',
+      categoria: '',
+      usuario: '',
+      senha: '',
       sistemas: [],
     });
   };
 
-  const BASE_URL = "http://hsrvwvh00028:8080";
+  const BASE_URL = 'http://hsrvwvh00028:8080';
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function Acessos() {
         setPessoas(response.data[0]);
       })
       .catch((err) => {
-        handleError(err, "Erro ao obter pessoas");
+        handleError(err, 'Erro ao obter pessoas');
       });
   }, [token, newlyCreatedPerson, updatedUser]);
 
@@ -75,7 +75,7 @@ function Acessos() {
       setArraySistemas(response.data);
       setModalCriaPessoas(true);
     } catch (error) {
-      handleError(error, "Erro ao obter sistemas");
+      handleError(error, 'Erro ao obter sistemas');
     }
   };
 
@@ -130,7 +130,7 @@ function Acessos() {
 
       resetFormData();
     } catch (error) {
-      handleError(error, "Erro ao criar pessoa");
+      handleError(error, 'Erro ao criar pessoa');
     }
   };
 
@@ -150,7 +150,7 @@ function Acessos() {
         setArraySistemaPessoa(response.data);
       })
       .catch((err) => {
-        handleError(err, "Erro ao obter acessos da pessoa");
+        handleError(err, 'Erro ao obter acessos da pessoa');
       })
       .finally(() => {
         setUpdatedUser(true);
@@ -162,14 +162,14 @@ function Acessos() {
   };
 
   const toastConfig = {
-    position: "bottom-left",
+    position: 'bottom-left',
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: false,
     draggable: true,
     progress: undefined,
-    theme: "light",
+    theme: 'light',
   };
 
   const handleError = (error, message) => {
@@ -178,21 +178,21 @@ function Acessos() {
   };
 
   return (
-    <BackgroundTN title="ACESSOS" customStyledApp={"flex flex-col items-center"}>
+    <BackgroundTN title='ACESSOS' customStyledApp={'flex flex-col items-center'}>
       <NavBarUser backbtn={true} />
 
       <div className='w-full h-full flex justify-center items-center'>
 
-        <section className="w-5/6 h-5/6 my-3 rounded-3xl bg-black/50 flex flex-col items-center">
-          <nav className="w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center">
-            <div className="w-10/12 flex justify-start px-6">
-              <div className="flex justify-center items-center h-full mr-3 ">
+        <section className='w-5/6 h-5/6 my-3 rounded-3xl bg-black/50 flex flex-col items-center'>
+          <nav className='w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center'>
+            <div className='w-10/12 flex justify-start px-6'>
+              <div className='flex justify-center items-center h-full mr-3 '>
                 <span className='w-[40px] font-sans font-bold'>id</span>
               </div>
-              <div className="flex justify-start items-center h-full mr-3 w-1/3">
+              <div className='flex justify-start items-center h-full mr-3 w-1/3'>
                 <span className='font-sans font-bold'>nome</span>
               </div>
-              <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
+              <div className='flex justify-start items-center h-full ml-3 mr-3 w-2/3'>
                 <span className='font-sans font-bold'>acessos</span>
               </div>
               
@@ -225,15 +225,15 @@ function Acessos() {
                   onContextMenu={handleContextMenu}
                   key={pessoa?.ID}
                 >
-                  <div className="flex justify-start items-center h-full mr-3 w-full">
-                    <div className="flex justify-center items-center h-full mr-3 ">
+                  <div className='flex justify-start items-center h-full mr-3 w-full'>
+                    <div className='flex justify-center items-center h-full mr-3 '>
                       <span className='w-[40px] font-sans truncate'>{pessoa.ID}</span>
                     </div>
-                    <div className="flex justify-start items-center h-full mr-3 w-1/3">
+                    <div className='flex justify-start items-center h-full mr-3 w-1/3'>
                       <span className='font-sans truncate'>{pessoa.NOME}</span>
                     </div>
-                    <div className="flex justify-start items-center h-full ml-3 mr-3 w-2/3">
-                      <span className='font-sans truncate'>{pessoa?.SISTEMAS || "Nenhum sistema cadastrado"}</span>
+                    <div className='flex justify-start items-center h-full ml-3 mr-3 w-2/3'>
+                      <span className='font-sans truncate'>{pessoa?.SISTEMAS || 'Nenhum sistema cadastrado'}</span>
                     </div>
                   </div>
                 </div>

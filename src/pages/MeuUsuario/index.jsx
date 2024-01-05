@@ -17,7 +17,7 @@ function MeuUsuario() {
   const token = sessionStorage.getItem('token');
   const userId = sessionStorage.getItem('userId');
 
-  const BASE_URL = "http://hsrvwvh00028:8080"
+  const BASE_URL = 'http://hsrvwvh00028:8080'
 
   useEffect(() => {
 
@@ -32,14 +32,14 @@ function MeuUsuario() {
       })
       .catch((error) => {
         toast.error(`Erro ao enviar arquivos: ${error}`, {
-          position: "bottom-left",
+          position: 'bottom-left',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         });
       })
   }, [token, userId])
@@ -60,33 +60,33 @@ function MeuUsuario() {
 
     await axios.put(`${BASE_URL}/login/${userId}`, bodySenha, config)
       .then((response) => {
-        setSenhaAtual("");
-        setNovaSenha("");
-        setConfirmaSenha("");
+        setSenhaAtual('');
+        setNovaSenha('');
+        setConfirmaSenha('');
         setModalAlteraSenha(false);
         toast.success(response.data, {
-          position: "bottom-left",
+          position: 'bottom-left',
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         });
       })
       .catch((err) => {
-        setSenhaAtual("");
+        setSenhaAtual('');
         setErrorStatus(true);
         toast.error(`Erro ao enviar arquivos: ${err}`, {
-          position: "bottom-left",
+          position: 'bottom-left',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         });
       });
   };
@@ -96,36 +96,36 @@ function MeuUsuario() {
     axios.put(`${BASE_URL}/login/${userId}/reset`)
       .then((res) => {
         toast.success(res.data, {
-          position: "bottom-left",
+          position: 'bottom-left',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         });
         setModalResetaSenha(false)
       })
       .catch((err) => {
         toast.error(`Erro ao enviar arquivos: ${err}`, {
-          position: "bottom-left",
+          position: 'bottom-left',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         });
       })
   }
 
   return (
-    <BackgroundTN title={""} customStyledApp={"flex flex-col items-center"}>
+    <BackgroundTN title={''} customStyledApp={'flex flex-col items-center'}>
       <NavBarUser />
 
-      <div className="flex flex-col w-3/6 h-5/6 bg-white rounded-xl items-center mt-10">
+      <div className='flex flex-col w-3/6 h-5/6 bg-white rounded-xl items-center mt-10'>
         <div className='flex flex-col w-4/5 h-4/6'>
           {usuario[0] ? (
             usuario[0].map((user, index) => (
@@ -227,36 +227,36 @@ function MeuUsuario() {
           {modalAlteraSenha && (
             <div className='fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50'>
               <div className='fixed bg-white rounded-xl p-6 m-4 max-w-md'>
-                <h2 className="text-xl font-bold mb-4 text-emerald-700">Alterar senha</h2>
+                <h2 className='text-xl font-bold mb-4 text-emerald-700'>Alterar senha</h2>
 
                 <input
-                  type="password"
-                  placeholder="Senha atual"
+                  type='password'
+                  placeholder='Senha atual'
                   value={senhaAtual}
                   onChange={(e) => setSenhaAtual(e.target.value)}
                   className={`block w-full p-2 mb-3 border rounded-md ${errorStatus ? 'border-red-600' : ''}`}
                 />
 
                 <input
-                  type="password"
-                  placeholder="Nova senha"
+                  type='password'
+                  placeholder='Nova senha'
                   value={novaSenha}
                   onChange={(e) => setNovaSenha(e.target.value)}
                   className={`block w-full p-2 mb-3 border rounded-md ${errorStatus ? 'border-red-600 text-red-600' : ''}`}
                 />
 
                 <input
-                  type="password"
-                  placeholder="Confirmar nova senha"
+                  type='password'
+                  placeholder='Confirmar nova senha'
                   value={confirmaSenha}
                   onChange={(e) => setConfirmaSenha(e.target.value)}
                   className={`block w-full p-2 mb-3 border rounded-md ${errorStatus ? 'border-red-600 text-red-600' : ''}`}
                 />
 
-                <div className="flex justify-end">
+                <div className='flex justify-end'>
                   <button
                     onClick={handleAlteraSenha}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                    className='px-4 py-2 bg-blue-500 text-white rounded-md'
                   >
                     Salvar
                   </button>
@@ -264,12 +264,12 @@ function MeuUsuario() {
                   <button
                     onClick={() => {
                       setErrorStatus(false);
-                      setSenhaAtual("");
-                      setNovaSenha("");
-                      setConfirmaSenha("");
+                      setSenhaAtual('');
+                      setNovaSenha('');
+                      setConfirmaSenha('');
                       setModalAlteraSenha(false);
                     }}
-                    className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2"
+                    className='px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2'
                   >
                     Fechar
                   </button>
@@ -282,7 +282,7 @@ function MeuUsuario() {
             <div className='fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center overflow-auto'>
               <div className='fixed bg-white rounded-xl p-6 m-4 max-w-xl'>
                 <p className=''>Tem certeza que deseja resetar sua senha para
-                  <span className='text-lime-500'>"Hospital@2023"</span>
+                  <span className='text-lime-500'>'Hospital@2023'</span>
                   ??
                 </p>
 

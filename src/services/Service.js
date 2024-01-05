@@ -1,5 +1,5 @@
-import axios from "axios";
-const BASE_URL = process.env.BASE_URL || "http://hsrvwvh00028";
+import axios from 'axios';
+const BASE_URL = process.env.BASE_URL || 'http://hsrvwvh00028';
 
 export class Service {
   
@@ -17,9 +17,9 @@ export class Service {
     }
   }
 
-  static async post(path, callback, token) {
+  static async post(path, body, callback, token) {
     try {
-      const response = await axios.post(`${BASE_URL}:8080${path}`, {
+      const response = await axios.post(`${BASE_URL}:8080${path}`, body, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${token}`,

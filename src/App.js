@@ -22,16 +22,16 @@ export default function App() {
       <Routes>
         <Route path='/' element={<TechNipo />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/home' element={auth ? <Home /> : <Navigate to="/login" />} />
-        <Route path='/meu-usuario' element={auth ? <MeuUsuario /> : <Navigate to="/login" />} />
-        <Route path='/automation' element={auth ? <AutomacaoUsuarios /> : <Navigate to="/login" />} />
-        <Route path='/estoques/central' element={auth ? <CentralEstoque /> : <Navigate to="/login" />} />
-        <Route path='/pessoas' element={auth ? <Pessoas /> : <Navigate to="/login" />} />
-        <Route path='/acessos' element={auth ? <Acessos /> : <Navigate to="/login" />} />
-        <Route path='/estoques/:id' element={auth ? <EstoqueTemp /> : <Navigate to="/login" />} />
-        <Route path='/estoques/entrada' element={auth ? <EstradaEstoque /> : <Navigate to="/login" />} />
-        <Route path='/admin' element={auth ? <Admin /> : <Navigate to="/login" />} />
-        <Route path="*" element={<NaoEncontrado />} />
+        <Route path='/home' element={auth ? <Home /> : <Navigate to='/login' />} />
+        <Route path='/meu-usuario' element={auth ? <MeuUsuario /> : <Navigate to='/login' />} />
+        <Route path='/automation' element={auth ? <AutomacaoUsuarios /> : <Navigate to='/login' />} />
+        <Route path='/estoques/central' element={auth ? <CentralEstoque /> : <Navigate to='/login' />} />
+        <Route path='/pessoas' element={auth ? <Pessoas /> : <Navigate to='/login' />} />
+        <Route path='/acessos' element={auth ? <Acessos /> : <Navigate to='/login' />} />
+        <Route path='/estoques/:id' element={auth ? <EstoqueTemp /> : <Navigate to='/login' />} />
+        <Route path='/estoques/entrada' element={auth ? <EstradaEstoque /> : <Navigate to='/login' />} />
+        <Route path='/admin' element={auth ? <Admin /> : <Navigate to='/login' />} />
+        <Route path='*' element={<NaoEncontrado />} />
       </Routes>
     </BrowserRouter>
   );

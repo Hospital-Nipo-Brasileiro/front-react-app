@@ -11,19 +11,19 @@ import { Link } from 'react-router-dom';
 function TechNipo() {
 
   return (
-    <BackgroundTN title="TECHNIPO">
-      <div className="flex justify-between mt-3 md:mt-0">
-        <div className="flex flex-row">
+    <BackgroundTN title='TECHNIPO'>
+      <div className='flex justify-between mt-3 md:mt-0'>
+        <div className='flex flex-row'>
             <img 
               src={logo} 
-              alt="logotipo" 
+              alt='logotipo' 
               className='
                 mt-5 ml-5
                 md:w-full
                 w-10  
               '/>
           </div>
-        <Link to={"/login"}>
+        <Link to={'/login'}>
           <button 
             className='
               bg-blue-50 rounded-xl shadow-xl shadow-black border-0 mt-5 mr-5 font-sans text-emerald-500 font-bold
@@ -62,7 +62,7 @@ function TechNipo() {
             w-full px-5
           '
         >
-          <div className="w-full md:mt-0 mt-5">
+          <div className='w-full md:mt-0 mt-5'>
             <span 
               className='
                 font-dm-sans text-white

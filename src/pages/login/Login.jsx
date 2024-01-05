@@ -9,8 +9,8 @@ import BackgroundTN from '../../components/BackgroundTN';
 import CustomButton from '../../components/CustomButton';
 
 function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { auth, login } = useAuth();
 
@@ -25,26 +25,26 @@ function Login() {
     try {
       if (!username || username === undefined) {
         toast.error(`Nenhum usuário inserido`, {
-          position: "bottom-left",
+          position: 'bottom-left',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         });
         return;
       } else if (!password || password === undefined) {
         toast.error(`Senha não inserida`, {
-          position: "bottom-left",
+          position: 'bottom-left',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         });
         return;
       }
@@ -53,19 +53,19 @@ function Login() {
         login();
 
         await toast.success('Login bem-sucedido!', {
-          position: "bottom-left",
+          position: 'bottom-left',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         });
       }
 
     } catch (error) {
-      toast.error("Falha ao fazer login. Verifique suas credenciais.");
+      toast.error('Falha ao fazer login. Verifique suas credenciais.');
     }
   };
 
@@ -76,13 +76,13 @@ function Login() {
   };
 
   return (
-    <BackgroundTN title={"LOGIN"} Height={"h-screen"}>
-      <div className="flex flex-col h-full justify-between md:flex-row md:justify-between md:h-auto">
+    <BackgroundTN title={'LOGIN'} Height={'h-screen'}>
+      <div className='flex flex-col h-full justify-between md:flex-row md:justify-between md:h-auto'>
 
-        <div className="flex flex-row">
+        <div className='flex flex-row'>
           <img
             src={logo}
-            alt="logotipo"
+            alt='logotipo'
             className='
               mt-5 ml-5
               md:w-full
@@ -91,8 +91,8 @@ function Login() {
         </div>
 
         {/* RESPONSIVIDADE PARA CELULAR */}
-        <div className="mt-20 mb-20 mx-12 md:hidden flex flex-col items-center">
-          <div className="w-full">
+        <div className='mt-20 mb-20 mx-12 md:hidden flex flex-col items-center'>
+          <div className='w-full'>
             <label
               className='font-sans font-semibold text-base'
             >
@@ -108,7 +108,7 @@ function Login() {
             />
           </div>
 
-          <div className="w-full">
+          <div className='w-full'>
             <label
               className='font-sans font-semibold text-base'
             >
@@ -128,9 +128,9 @@ function Login() {
             <CustomButton
               onclick={handleSignIn}
               bgDefault={false}
-              bgColor={"bg-white font-bold"}
+              bgColor={'bg-white font-bold'}
               text='Login'
-              textColor={"text-emerald-400"}
+              textColor={'text-emerald-400'}
             />
           </div>
 
@@ -153,15 +153,15 @@ function Login() {
 
         {/* RESPONSIVIDADE PARA COMPUTADOR */}
         <div
-          className="
+          className='
             hidden 
             md:absolute md:w-[45%] md:h-[83.5%] md:bg-white md:flex md:flex-col md:rounded-t-xl md:justify-between md:align-center md:shadow-2xl md:shadow-black md:top-[16.5%] md:left-[29.333%]
             xl:w-[30%] xl:left-[33.333%]
-            "
+            '
         >
           <img src={hnipo} alt='' className='w-full' />
-          <div className="mt-3 mb-20 mx-12 flex flex-col items-center">
-            <div className="w-full">
+          <div className='mt-3 mb-20 mx-12 flex flex-col items-center'>
+            <div className='w-full'>
               <label
                 className='font-sans font-semibold text-base'
               >
@@ -177,7 +177,7 @@ function Login() {
               />
             </div>
 
-            <div className="w-full">
+            <div className='w-full'>
               <label
                 className='font-sans font-semibold text-base'
               >

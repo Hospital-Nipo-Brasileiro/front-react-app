@@ -20,39 +20,39 @@ function CentralEstoque() {
     <BackgroundTN>
       <NavBarUser />
 
-      <div className="container-content-estoques">
-        <Link to={`/estoques/1`} style={{ textDecoration: "none" }}>
-          <div className="card-estoque">
+      <div className='container-content-estoques'>
+        <Link to={`/estoques/1`} style={{ textDecoration: 'none' }}>
+          <div className='card-estoque'>
             <span className='text-automacao'>TRIAGEM</span>
           </div>
         </Link>
 
-        <Link to={`/estoques/2`} style={{ textDecoration: "none" }}>
-          <div className="card-estoque">
+        <Link to={`/estoques/2`} style={{ textDecoration: 'none' }}>
+          <div className='card-estoque'>
             <span className='text-automacao'>TEMP</span>
           </div>
         </Link>
 
-        <Link to={`/estoques/3`} style={{ textDecoration: "none" }}>
-          <div className="card-estoque">
+        <Link to={`/estoques/3`} style={{ textDecoration: 'none' }}>
+          <div className='card-estoque'>
             <span className='text-automacao'>T.I.</span>
           </div>
         </Link>
 
-        <Link to={`/estoques/4`} style={{ textDecoration: "none" }}>
-          <div className="card-estoque">
+        <Link to={`/estoques/4`} style={{ textDecoration: 'none' }}>
+          <div className='card-estoque'>
             <span className='text-automacao'>CENTRAL</span>
           </div>
         </Link>
 
-        <Link to={`/estoques/5`} style={{ textDecoration: "none" }}>
-          <div className="card-estoque">
+        <Link to={`/estoques/5`} style={{ textDecoration: 'none' }}>
+          <div className='card-estoque'>
             <span className='text-automacao'>PABX</span>
           </div>
         </Link>
 
-        <Link to={`/estoques/6`} style={{ textDecoration: "none" }}>
-          <div className="card-estoque">
+        <Link to={`/estoques/6`} style={{ textDecoration: 'none' }}>
+          <div className='card-estoque'>
             <span className='text-automacao'>SAIDA</span>
           </div>
         </Link>

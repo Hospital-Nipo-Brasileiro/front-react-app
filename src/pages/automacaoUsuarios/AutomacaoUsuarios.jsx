@@ -16,7 +16,7 @@ function AutomacaoUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
   const token = sessionStorage.getItem('token');
 
-  const BASE_URL = "http://hsrvwvh00028:8080"
+  const BASE_URL = 'http://hsrvwvh00028:8080'
 
   const handleFileChange = (e) => {
     setArquivoSelecionado(e.target.files[0]);
@@ -27,14 +27,14 @@ function AutomacaoUsuarios() {
 
       if (dia.length !== 4 && !isNaN(dia)) {
         toast.error('Dia deve ser QUATRO números diamês ex.: 1022.', {
-          position: "bottom-left",
+          position: 'bottom-left',
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: false,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: 'light',
         });
 
         return;
@@ -59,26 +59,26 @@ function AutomacaoUsuarios() {
         })
         .catch((error) => {
           toast.error(`Erro ao enviar arquivos: ${error.data}`, {
-            position: "bottom-left",
+            position: 'bottom-left',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: 'light',
           });
         });
     } else {
       toast.error('Arquivo ou data de admissão não inserido.', {
-        position: "bottom-left",
+        position: 'bottom-left',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: 'light',
       });
     }
   };
@@ -98,38 +98,38 @@ function AutomacaoUsuarios() {
         },
       })
         .then(async () => {
-          await toast.success("Usuários de DeskManager criados!", {
-            position: "bottom-left",
+          await toast.success('Usuários de DeskManager criados!', {
+            position: 'bottom-left',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: 'light',
           });
         }).catch((error) => {
           toast.error(error, {
-            position: "bottom-left",
+            position: 'bottom-left',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: 'light',
           });
         });
     } else {
-      toast.error("Nenhum arquivo selecionado", {
-        position: "bottom-left",
+      toast.error('Nenhum arquivo selecionado', {
+        position: 'bottom-left',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: 'light',
       });
     }
 
@@ -149,15 +149,15 @@ function AutomacaoUsuarios() {
         },
       })
         .then(async () => {
-          await toast.success("Words de colaboradores criados!", {
-            position: "bottom-left",
+          await toast.success('Words de colaboradores criados!', {
+            position: 'bottom-left',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: 'light',
           });
 
           setArquivoEnviado(false);
@@ -167,49 +167,49 @@ function AutomacaoUsuarios() {
         })
         .catch((error) => {
           toast.error(`Erro ao enviar arquivos: ${error}`, {
-            position: "bottom-left",
+            position: 'bottom-left',
             autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: false,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: 'light',
           });
         });
     } else {
       toast.error('Nenhum arquivo ou data de admissão selecionados.', {
-        position: "bottom-left",
+        position: 'bottom-left',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: 'light',
       });
     }
   }
 
 
   return (
-    <BackgroundTN title="CRIAÇÃO DE USUÁRIOS" customStyledApp={"flex flex-col items-center"}>
+    <BackgroundTN title='CRIAÇÃO DE USUÁRIOS' customStyledApp={'flex flex-col items-center'}>
       <NavBarUser backbtn={true} />
 
       {arquivoEnviado === false ?
-        <div className="w-5/6 h-4/6 mt-16 mb-16 bg-black/30 shadow-xl rounded-3xl flex flex-col justify-between items-center">
-          <div className="mt-10 w-5/6 h-5/6 flex flex-col">
-            <div className="flex items-center justify-start mt-6">
-              <label htmlFor="file-upload" className="px-4 py-2 mb-3 bg-lime-400/50 text-white rounded-xl cursor-pointer">
+        <div className='w-5/6 h-4/6 mt-16 mb-16 bg-black/30 shadow-xl rounded-3xl flex flex-col justify-between items-center'>
+          <div className='mt-10 w-5/6 h-5/6 flex flex-col'>
+            <div className='flex items-center justify-start mt-6'>
+              <label htmlFor='file-upload' className='px-4 py-2 mb-3 bg-lime-400/50 text-white rounded-xl cursor-pointer'>
                 Selecione um arquivo
               </label>
               <input
-                id="file-upload"
-                type="file"
-                className="hidden"
+                id='file-upload'
+                type='file'
+                className='hidden'
                 onChange={handleFileChange}
               />
-              {arquivoSelecionado && <p className="ml-4">{arquivoSelecionado.name}</p>}
+              {arquivoSelecionado && <p className='ml-4'>{arquivoSelecionado.name}</p>}
             </div>
             <Input type='text' value={dia} onChange={(e) => setDia(e.target.value)} />
 
@@ -219,9 +219,9 @@ function AutomacaoUsuarios() {
           </div>
         </div>
         :
-        <div className="w-5/6 h-4/6 mt-16 mb-16 bg-black/30 shadow-xl rounded-3xl flex flex-col justify-between items-center">
+        <div className='w-5/6 h-4/6 mt-16 mb-16 bg-black/30 shadow-xl rounded-3xl flex flex-col justify-between items-center'>
           <HeaderList />
-          <div className="mt-3 w-11/12 h-5/6 overflow-y-auto ">
+          <div className='mt-3 w-11/12 h-5/6 overflow-y-auto '>
             {usuarios.map((usuario, index) => (
               <div className='w-full mb-5 bg-white h-9 flex rounded-3xl items-center justify-start' key={index}>
                 <span className='text-sm w-56 ml-5 mr-1 truncate'>{usuario?.nome}</span>
@@ -245,14 +245,14 @@ function AutomacaoUsuarios() {
 
             <div className='w-1/6 h-12'>
               <CustomButton
-                text={"Criar Desk"}
+                text={'Criar Desk'}
                 onclick={criarDeskManager}
               />  
             </div>
 
             <div className='w-1/6 h-12 ml-5'>
               <CustomButton
-                text={"Criar Word"}
+                text={'Criar Word'}
                 onclick={criarWord}
               />
             </div>
