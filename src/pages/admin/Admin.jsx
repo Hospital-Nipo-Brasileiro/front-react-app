@@ -44,7 +44,7 @@ function Admin() {
         if(error) {
           toast.error(error, toastConfig)
         } else {
-          setLogins(data);
+          setLogins(data.data);
         }
       }, token);
     } catch (error) {
@@ -58,7 +58,7 @@ function Admin() {
         if(error) {
           console.error(error, toastConfig);
         } else {
-          setArrayPessoas(data);
+          setArrayPessoas(data.data);
         }
       }, token);
     } catch (error) {
@@ -81,7 +81,7 @@ function Admin() {
 
       <div className='w-full h-full flex justify-center items-center'>
         <section className='w-5/6 h-5/6 rounded-3xl bg-black/50 flex flex-col items-center'>
-          <nav className='w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center px-6'>
+          <nav className='w-full h-16 2xl:h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center px-6'>
             <div className='w-10/12 flex justify-start'>
               <div className='flex justify-center items-center h-full mr-3 '>
                 <span className='w-[40px] font-sans font-bold'>id</span>
@@ -92,7 +92,7 @@ function Admin() {
 
               <div className='flex justify-end'>
                 <input 
-                  className='w-30 bg-lime-400 my-1 rounded-2xl pl-1 absolute' 
+                  className='w-30 bg-lime-400 my-0 2xl:my-1 rounded-2xl pl-1 absolute' 
                   type='text'
                   placeholder='Nome'
                 />
@@ -126,6 +126,7 @@ function Admin() {
                 formData={formData}
                 setFormData={setFormData}
                 arrayPessoas={arrayPessoas}
+                token={token}
               />
             )}
 

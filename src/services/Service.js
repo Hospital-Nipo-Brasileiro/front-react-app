@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = process.env.BASE_URL || 'http://hsrvwvh00028';
+const BASE_URL = process.env.BASE_URL || 'http://localhost';
 
 export class Service {
   
@@ -11,9 +11,9 @@ export class Service {
           'Authorization': `${token}`,
         },
       });
-      callback(null, response.data);
+      callback(null, response);
     } catch (error) {
-      callback(error.data, null);
+      callback(error.response.data, null);
     }
   }
 
@@ -25,9 +25,9 @@ export class Service {
           'Authorization': `${token}`,
         },
       });
-      callback(null, response.data);
+      callback(null, response);
     } catch (error) {
-      callback(error.data, null);
+      callback(error.response.data, null);
     }
   }
 }

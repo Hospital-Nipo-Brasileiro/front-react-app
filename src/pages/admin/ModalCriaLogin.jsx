@@ -168,7 +168,6 @@ function ModalCriaLogin({
     const camposNecessarios = validaCamposDeAcessosPessoaExistente();
 
     if(camposNecessarios !== true) {
-      console.log('enttrei')
       return toast.error('Necessário inserir os devidos acessos acessos', {
         position: 'bottom-left',
         autoClose: 5000,
@@ -245,23 +244,68 @@ function ModalCriaLogin({
         if(error) {
           toast.error(error, toastConfig);
         } else {
-          console.log(data)
           const bodyLogin = {
-            id_pessoa: data.id,
+            id_pessoa: data.data.id,
             ds_username: formData.usuario,
             ds_email: "",
             ds_password: formData.senha
           }
 
-          Service.post("/login", bodyLogin, (err, dataLogin) => {
-            if(err) {
-              toast.error(err, toastConfig);
-            } else {
-              toast.success(dataLogin, toastConfig);
-            }
-          }, token)
+          try {
+            Service.post("/login/cria", bodyLogin, (err, dataLogin) => {
+              if(err) {
+                toast.error(err, toastConfig);
+              } else {
+                toast.success(`USUÁRIO: ${dataLogin.data.ds_username}`, toastConfig);
+                handleCloseCriaLogin();
+                
+              }
+            }, token)
+          } catch (err) {
+            toast.error(err, toastConfig);
+          }
         }
       }, token)
+    }
+  }
+
+  const handleCriaLoginEVinculaAPessoa = () => {
+    const camposNecessarios = validaCamposDeAcessosPessoaExistente();
+
+    if(camposNecessarios !== true) {
+      return toast.error('Necessário inserir os devidos acessos acessos', {
+        position: 'bottom-left',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: 'light',
+      });
+    }
+
+    const bodyLogin = {
+      id_pessoa: formData.id,
+      ds_username: formData.usuarioPessoaExistente,
+      ds_password: formData.senhaPessoaExistente
+    }
+
+    try {
+      Service.post("/login/cria", bodyLogin, (err, data) => {
+        if (err) {
+          toast.error(err.mensagem, toastConfig);
+        } else {
+          if (data.status === 200 || data.status === 201) {
+            toast.success(`USUÁRIO: ${data.data.ds_username}`, toastConfig);
+            handleCloseCriaLogin();
+          } else {
+            toast.error(data.data, toastConfig);
+          }
+        }
+      }, token)
+    } catch (err) {
+      toast.error(err, toastConfig);
     }
   }
 
@@ -434,7 +478,7 @@ function ModalCriaLogin({
 
               <button
                 className='bg-lime-400 w-1/2 h-8 mt-5 ml-2 rounded-xl'
-                // onClick={handleSave}
+                onClick={handleCriaLoginEVinculaAPessoa}
               >
                 <span className='text-white text-xl'>Salvar</span>
               </button>

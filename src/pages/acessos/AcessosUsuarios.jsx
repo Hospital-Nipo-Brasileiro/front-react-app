@@ -46,7 +46,7 @@ function Acessos() {
     });
   };
 
-  const BASE_URL = 'http://hsrvwvh00028:8080';
+  const BASE_URL = 'http://localhost:8080';
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {

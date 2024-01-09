@@ -8,7 +8,7 @@ import BackgroundTN from '../../components/BackgroundTN';
 function CentralEstoque() {
 
   useEffect(() => {
-    axios.get('http://hsrvwvh00028:8080/estoques')
+    axios.get('http://localhost:8080/estoques')
       .then((response) => {
       })
       .catch((error) => {
