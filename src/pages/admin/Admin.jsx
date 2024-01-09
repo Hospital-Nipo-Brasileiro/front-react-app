@@ -4,10 +4,15 @@ import NavBarUser from '../../components/NavBarUser';
 import { Service } from '../../services/Service';
 import { toast } from 'react-toastify';
 import ModalCriaLogin from './ModalCriaLogin';
+import ModalLogin from './ModalLogin';
+import { toastConfig } from '../../services/toastConfig';
 
 function Admin() {
   const [logins, setLogins] = useState([]);
   const [modalLogin, setModalLogin] = useState(false);
+  const [modalCriaLogin, setModalCriaLogin] = useState(false);
+  const [arrayPessoas, setArrayPessoas] = useState([]);
+  const [arrayLogin, setArrayLogin] = useState([]);
   const [formData, setFormData] = useState({
     id: '',
     name: '',
@@ -23,25 +28,13 @@ function Admin() {
     dataAdmissaoPessoaExistente: '',
     tipoContratoPessoaExistente: ''
   });
-  const [arrayPessoas, setArrayPessoas] = useState([]);
 
   const token = sessionStorage.getItem('token');
-
-  const toastConfig = {
-    position: 'bottom-left',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
-  };
 
   const fetchData = async () => {
     try {
       await Service.get('/login', (error, data) => {
-        if(error) {
+        if (error) {
           toast.error(error, toastConfig)
         } else {
           setLogins(data.data);
@@ -52,10 +45,30 @@ function Admin() {
     }
   };
 
+  const handleOpenLogin = (loginId) => {
+    try {
+      Service.get(`/login/${loginId}/infos`, (error, data) => {
+        if (error) {
+          toast.error(error.mensagem, toastConfig)
+        } else {
+          console.log(data.data)
+          setArrayLogin(data.data[0][0]);
+          setModalLogin(true);
+        }
+      }, token)
+    } catch (err) {
+      toast.error("Erro ao realizar busca de login", toastConfig)
+    }
+  }
+
+  const handleCloseLogin = () => {
+    setModalLogin(false);
+  }
+
   const handleOpenCriaLogin = async () => {
     try {
       await Service.get('/pessoas', (error, data) => {
-        if(error) {
+        if (error) {
           console.error(error, toastConfig);
         } else {
           setArrayPessoas(data.data);
@@ -64,11 +77,11 @@ function Admin() {
     } catch (error) {
       console.error(error, toastConfig);
     }
-    setModalLogin(true);
+    setModalCriaLogin(true);
   };
 
   const handleCloseCriaLogin = () => {
-    setModalLogin(false);
+    setModalCriaLogin(false);
   };
 
   useEffect(() => {
@@ -81,7 +94,7 @@ function Admin() {
 
       <div className='w-full h-full flex justify-center items-center'>
         <section className='w-5/6 h-5/6 rounded-3xl bg-black/50 flex flex-col items-center'>
-          <nav className='w-full h-16 2xl:h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center px-6'>
+          <nav className='w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center px-6'>
             <div className='w-10/12 flex justify-start'>
               <div className='flex justify-center items-center h-full mr-3 '>
                 <span className='w-[40px] font-sans font-bold'>id</span>
@@ -91,22 +104,23 @@ function Admin() {
               </div>
 
               <div className='flex justify-end'>
-                <input 
-                  className='w-30 bg-lime-400 my-0 2xl:my-1 rounded-2xl pl-1 absolute' 
+                <input
+                  className='w-30 bg-lime-400 my-0 2xl:my-1 rounded-2xl pl-1 absolute'
                   type='text'
                   placeholder='Nome'
                 />
               </div>
             </div>
-            <div className='w-[40px] ml-3'/>
+            <div className='w-[40px] ml-3' />
           </nav>
 
           <div className='w-full h-full flex justify-center mt-5'>
             <div className='w-5/6 h-5/6 overflow-auto'>
               {logins?.map((login) => (
-                <div 
-                className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
-                key={login?.id}
+                <div
+                  className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
+                  onClick={() => handleOpenLogin(login?.id)}
+                  key={login?.id}
                 >
                   <div className='flex justify-start items-center h-full mr-3 w-full'>
                     <div className='flex justify-center items-center h-full mr-3 '>
@@ -116,12 +130,20 @@ function Admin() {
                       <span className='font-sans truncate'>{login?.ds_username}</span>
                     </div>
                   </div>
-                </div> 
+                </div>
               ))}
             </div>
 
             {modalLogin && (
-              <ModalCriaLogin 
+              <ModalLogin
+                onCloseModal={handleCloseLogin}
+                loginInfos={arrayLogin}
+                token={token}
+              />
+            )}
+
+            {modalCriaLogin && (
+              <ModalCriaLogin
                 onCloseModal={handleCloseCriaLogin}
                 formData={formData}
                 setFormData={setFormData}

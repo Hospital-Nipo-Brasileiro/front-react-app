@@ -5,6 +5,7 @@ import { FormatacaoDeAcessos } from '../../services/FormatacaoDeUsuario';
 import { toast } from 'react-toastify';
 import AutocompleteInput from '../../components/AutocompleteInput';
 import { Service } from '../../services/Service';
+import { toastConfig } from '../../services/toastConfig';
 
 function ModalCriaLogin({
   onCloseModal,
@@ -14,17 +15,6 @@ function ModalCriaLogin({
   token
 }) {
   const [errorStatus, setErrorStatus] = useState([]);
-
-  const toastConfig = {
-    position: 'bottom-left',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
-  };
 
   const handleInputChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
@@ -485,7 +475,7 @@ function ModalCriaLogin({
             </div>
           </div>
         </div>
-      <div className='w-full flex justify-end'>
+        <div className='w-full flex justify-end'>
           <button
             className='bg-lime-900 w-1/5 h-[60px] rounded-2xl'
             onClick={handleCloseCriaLogin}

@@ -6,6 +6,7 @@ import ModalCriaPessoas from '../../components/ModalCriaPessoa';
 import ModalPessoa from '../../components/ModalPessoa';
 import ModalRightButton from '../../components/ModalRightButton';
 import BackgroundTN from '../../components/BackgroundTN';
+import { toastConfig } from '../../services/toastConfig';
 
 function Acessos() {
   const [pessoas, setPessoas] = useState([]);
@@ -159,17 +160,6 @@ function Acessos() {
 
   const handleClosePessoa = () => {
     setSelectedPersonID(null);
-  };
-
-  const toastConfig = {
-    position: 'bottom-left',
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: true,
-    progress: undefined,
-    theme: 'light',
   };
 
   const handleError = (error, message) => {

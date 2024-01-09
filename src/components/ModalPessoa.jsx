@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Input from './Input';
 import MultiSelect from './SelectIcon/MultiSelect.tsx';
+import { toastConfig } from '../services/toastConfig';
 
 
 function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFormData }) {
@@ -31,17 +32,6 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
         console.error('Erro ao obter opções de sistema:', error);
       });
   }, []);
-
-  const toastConfig = {
-    position: "bottom-left",
-    autoClose: 5000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  };
 
   const handleInputChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
