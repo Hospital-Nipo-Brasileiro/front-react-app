@@ -25,9 +25,11 @@ export class Service {
           'Authorization': `${token}`,
         },
       });
+      console.log(response);
       callback(null, response);
     } catch (error) {
-      callback(error.response.data, null);
+      console.log(error)
+      callback(error, null);
     }
   }
 

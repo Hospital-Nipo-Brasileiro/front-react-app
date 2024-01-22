@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import ModalCriaLogin from './ModalCriaLogin';
 import ModalLogin from './ModalLogin';
 import { toastConfig } from '../../services/toastConfig';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAdd } from '@fortawesome/free-solid-svg-icons';
 
 function Admin() {
   const [logins, setLogins] = useState([]);
@@ -13,6 +15,7 @@ function Admin() {
   const [modalCriaLogin, setModalCriaLogin] = useState(false);
   const [arrayPessoas, setArrayPessoas] = useState([]);
   const [arrayLogin, setArrayLogin] = useState([]);
+  const [filterText, setFilterText] = useState('');
   const [formData, setFormData] = useState({
     id: '',
     name: '',
@@ -51,7 +54,6 @@ function Admin() {
         if (error) {
           toast.error(error.mensagem, toastConfig)
         } else {
-          console.log(data.data)
           setArrayLogin(data.data[0][0]);
           setModalLogin(true);
         }
@@ -105,9 +107,11 @@ function Admin() {
 
               <div className='flex justify-end'>
                 <input
-                  className='w-30 bg-lime-400 my-0 2xl:my-1 rounded-2xl pl-1 absolute'
+                  className='w-30 bg-lime-400 my-0 2xl:my-1 shadow shadow-black drop-shadow-2xl rounded-2xl pl-1 absolute top-[9.7rem]'
                   type='text'
                   placeholder='Nome'
+                  value={filterText}
+                  onChange={(e) => setFilterText(e.target.value)}
                 />
               </div>
             </div>
@@ -116,7 +120,13 @@ function Admin() {
 
           <div className='w-full h-full flex justify-center mt-5'>
             <div className='w-5/6 h-5/6 overflow-auto'>
-              {logins?.map((login) => (
+              {logins
+              .filter(
+                (login) =>
+                  login.ds_username.toLowerCase().includes(filterText.toLowerCase()) ||
+                  login.id.toString().includes(filterText)
+              )  
+              .map((login) => (
                 <div
                   className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
                   onClick={() => handleOpenLogin(login?.id)}
@@ -138,6 +148,7 @@ function Admin() {
               <ModalLogin
                 onCloseModal={handleCloseLogin}
                 loginInfos={arrayLogin}
+                setLogins={setLogins}
                 token={token}
               />
             )}
@@ -148,6 +159,7 @@ function Admin() {
                 formData={formData}
                 setFormData={setFormData}
                 arrayPessoas={arrayPessoas}
+                setLogins={setLogins}
                 token={token}
               />
             )}
@@ -157,7 +169,7 @@ function Admin() {
                 className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
                 onClick={handleOpenCriaLogin}
               >
-                <span className='text-4xl text-white'>+</span>
+                <FontAwesomeIcon icon={faAdd} className='text-white'/>
               </button>
             </div>
           </div>

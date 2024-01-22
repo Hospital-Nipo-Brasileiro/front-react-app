@@ -3,21 +3,30 @@ import { Service } from '../../services/Service';
 import { toast } from 'react-toastify';
 import { toastConfig } from '../../services/toastConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faEye, faEyeSlash, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faEye, faEyeSlash, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import ModalDesativaAcesso from './ModalDesativaAcesso';
 
 function ModalLogin({
   onCloseModal,
   loginInfos,
+  setLogins,
   token
 }) {
   const [editandoUsuario, setEditandoUsuario] = useState(false);
+  const [senhaAtual, setSenhaAtual] = useState('');
+  const [novaSenha, setNovaSenha] = useState('');
+  const [confirmaNovaSenha, setConfirmaNovaSenha] = useState('');
   const [mostraSenha, setMostraSenha] = useState('');
-  const [novoUsuario, setNovoUsuario] = useState('');
   const [modalDesativaAcesso, setModalDesativaAcesso] = useState(false);
 
   const handleCloseLogin = () => {
     if (onCloseModal) {
+      setEditandoUsuario(false);
+      setSenhaAtual('');
+      setNovaSenha('');
+      setConfirmaNovaSenha('');
+      setMostraSenha('');
+      setModalDesativaAcesso(false);
       onCloseModal();
     }
   }
@@ -25,12 +34,41 @@ function ModalLogin({
   const handleMostraSenha = () => {
     try {
       Service.get(`/login/${loginInfos.ID}`, (error, data) => {
-        if(error) {
+        if (error) {
           toast.error(error, toastConfig)
         } else {
           setMostraSenha(data.data.ds_password)
         }
       }, token);
+    } catch (error) {
+      toast.error(error, toastConfig)
+    }
+  }
+
+  const handleEditaUsuario = () => {
+    setEditandoUsuario(true);
+  }
+
+  const handleCancelEditaUsuario = () => {
+    setEditandoUsuario(false);
+  }
+
+  const handleSalvaUsuarioEditado = () => {
+    const body = {
+      senhaAtual: senhaAtual,
+      novaSenha: novaSenha,
+      confirmaNovaSenha: confirmaNovaSenha
+    }
+
+    try {
+      Service.put(`/login/${loginInfos.ID}`, body, (err, data) => {
+        if(err){
+          toast.error(err, toastConfig)
+        } else {
+          toast.success("Senha alterada com sucesso!", toastConfig)
+          handleCloseLogin();
+        }
+      }, token)
     } catch (error) {
       toast.error(error, toastConfig)
     }
@@ -46,17 +84,28 @@ function ModalLogin({
 
   const handleDesativaAcesso = () => {
     try {
-      Service.delete(`/login/${loginInfos.ID}`, (error, data)=> {
-        if(error) {
+      Service.delete(`/login/${loginInfos.ID}`, (error, data) => {
+        if (error) {
           toast.error(error, toastConfig);
         } else {
-          console.log(data)
-          // toast.success(data, toastConfig);
-          // setModalDesativaAcesso(false);
+          toast.success('Usuário desativado', toastConfig);
+          setModalDesativaAcesso(false);
+          onCloseModal()
+          try {
+            Service.get('/login', (error, data) => {
+              if (error) {
+                toast.error(error, toastConfig)
+              } else {
+                setLogins(data.data);
+              }
+            }, token);
+          } catch (error) {
+            toast.error(error, toastConfig);
+          }
         }
       }, token);
     } catch (error) {
-      toast.error(error, toastConfig); 
+      toast.error(error, toastConfig);
     }
   }
 
@@ -70,55 +119,89 @@ function ModalLogin({
             <div className='flex flex-col'>
               <div className='flex flex-col'>
                 <div className='flex flex-row items-center'>
-                  <span className='w-20 text-lime-500 font-bold mr-2'>Username: </span>
                   {editandoUsuario === true ? (
-                    <input
-                      className="bg-slate-200 p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
-                      type="text"
-                      value={novoUsuario}
-                      onChange={(e) => setNovoUsuario(e.target.value)}
-                    />
+                    <>
+                      <span className='w-28 text-lime-500 font-bold mr-2'>Senha Atual:</span>
+                      <input
+                        className="bg-slate-200 p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
+                        type="text"
+                        value={senhaAtual}
+                        onChange={(e) => setSenhaAtual(e.target.value)}
+                      />
+                    </>
                   ) : (
-                    <span className='text-sm 2xl:text-base text-gray-700'>{loginInfos?.USUARIO}</span>
+                    <>
+                      <span className='w-20 text-lime-500 font-bold mr-2'>Username: </span>
+                      <span className='text-sm 2xl:text-base text-gray-700'>{loginInfos?.USUARIO}</span>
+                    </>
                   )}
                 </div>
 
                 <div className='w-full flex flex-row items-center justify-between'>
                   <div className='w-full flex flex-row items-center'>
-                    <span className='w-20 text-lime-500 font-bold mr-2'>Senha: </span>
                     {editandoUsuario === true ? (
-                      <input
-                        className="bg-slate-200 p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
-                        type="text"
-                        value={novoUsuario}
-                        onChange={(e) => setNovoUsuario(e.target.value)}
-                      />
+                      <>
+                        <span className='w-28 text-lime-500 font-bold mr-2'>Nova senha: </span>
+                        <input
+                          className="bg-slate-200 top-[-15px] p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
+                          type="text"
+                          value={novaSenha}
+                          onChange={(e) => setNovaSenha(e.target.value)}
+                        />
+                      </>
                     ) : (
-                    <>
-                      {mostraSenha !== '' ? (
-                        <span className='text-sm 2xl:text-base text-gray-700'>{mostraSenha}</span>
-                      ) : (<span className='text-sm 2xl:text-base text-gray-700'>********</span>)}
-                    </>
+                      <>
+                        <span className='w-20 text-lime-500 font-bold mr-2'>Senha: </span>
+                        {mostraSenha !== '' ? (
+                          <span className='text-sm 2xl:text-base text-gray-700'>{mostraSenha}</span>
+                        ) : (<span className='text-sm 2xl:text-base text-gray-700'>********</span>)}
+                      </>
                     )}
                   </div>
-                  
-                  <div className='flex flex-row'>
-                    {mostraSenha !== '' ? (<FontAwesomeIcon icon={faEye} onClick={handleOcultaSenha}/>) 
-                      : (<FontAwesomeIcon icon={faEyeSlash}  onClick={handleMostraSenha}/>)
-                    }
-                    
-                    <FontAwesomeIcon icon={faUserEdit} className='ml-3 text-emerald-500' />
 
-                    <FontAwesomeIcon icon={faTrash} className='ml-3 text-emerald-900' onClick={handleOpenModalDesativaAcesso}/>
+                  <div className='flex flex-row justify-center'>
+
+
+                    {editandoUsuario === true ? (
+                      <>
+                        <FontAwesomeIcon icon={faCancel} className='mr-5 mt-1 cursor-pointer text-emerald-500' onClick={handleCancelEditaUsuario} />
+                        <button
+                          className='bg-lime-400 w-20 rounded-xl text-white'
+                          onClick={handleSalvaUsuarioEditado}
+                        >
+                          Salvar
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        {mostraSenha !== '' ? (<FontAwesomeIcon icon={faEyeSlash} onClick={handleOcultaSenha} className='cursor-pointer' />)
+                          : (<FontAwesomeIcon icon={faEye} onClick={handleMostraSenha} className='cursor-pointer' />)
+                        }
+                        <FontAwesomeIcon icon={faUserEdit} className='ml-3 text-emerald-500 cursor-pointer' onClick={handleEditaUsuario} />
+                        <FontAwesomeIcon icon={faTrash} className='ml-3 text-emerald-900 cursor-pointer' onClick={handleOpenModalDesativaAcesso} />
+                      </>
+                    )}
 
                     {modalDesativaAcesso && (
-                      <ModalDesativaAcesso 
+                      <ModalDesativaAcesso
                         onCloseModal={() => setModalDesativaAcesso(false)}
                         handleDesativaAcesso={handleDesativaAcesso}
                       />
                     )}
                   </div>
                 </div>
+
+                {editandoUsuario === true ? (
+                      <div>
+                        <span className='w-28 text-lime-500 font-bold mr-2'>Confirma nova senha: </span>
+                        <input
+                          className="bg-slate-200 top-[-15px] p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
+                          type="text"
+                          value={confirmaNovaSenha}
+                          onChange={(e) => setConfirmaNovaSenha(e.target.value)}
+                        />
+                      </div>
+                    ) : <></>}
               </div>
             </div>
           </div>

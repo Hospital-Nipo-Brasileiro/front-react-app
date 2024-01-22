@@ -16,7 +16,7 @@ function Home() {
         <StyledAvatar />
       </div>
 
-      <div className='w-full h-5/6 px-24 py-10 flex flex-col items-center justify-between'>
+      <div className='w-full h-5/6 px-10 xl:px-12 2xl:px-16 py-10 flex flex-col items-center justify-between'>
         <Link to={'/automation'} style={{ textDecoration: 'none' }} className='mx-3 rounded-2xl w-full p-0 h-2/5 flex justify-center items-center'>
           <img src={automation} alt='' className='object-cover w-full h-full rounded-2xl '/>
           <span 

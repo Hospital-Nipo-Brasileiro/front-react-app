@@ -12,6 +12,7 @@ function ModalCriaLogin({
   formData,
   setFormData,
   arrayPessoas,
+  setLogins,
   token
 }) {
   const [errorStatus, setErrorStatus] = useState([]);
@@ -51,7 +52,7 @@ function ModalCriaLogin({
     let tipoContratoCode = ''
 
     const localCodeRecebido = await FormatacaoDeAcessos.formatarLocal(local, localCode);
-    
+
     const tipoContratoRecebido = await FormatacaoDeAcessos.formatarTipoContrato(tipoContrato, tipoContratoCode);
     const cpfUser = await FormatacaoDeAcessos.formatarCPFUsuario(cpf)
 
@@ -75,11 +76,11 @@ function ModalCriaLogin({
   const validaCamposDeAcessos = () => {
     let acessoExistente = false;
     let acessoPendente = [];
-  
+
     const addErrorStatus = (value) => (prevErrorStatus) => {
       return prevErrorStatus ? [...prevErrorStatus, value] : [value];
     };
-    
+
     if (formData.name === '') {
       setErrorStatus(addErrorStatus('name'));
       acessoPendente.push('name');
@@ -105,21 +106,21 @@ function ModalCriaLogin({
       acessoExistente = true;
       return acessoExistente;
     }
-  
+
     return acessoPendente;
   };
 
   const validaCamposDeAcessosPessoaExistente = () => {
     let acessoExistente = false;
     let acessoPendente = [];
-  
+
     const addErrorStatus = (value) => (prevErrorStatus) => {
       return prevErrorStatus ? [...prevErrorStatus, value] : [value];
     };
 
-    if(formData.pessoaSelecionada === ''){
+    if (formData.pessoaSelecionada === '') {
       setErrorStatus(addErrorStatus('pessoaSelecionada'));
-    } 
+    }
     if (acessoPendente.length === 0) {
       setErrorStatus(null);
       acessoExistente = true;
@@ -131,7 +132,7 @@ function ModalCriaLogin({
   const handleSetAcessos = async () => {
     const camposNecessarios = validaCamposDeAcessos();
 
-    if(camposNecessarios !== true) {
+    if (camposNecessarios !== true) {
       return toast.error('Necessário inserir os devidos acessos acessos', {
         position: 'bottom-left',
         autoClose: 5000,
@@ -146,7 +147,7 @@ function ModalCriaLogin({
 
     const usuarioFormatado = await setUsuario('HNB', formData.tipoContrato, formData.cpf);
     const senhaFormatada = await setSenha('HNB', formData.cpf, formData.dataAdmissao);
-    
+
     setFormData({
       ...formData,
       usuario: usuarioFormatado,
@@ -157,7 +158,7 @@ function ModalCriaLogin({
   const handleSetarAcessoPessoaExistente = async () => {
     const camposNecessarios = validaCamposDeAcessosPessoaExistente();
 
-    if(camposNecessarios !== true) {
+    if (camposNecessarios !== true) {
       return toast.error('Necessário inserir os devidos acessos acessos', {
         position: 'bottom-left',
         autoClose: 5000,
@@ -170,11 +171,11 @@ function ModalCriaLogin({
       });
     }
 
-    
+
 
     const usuarioFormatado = await setUsuario('HNB', formData.tipoContratoPessoaExistente, formData.cpfPessoaExistente);
     const senhaFormatada = await setSenha('HNB', formData.cpfPessoaExistente, formData.dataAdmissaoPessoaExistente);
-    
+
     setFormData({
       ...formData,
       usuarioPessoaExistente: usuarioFormatado,
@@ -184,7 +185,7 @@ function ModalCriaLogin({
 
   const validaAcessosSetados = () => {
     let acessoExistente = false;
-    if(formData.usuario !== undefined && formData.senha !== undefined) {
+    if (formData.usuario !== undefined && formData.senha !== undefined) {
       acessoExistente = true;
     }
 
@@ -194,7 +195,7 @@ function ModalCriaLogin({
   const handleCriaNovaPessoaELogin = () => {
     const camposNecessarios = validaCamposDeAcessos();
 
-    if(camposNecessarios !== true) {
+    if (camposNecessarios !== true) {
       return toast.error('Necessário inserir os devidos acessos acessos', {
         position: 'bottom-left',
         autoClose: 5000,
@@ -209,7 +210,7 @@ function ModalCriaLogin({
 
     const acessosExistentes = validaAcessosSetados()
 
-    if(acessosExistentes === false) {
+    if (acessosExistentes === false) {
       return toast.error("Necessário setar acessos", {
         position: "bottom-left",
         autoClose: 5000,
@@ -220,8 +221,8 @@ function ModalCriaLogin({
         progress: undefined,
         theme: "light",
       });
-    } else{
-      const body =  {
+    } else {
+      const body = {
         ds_nome: formData.name,
         nr_cpf: formData.cpf,
         dt_admissao: formData.dataAdmissao,
@@ -230,39 +231,55 @@ function ModalCriaLogin({
         ds_categoria_cargo: formData.categoria,
       }
 
-      Service.post("/pessoas", body ,(error, data) => {
-        if(error) {
-          toast.error(error, toastConfig);
-        } else {
-          const bodyLogin = {
-            id_pessoa: data.data.id,
-            ds_username: formData.usuario,
-            ds_email: "",
-            ds_password: formData.senha
-          }
+      try {
+        Service.post("/pessoas", body, (error, data) => {
+          if (error) {
+            toast.error(error.mensagem.name, toastConfig);
+          } else {
+            const bodyLogin = {
+              id_pessoa: data.data.id,
+              ds_username: formData.usuario,
+              ds_email: "",
+              ds_password: formData.senha
+            }
 
-          try {
-            Service.post("/login/cria", bodyLogin, (err, dataLogin) => {
-              if(err) {
-                toast.error(err, toastConfig);
-              } else {
-                toast.success(`USUÁRIO: ${dataLogin.data.ds_username}`, toastConfig);
-                handleCloseCriaLogin();
-                
-              }
-            }, token)
-          } catch (err) {
-            toast.error(err, toastConfig);
+            try {
+              Service.post("/login/cria", bodyLogin, (err, dataLogin) => {
+                if (err && err !== undefined) {
+                  toast.error(err, toastConfig);
+                } else {
+                  toast.success(`USUÁRIO: ${dataLogin.data.ds_username}`, toastConfig);
+                  handleCloseCriaLogin();
+                  try {
+                    Service.get('/login', (error, data) => {
+                      if (error) {
+                        toast.error(error, toastConfig)
+                      } else {
+                        setLogins(data.data);
+                      }
+                    }, token);
+                  } catch (error) {
+                    toast.error(error, toastConfig);
+                  }
+
+                }
+              }, token)
+            } catch (err) {
+              toast.error(err, toastConfig);
+            }
           }
-        }
-      }, token)
+        }, token)
+
+      } catch (error) {
+
+      }
     }
   }
 
   const handleCriaLoginEVinculaAPessoa = () => {
     const camposNecessarios = validaCamposDeAcessosPessoaExistente();
 
-    if(camposNecessarios !== true) {
+    if (camposNecessarios !== true) {
       return toast.error('Necessário inserir os devidos acessos acessos', {
         position: 'bottom-left',
         autoClose: 5000,
@@ -284,23 +301,37 @@ function ModalCriaLogin({
     try {
       Service.post("/login/cria", bodyLogin, (err, data) => {
         if (err) {
-          toast.error(err.mensagem, toastConfig);
+          console.error(err.mensagem)
+          toast.error(err.mensagem.name, toastConfig);
         } else {
           if (data.status === 200 || data.status === 201) {
             toast.success(`USUÁRIO: ${data.data.ds_username}`, toastConfig);
             handleCloseCriaLogin();
+            try {
+              Service.get('/login', (error, dataGet) => {
+                if (error) {
+                  toast.error(error, toastConfig)
+                } else {
+                  setLogins(dataGet.data);
+                }
+              }, token);
+            } catch (error) {
+              console.error(error)
+              toast.error(error.mensagem, toastConfig);
+            }
           } else {
             toast.error(data.data, toastConfig);
           }
         }
       }, token)
     } catch (err) {
-      toast.error(err, toastConfig);
+      console.error(err)
+      toast.error(err.mensagem, toastConfig);
     }
   }
 
   return (
-    <div className='fixed top-0 left-0 w-full h-full flex items-center justify-center z-50'>
+    <div className='fixed top-8 bg-black bg-opacity-60 left-0 w-full h-full flex items-center justify-center z-50'>
       <div className='absolute w-2/3 h-4/6 bg-white rounded-lg p-8 flex flex-col'>
         <div className='flex flex-row w-full h-full'>
           <div className='w-1/2 h-5/6 pr-8'>
@@ -406,7 +437,7 @@ function ModalCriaLogin({
             </div>
 
             <div className='w-full flex flex-row justify-between'>
-              <button 
+              <button
                 className='w-1/2 h-8 bg-lime-600 rounded-xl mt-5 mr-2'
                 onClick={handleSetAcessos}
               >
@@ -459,7 +490,7 @@ function ModalCriaLogin({
             </div>
 
             <div className='w-full flex flex-row justify-between'>
-              <button 
+              <button
                 className='w-1/2 h-8 bg-lime-600 rounded-xl mt-5 mr-2'
                 onClick={handleSetarAcessoPessoaExistente}
               >

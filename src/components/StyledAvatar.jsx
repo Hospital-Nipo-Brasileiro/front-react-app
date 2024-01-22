@@ -78,7 +78,7 @@ function StyledAvatar() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link to={"/pessoas"} style={{ textDecoration: "none", color: "#000" }}>
+        <Link to={"/admin"} style={{ textDecoration: "none", color: "#000" }}>
           <MenuItem onClick={handleClose}>
             <span>Admin</span>
           </MenuItem>
