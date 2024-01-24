@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BackgroundTN from '../../components/BackgroundTN';
 import NavBarUser from '../../components/NavBarUser';
-import { Service } from '../../services/Service';
+import { API } from '../../services/API';
 import { toast } from 'react-toastify';
 import ModalCriaLogin from './ModalCriaLogin';
 import ModalLogin from './ModalLogin';
@@ -36,7 +36,7 @@ function Admin() {
 
   const fetchData = async () => {
     try {
-      await Service.get('/login', (error, data) => {
+      await API.get('/login', (error, data) => {
         if (error) {
           toast.error(error, toastConfig)
         } else {
@@ -50,7 +50,7 @@ function Admin() {
 
   const handleOpenLogin = (loginId) => {
     try {
-      Service.get(`/login/${loginId}/infos`, (error, data) => {
+      API.get(`/login/${loginId}/infos`, (error, data) => {
         if (error) {
           toast.error(error.mensagem, toastConfig)
         } else {
@@ -69,7 +69,7 @@ function Admin() {
 
   const handleOpenCriaLogin = async () => {
     try {
-      await Service.get('/pessoas', (error, data) => {
+      await API.get('/pessoas', (error, data) => {
         if (error) {
           console.error(error, toastConfig);
         } else {
@@ -121,27 +121,27 @@ function Admin() {
           <div className='w-full h-full flex justify-center mt-5'>
             <div className='w-5/6 h-5/6 overflow-auto'>
               {logins
-              .filter(
-                (login) =>
-                  login.ds_username.toLowerCase().includes(filterText.toLowerCase()) ||
-                  login.id.toString().includes(filterText)
-              )  
-              .map((login) => (
-                <div
-                  className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
-                  onClick={() => handleOpenLogin(login?.id)}
-                  key={login?.id}
-                >
-                  <div className='flex justify-start items-center h-full mr-3 w-full'>
-                    <div className='flex justify-center items-center h-full mr-3 '>
-                      <span className='w-[40px] font-sans truncate'>{login?.id}</span>
-                    </div>
-                    <div className='flex justify-start items-center h-full mr-3 w-1/3'>
-                      <span className='font-sans truncate'>{login?.ds_username}</span>
+                .filter(
+                  (login) =>
+                    login.ds_username.toLowerCase().includes(filterText.toLowerCase()) ||
+                    login.id.toString().includes(filterText)
+                )
+                .map((login) => (
+                  <div
+                    className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
+                    onClick={() => handleOpenLogin(login?.id)}
+                    key={login?.id}
+                  >
+                    <div className='flex justify-start items-center h-full mr-3 w-full'>
+                      <div className='flex justify-center items-center h-full mr-3 '>
+                        <span className='w-[40px] font-sans truncate'>{login?.id}</span>
+                      </div>
+                      <div className='flex justify-start items-center h-full mr-3 w-1/3'>
+                        <span className='font-sans truncate'>{login?.ds_username}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
 
             {modalLogin && (
@@ -169,7 +169,7 @@ function Admin() {
                 className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
                 onClick={handleOpenCriaLogin}
               >
-                <FontAwesomeIcon icon={faAdd} className='text-white'/>
+                <FontAwesomeIcon icon={faAdd} className='text-white' />
               </button>
             </div>
           </div>

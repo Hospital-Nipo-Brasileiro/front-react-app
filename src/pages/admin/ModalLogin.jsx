@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Service } from '../../services/Service';
+import { API } from '../../services/API';
 import { toast } from 'react-toastify';
 import { toastConfig } from '../../services/toastConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,7 +33,7 @@ function ModalLogin({
 
   const handleMostraSenha = () => {
     try {
-      Service.get(`/login/${loginInfos.ID}`, (error, data) => {
+      API.get(`/login/${loginInfos.ID}`, (error, data) => {
         if (error) {
           toast.error(error, toastConfig)
         } else {
@@ -61,8 +61,8 @@ function ModalLogin({
     }
 
     try {
-      Service.put(`/login/${loginInfos.ID}`, body, (err, data) => {
-        if(err){
+      API.put(`/login/${loginInfos.ID}`, body, (err, data) => {
+        if (err) {
           toast.error(err, toastConfig)
         } else {
           toast.success("Senha alterada com sucesso!", toastConfig)
@@ -84,7 +84,7 @@ function ModalLogin({
 
   const handleDesativaAcesso = () => {
     try {
-      Service.delete(`/login/${loginInfos.ID}`, (error, data) => {
+      API.delete(`/login/${loginInfos.ID}`, (error, data) => {
         if (error) {
           toast.error(error, toastConfig);
         } else {
@@ -92,7 +92,7 @@ function ModalLogin({
           setModalDesativaAcesso(false);
           onCloseModal()
           try {
-            Service.get('/login', (error, data) => {
+            API.get('/login', (error, data) => {
               if (error) {
                 toast.error(error, toastConfig)
               } else {
@@ -192,16 +192,16 @@ function ModalLogin({
                 </div>
 
                 {editandoUsuario === true ? (
-                      <div>
-                        <span className='w-28 text-lime-500 font-bold mr-2'>Confirma nova senha: </span>
-                        <input
-                          className="bg-slate-200 top-[-15px] p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
-                          type="text"
-                          value={confirmaNovaSenha}
-                          onChange={(e) => setConfirmaNovaSenha(e.target.value)}
-                        />
-                      </div>
-                    ) : <></>}
+                  <div>
+                    <span className='w-28 text-lime-500 font-bold mr-2'>Confirma nova senha: </span>
+                    <input
+                      className="bg-slate-200 top-[-15px] p-1 w-2/4 mb-1 h-6 rounded-xl border focus:outline-none focus:ring-1 focus:ring-emerald-600 focus:border-emerald-600"
+                      type="text"
+                      value={confirmaNovaSenha}
+                      onChange={(e) => setConfirmaNovaSenha(e.target.value)}
+                    />
+                  </div>
+                ) : <></>}
               </div>
             </div>
           </div>

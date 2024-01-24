@@ -51,7 +51,7 @@ function Acessos() {
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/sistemas/pessoas/filtra`, {
+    axios.get(`${BASE_URL}/sistemas-pessoas/filtra`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`,
@@ -118,7 +118,7 @@ function Acessos() {
         };
 
         try {
-          await axios.post(`${BASE_URL}/sistemas/pessoas`, sistemaPessoaBody, {
+          await axios.post(`${BASE_URL}/sistemas-pessoas`, sistemaPessoaBody, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `${token}`,
@@ -140,7 +140,7 @@ function Acessos() {
   };
 
   const handleOpenPessoa = (pessoaID) => {
-    axios.get(`${BASE_URL}/sistemas/pessoas/${pessoaID}/filtra`, {
+    axios.get(`${BASE_URL}/sistemas-pessoas/${pessoaID}/filtra`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`,
@@ -185,9 +185,9 @@ function Acessos() {
               <div className='flex justify-start items-center h-full ml-3 mr-3 w-2/3'>
                 <span className='font-sans font-bold'>acessos</span>
               </div>
-              
+
               <div className='flex justify-end'>
-                <input 
+                <input
                   className='w-30 bg-lime-400 my-1 rounded-2xl pl-1 absolute'
                   type='text'
                   placeholder='Nome'
@@ -195,10 +195,10 @@ function Acessos() {
                   onChange={(e) => setFiltro(e.target.value)}
                 />
               </div>
-              
+
             </div>
 
-            <div className='w-[40px] ml-3'/>
+            <div className='w-[40px] ml-3' />
           </nav>
 
           <div className='w-full h-full flex justify-center mt-5'>
@@ -209,25 +209,25 @@ function Acessos() {
                   pessoa.ID.toString().includes(filtro)
                 )
                 .map((pessoa) => (
-                <div
-                  className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
-                  onClick={() => handleOpenPessoa(pessoa.ID)}
-                  onContextMenu={handleContextMenu}
-                  key={pessoa?.ID}
-                >
-                  <div className='flex justify-start items-center h-full mr-3 w-full'>
-                    <div className='flex justify-center items-center h-full mr-3 '>
-                      <span className='w-[40px] font-sans truncate'>{pessoa.ID}</span>
-                    </div>
-                    <div className='flex justify-start items-center h-full mr-3 w-1/3'>
-                      <span className='font-sans truncate'>{pessoa.NOME}</span>
-                    </div>
-                    <div className='flex justify-start items-center h-full ml-3 mr-3 w-2/3'>
-                      <span className='font-sans truncate'>{pessoa?.SISTEMAS || 'Nenhum sistema cadastrado'}</span>
+                  <div
+                    className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
+                    onClick={() => handleOpenPessoa(pessoa.ID)}
+                    onContextMenu={handleContextMenu}
+                    key={pessoa?.ID}
+                  >
+                    <div className='flex justify-start items-center h-full mr-3 w-full'>
+                      <div className='flex justify-center items-center h-full mr-3 '>
+                        <span className='w-[40px] font-sans truncate'>{pessoa.ID}</span>
+                      </div>
+                      <div className='flex justify-start items-center h-full mr-3 w-1/3'>
+                        <span className='font-sans truncate'>{pessoa.NOME}</span>
+                      </div>
+                      <div className='flex justify-start items-center h-full ml-3 mr-3 w-2/3'>
+                        <span className='font-sans truncate'>{pessoa?.SISTEMAS || 'Nenhum sistema cadastrado'}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
 
               {modalCriaPessoas && (
                 <ModalCriaPessoas

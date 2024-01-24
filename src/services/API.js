@@ -1,8 +1,8 @@
 import axios from 'axios';
 const BASE_URL = process.env.BASE_URL || 'http://localhost';
 
-export class Service {
-  
+export class API {
+
   static async get(path, callback, token) {
     try {
       const response = await axios.get(`${BASE_URL}:8080${path}`, {

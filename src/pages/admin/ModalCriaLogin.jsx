@@ -4,7 +4,7 @@ import Select from '../../components/Select/Select';
 import { FormatacaoDeAcessos } from '../../services/FormatacaoDeUsuario';
 import { toast } from 'react-toastify';
 import AutocompleteInput from '../../components/AutocompleteInput';
-import { Service } from '../../services/Service';
+import { API } from '../../services/API';
 import { toastConfig } from '../../services/toastConfig';
 
 function ModalCriaLogin({
@@ -232,7 +232,7 @@ function ModalCriaLogin({
       }
 
       try {
-        Service.post("/pessoas", body, (error, data) => {
+        API.post("/pessoas", body, (error, data) => {
           if (error) {
             toast.error(error.mensagem.name, toastConfig);
           } else {
@@ -244,14 +244,14 @@ function ModalCriaLogin({
             }
 
             try {
-              Service.post("/login/cria", bodyLogin, (err, dataLogin) => {
+              API.post("/login/cria", bodyLogin, (err, dataLogin) => {
                 if (err && err !== undefined) {
                   toast.error(err, toastConfig);
                 } else {
                   toast.success(`USUÁRIO: ${dataLogin.data.ds_username}`, toastConfig);
                   handleCloseCriaLogin();
                   try {
-                    Service.get('/login', (error, data) => {
+                    API.get('/login', (error, data) => {
                       if (error) {
                         toast.error(error, toastConfig)
                       } else {
@@ -299,7 +299,7 @@ function ModalCriaLogin({
     }
 
     try {
-      Service.post("/login/cria", bodyLogin, (err, data) => {
+      API.post("/login/cria", bodyLogin, (err, data) => {
         if (err) {
           console.error(err.mensagem)
           toast.error(err.mensagem.name, toastConfig);
@@ -308,7 +308,7 @@ function ModalCriaLogin({
             toast.success(`USUÁRIO: ${data.data.ds_username}`, toastConfig);
             handleCloseCriaLogin();
             try {
-              Service.get('/login', (error, dataGet) => {
+              API.get('/login', (error, dataGet) => {
                 if (error) {
                   toast.error(error, toastConfig)
                 } else {

@@ -60,7 +60,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
       ds_senha: editedSenha
     }
 
-    axios.put(`${BASE_URL}/sistemas/pessoas/${id}`, body, {
+    axios.put(`${BASE_URL}/sistemas-pessoas/${id}`, body, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`,
@@ -122,7 +122,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
   };
 
   const handleInativaAcesso = (id) => {
-    axios.delete(`${BASE_URL}/sistemas/pessoas/${id}`, {
+    axios.delete(`${BASE_URL}/sistemas-pessoas/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`,
@@ -164,7 +164,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
   }
 
   const vinculaUsuarioAUmSistema = () => {
-    const {usuario, senha, sistemas} = formData;
+    const { usuario, senha, sistemas } = formData;
 
     try {
       sistemas.forEach((sistema) => {
@@ -174,18 +174,18 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
           ds_usuario: usuario,
           ds_senha: senha,
         };
-      
-      console.log(sistemaPessoaBody)
-  
-      axios.post(`${BASE_URL}/sistemas/pessoas`, sistemaPessoaBody, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `${token}`,
-        },
-      })
-        .catch((error) => {
-          toast.error(`${error.data}`, toastConfig);
+
+        console.log(sistemaPessoaBody)
+
+        axios.post(`${BASE_URL}/sistemas-pessoas`, sistemaPessoaBody, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${token}`,
+          },
         })
+          .catch((error) => {
+            toast.error(`${error.data}`, toastConfig);
+          })
       })
       toast.success(`Usuário vinculado a acessos`, toastConfig);
       handleCloseVinculaUser()
