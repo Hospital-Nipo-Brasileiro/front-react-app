@@ -1,8 +1,8 @@
 import React from 'react';
-import Input from './Input.jsx';
-import Select from './Select/Select.jsx';
-import MultiSelect from './SelectIcon/MultiSelect.tsx';
-import { FormatacaoDeAcessos } from '../services/FormatacaoDeUsuario.js';
+import Input from '../../components/Input.jsx';
+import Select from '../../components/Select/Select.jsx';
+import MultiSelect from '../../components/SelectIcon/MultiSelect.tsx';
+import { FormatacaoDeAcessos } from '../../services/formatarUsuariarioService.js';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 
@@ -45,7 +45,7 @@ function ModalCriaPessoas({
     let tipoContratoCode = ""
 
     const localCodeRecebido = await FormatacaoDeAcessos.formatarLocal(formData.local, localCode);
-    
+
     const tipoContratoRecebido = await FormatacaoDeAcessos.formatarTipoContrato(formData.tipoContrato, tipoContratoCode);
     const cpfUser = await FormatacaoDeAcessos.formatarCPFUsuario(formData.cpf)
 
@@ -69,11 +69,11 @@ function ModalCriaPessoas({
   const validaCamposDeAcessos = () => {
     let acessoExistente = false;
     let acessoPendente = [];
-  
+
     const addErrorStatus = (value) => (prevErrorStatus) => {
       return prevErrorStatus ? [...prevErrorStatus, value] : [value];
     };
-  
+
     if (formData.name === "") {
       setErrorStatus(addErrorStatus("name"));
       acessoPendente.push("name");
@@ -103,15 +103,15 @@ function ModalCriaPessoas({
       acessoExistente = true;
       return acessoExistente;
     }
-  
+
     return acessoPendente;
   };
-  
+
 
   const handleSetAcessos = async () => {
     const camposNecessarios = validaCamposDeAcessos();
 
-    if(camposNecessarios !== true) {
+    if (camposNecessarios !== true) {
       return toast.error("Necessário inserir os devidos acessos acessos", {
         position: "bottom-left",
         autoClose: 5000,
@@ -126,7 +126,7 @@ function ModalCriaPessoas({
 
     const usuarioFormatado = await setUsuario();
     const senhaFormatada = await setSenha();
-    
+
     setFormData({
       ...formData,
       usuario: usuarioFormatado,
@@ -136,7 +136,7 @@ function ModalCriaPessoas({
 
   const validaAcessosSetados = () => {
     let acessoExistente = false;
-    if(formData.usuario !== undefined && formData.senha !== undefined) {
+    if (formData.usuario !== undefined && formData.senha !== undefined) {
       acessoExistente = true;
     }
 
@@ -146,7 +146,7 @@ function ModalCriaPessoas({
   const handleSave = () => {
     const camposNecessarios = validaCamposDeAcessos();
 
-    if(camposNecessarios !== true) {
+    if (camposNecessarios !== true) {
       return toast.error("Necessário inserir os devidos acessos acessos", {
         position: "bottom-left",
         autoClose: 5000,
@@ -161,7 +161,7 @@ function ModalCriaPessoas({
 
     const acessosExistentes = validaAcessosSetados()
 
-    if(acessosExistentes === false) {
+    if (acessosExistentes === false) {
       return toast.error("Necessário setar acessos", {
         position: "bottom-left",
         autoClose: 5000,
@@ -172,7 +172,7 @@ function ModalCriaPessoas({
         progress: undefined,
         theme: "light",
       });
-    } else{
+    } else {
       createPessoa();
     }
   };
@@ -183,21 +183,21 @@ function ModalCriaPessoas({
 
         <div className='w-full flex justify-between'>
           <div className="w-2/6 mb-3 mr-3">
-          <Select
-            label={"Local"}
-            options={[
-              { label: 'HNB', value: 'HNB' },
-              { label: 'CMD', value: 'CMD' },
-              { label: 'SMA', value: 'SMA' },
-            ]}
-            onSelect={(response) => {
-              handleInputChange("local", response);
-            }}
-            divStyle={`${errorStatus?.includes("local") ? 'border-red-600 bg-red-100' : ''}`}
-          />
+            <Select
+              label={"Local"}
+              options={[
+                { label: 'HNB', value: 'HNB' },
+                { label: 'CMD', value: 'CMD' },
+                { label: 'SMA', value: 'SMA' },
+              ]}
+              onSelect={(response) => {
+                handleInputChange("local", response);
+              }}
+              divStyle={`${errorStatus?.includes("local") ? 'border-red-600 bg-red-100' : ''}`}
+            />
 
           </div>
-          <button 
+          <button
             className='w-2/6 h-8 bg-lime-600 rounded-xl mt-5'
             onClick={handleSetAcessos}
           >
@@ -227,7 +227,7 @@ function ModalCriaPessoas({
           />
         </div>
 
-        <div className='flex flex-row h-20 justify-between'>  
+        <div className='flex flex-row h-20 justify-between'>
           <Input
             label={"Data de Admissão"}
             value={formData.dataAdmissao}
@@ -313,7 +313,7 @@ function ModalCriaPessoas({
           />
         </div>
 
-        <div className='flex flex-row justify-end mt-10'>         
+        <div className='flex flex-row justify-end mt-10'>
           <button
             className='bg-lime-400 w-1/5 h-[60px] mr-10 rounded-2xl'
             onClick={handleSave}

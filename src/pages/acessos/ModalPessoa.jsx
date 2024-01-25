@@ -4,12 +4,12 @@ import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Input from './Input';
-import MultiSelect from './SelectIcon/MultiSelect.tsx';
-import { toastConfig } from '../services/toastConfig';
+import Input from '../../components/Input.jsx';
+import MultiSelect from '../../components/SelectIcon/MultiSelect.tsx';
+import { toastConfig } from '../../services/toastConfigService.js';
+import { FetchData } from '../../services/mockFetchDatasService.js';
 
-
-function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFormData }) {
+function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFormData, reloadFetchData }) {
   const BASE_URL = `http://localhost:8080`
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
@@ -17,21 +17,6 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
   const [deletedUserId, setDeletedUserId] = useState(null);
   const [vinculaUser, setVinculaUser] = useState(false);
   const [arraySistema, setArraySistemas] = useState([])
-
-  useEffect(() => {
-    axios.get(`${BASE_URL}/sistemas`, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': `${token}`,
-      },
-    })
-      .then(response => {
-        setArraySistemas(response.data)
-      })
-      .catch(error => {
-        console.error('Erro ao obter opções de sistema:', error);
-      });
-  }, []);
 
   const handleInputChange = (fieldName, value) => {
     setFormData({ ...formData, [fieldName]: value });
@@ -154,11 +139,15 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
       })
   }
 
-  const handleOpenVinculaUser = () => {
+  const handleOpenVinculaUser = async () => {
+    await FetchData.sistemas({ setArraySistemas, token })
     setVinculaUser(true);
   }
 
   const handleCloseVinculaUser = () => {
+    if (reloadFetchData) {
+      reloadFetchData()
+    }
     setVinculaUser(false);
     setFormData("")
   }
@@ -188,6 +177,9 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
           })
       })
       toast.success(`Usuário vinculado a acessos`, toastConfig);
+
+
+
       handleCloseVinculaUser()
     } catch (error) {
       toast.error(`error.data`, toastConfig);
