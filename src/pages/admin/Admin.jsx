@@ -34,17 +34,22 @@ function Admin() {
 
   const token = sessionStorage.getItem('token');
 
+  useEffect(() => {
+    console.log("useEffect is running");
+    fetchData();
+  }, [token]);
+
   const fetchData = async () => {
     try {
       await API.get('/login', (error, data) => {
         if (error) {
-          toast.error(error, toastConfig)
+          toast.error(error.mensagem, toastConfig)
         } else {
           setLogins(data.data);
         }
       }, token);
     } catch (error) {
-      toast.error(error, toastConfig);
+      toast.error(error.mensagem, toastConfig);
     }
   };
 
@@ -85,10 +90,6 @@ function Admin() {
   const handleCloseCriaLogin = () => {
     setModalCriaLogin(false);
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [token]);
 
   return (
     <BackgroundTN title='ADMIN' customStyledApp={'flex flex-col items-center'}>
