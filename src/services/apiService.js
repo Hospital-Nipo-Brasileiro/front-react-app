@@ -25,10 +25,8 @@ export class API {
           'Authorization': `${token}`,
         },
       });
-      console.log(response);
       callback(null, response);
     } catch (error) {
-      console.log(error)
       callback(error, null);
     }
   }

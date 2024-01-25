@@ -2,17 +2,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import NavBarUser from '../../components/NavBarUser';
-import ModalCriaPessoas from '../../components/ModalCriaPessoa';
-import ModalPessoa from '../../components/ModalPessoa';
+import ModalCriaPessoas from './ModalCriaPessoa';
+import ModalPessoa from './ModalPessoa';
 import ModalRightButton from '../../components/ModalRightButton';
 import BackgroundTN from '../../components/BackgroundTN';
-import { toastConfig } from '../../services/toastConfig';
+import { toastConfig } from '../../services/toastConfigService';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRedo } from '@fortawesome/free-solid-svg-icons';
+import { API } from '../../services/apiService';
+import { FetchData } from '../../services/mockFetchDatasService';
 
 function Acessos() {
   const [pessoas, setPessoas] = useState([]);
   const [modalCriaPessoas, setModalCriaPessoas] = useState(false);
   const [modalButtonRight, setModalButtonRight] = useState(false);
-  const [selectedPersonID, setSelectedPersonID] = useState(null);
+  const [pessoaSelecionada, setPessoaSelecionada] = useState(null);
   const [arraySistemaPessoa, setArraySistemaPessoa] = useState([]);
   const [updatedUser, setUpdatedUser] = useState(false);
   const [arraySistemas, setArraySistemas] = useState([]);
@@ -51,37 +55,12 @@ function Acessos() {
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/sistemas-pessoas/filtra`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${token}`,
-      },
-    })
-      .then((response) => {
-        setPessoas(response.data[0]);
-      })
-      .catch((err) => {
-        handleError(err, 'Erro ao obter pessoas');
-      });
+    FetchData.sistemasPorTodasPessoas({ setPessoas, token })
   }, [token, newlyCreatedPerson, updatedUser]);
 
-  const fetchSistemas = async () => {
-    try {
-      const response = await axios.get(`${BASE_URL}/sistemas`, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `${token}`,
-        },
-      });
-      setArraySistemas(response.data);
-      setModalCriaPessoas(true);
-    } catch (error) {
-      handleError(error, 'Erro ao obter sistemas');
-    }
-  };
-
   const handleOpenModalCriaPessoa = () => {
-    fetchSistemas();
+    FetchData.sistemas({ setArraySistemas, token })
+    setModalCriaPessoas(true);
   };
 
   const handleCriaPessoa = async () => {
@@ -139,27 +118,17 @@ function Acessos() {
     setModalCriaPessoas(false);
   };
 
-  const handleOpenPessoa = (pessoaID) => {
-    axios.get(`${BASE_URL}/sistemas-pessoas/${pessoaID}/filtra`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${token}`,
-      },
-    })
-      .then((response) => {
-        setSelectedPersonID(pessoaID);
-        setArraySistemaPessoa(response.data);
-      })
-      .catch((err) => {
-        handleError(err, 'Erro ao obter acessos da pessoa');
-      })
-      .finally(() => {
-        setUpdatedUser(true);
-      });
+  const handleOpenPessoa = (idPessoa) => {
+    FetchData.sistemasPorIdPessoa({
+      idPessoa: idPessoa,
+      setPessoaSelecionada: setPessoaSelecionada,
+      setArraySistemasPorPessoa: setArraySistemaPessoa,
+      token: token
+    });
   };
 
   const handleClosePessoa = () => {
-    setSelectedPersonID(null);
+    setPessoaSelecionada(null);
   };
 
   const handleError = (error, message) => {
@@ -201,8 +170,8 @@ function Acessos() {
             <div className='w-[40px] ml-3' />
           </nav>
 
-          <div className='w-full h-full flex justify-center mt-5'>
-            <div className='w-5/6 h-5/6 overflow-auto'>
+          <div className='w-full h-[80%] flex justify-center mt-5'>
+            <div className='w-5/6 h-full overflow-auto'>
               {pessoas
                 .filter((pessoa) =>
                   pessoa.NOME.toLowerCase().includes(filtro.toLowerCase()) ||
@@ -239,7 +208,7 @@ function Acessos() {
                 />
               )}
 
-              {selectedPersonID !== null && (
+              {pessoaSelecionada !== null && (
                 <ModalPessoa
                   onCloseModal={handleClosePessoa}
                   arraySistemaPessoa={arraySistemaPessoa}
@@ -247,6 +216,7 @@ function Acessos() {
                   formData={formData}
                   setFormData={setFormData}
                   token={token}
+                  setPessoas={setPessoas}
                 />
               )}
               {/* 
@@ -255,7 +225,13 @@ function Acessos() {
               )} */}
             </div>
 
-            <div className='flex justify-end flex-col ml-3 h-5/6'>
+            <div className='flex justify-end flex-col ml-3 h-full'>
+              <button
+                className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
+                onClick={() => FetchData.sistemasPorTodasPessoas({ setPessoas, token })}
+              >
+                <FontAwesomeIcon icon={faRedo} className='text-white' />
+              </button>
               <button
                 className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
                 onClick={handleOpenModalCriaPessoa}

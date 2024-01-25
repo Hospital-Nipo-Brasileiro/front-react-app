@@ -9,7 +9,7 @@ import MultiSelect from '../../components/SelectIcon/MultiSelect.tsx';
 import { toastConfig } from '../../services/toastConfigService.js';
 import { FetchData } from '../../services/mockFetchDatasService.js';
 
-function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFormData, reloadFetchData }) {
+function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFormData, reloadFetchData, setPessoas }) {
   const BASE_URL = `http://localhost:8080`
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
@@ -164,8 +164,6 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
           ds_senha: senha,
         };
 
-        console.log(sistemaPessoaBody)
-
         axios.post(`${BASE_URL}/sistemas-pessoas`, sistemaPessoaBody, {
           headers: {
             'Content-Type': 'application/json',
@@ -177,12 +175,9 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
           })
       })
       toast.success(`Usuário vinculado a acessos`, toastConfig);
-
-
-
       handleCloseVinculaUser()
     } catch (error) {
-      toast.error(`error.data`, toastConfig);
+      toast.error(error, toastConfig);
       handleCloseVinculaUser()
     }
   }
@@ -238,7 +233,6 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
                           className='cursor-pointer text-emerald-600'
                           title='Excluir'
                           onClick={() => {
-                            console.log("ACESSO: ", acesso?.ID_SISTEMA_PESSOA)
                             handleOpenDeleteConfirmation(acesso?.ID_SISTEMA_PESSOA)
                           }
                           }

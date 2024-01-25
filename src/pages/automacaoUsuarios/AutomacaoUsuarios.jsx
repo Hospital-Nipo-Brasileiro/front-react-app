@@ -55,7 +55,6 @@ function AutomacaoUsuarios() {
         .then((response) => {
           setArquivoEnviado(true);
           setUsuarios(response.data);
-          console.log(response.data);
         })
         .catch((error) => {
           toast.error(`Erro ao enviar arquivos: ${error.data}`, {
@@ -247,7 +246,7 @@ function AutomacaoUsuarios() {
               <CustomButton
                 text={'Criar Desk'}
                 onclick={criarDeskManager}
-              />  
+              />
             </div>
 
             <div className='w-1/6 h-12 ml-5'>
