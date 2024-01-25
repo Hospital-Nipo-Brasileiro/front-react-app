@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { API } from '../../services/API';
+import { API } from '../../services/apiService';
 import { toast } from 'react-toastify';
-import { toastConfig } from '../../services/toastConfig';
+import { toastConfig } from '../../services/toastConfigService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCancel, faEye, faEyeSlash, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import ModalDesativaAcesso from './ModalDesativaAcesso';

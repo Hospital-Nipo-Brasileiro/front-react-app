@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Input from '../../components/Input';
 import Select from '../../components/Select/Select';
-import { FormatacaoDeAcessos } from '../../services/FormatacaoDeUsuario';
+import { FormatacaoDeAcessos } from '../../services/formatarUsuariarioService';
 import { toast } from 'react-toastify';
 import AutocompleteInput from '../../components/AutocompleteInput';
-import { API } from '../../services/API';
-import { toastConfig } from '../../services/toastConfig';
+import { API } from '../../services/apiService';
+import { toastConfig } from '../../services/toastConfigService';
 
 function ModalCriaLogin({
   onCloseModal,

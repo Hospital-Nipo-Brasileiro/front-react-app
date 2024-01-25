@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import BackgroundTN from '../../components/BackgroundTN';
 import NavBarUser from '../../components/NavBarUser';
-import { API } from '../../services/API';
+import { API } from '../../services/apiService';
 import { toast } from 'react-toastify';
 import ModalCriaLogin from './ModalCriaLogin';
 import ModalLogin from './ModalLogin';
-import { toastConfig } from '../../services/toastConfig';
+import { toastConfig } from '../../services/toastConfigService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 
