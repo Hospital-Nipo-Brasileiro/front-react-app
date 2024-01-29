@@ -9,8 +9,8 @@ import MultiSelect from '../../components/SelectIcon/MultiSelect.tsx';
 import { toastConfig } from '../../services/toastConfigService.js';
 import { FetchData } from '../../services/mockFetchDatasService.js';
 
-function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFormData, reloadFetchData, setPessoas }) {
-  const BASE_URL = `http://localhost:8080`
+function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa, token, formData, setFormData, reloadFetchData, setPessoas }) {
+  const BASE_URL = `http://HSRVWVH00028:8080`
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
@@ -144,19 +144,24 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
     setVinculaUser(true);
   }
 
-  const handleCloseVinculaUser = () => {
+  const handleCloseVinculaUser = async () => {
     if (reloadFetchData) {
       reloadFetchData()
     }
+    await FetchData.sistemasPorIdPessoa({
+      idPessoa: arraySistemaPessoa[0][0]?.ID,
+      setArraySistemasPorPessoa: setArraySistemasPessoa,
+      token: token
+    });
     setVinculaUser(false);
     setFormData("")
   }
 
-  const vinculaUsuarioAUmSistema = () => {
+  const vinculaUsuarioAUmSistema = async () => {
     const { usuario, senha, sistemas } = formData;
 
     try {
-      sistemas.forEach((sistema) => {
+      sistemas.forEach(async (sistema) => {
         const sistemaPessoaBody = {
           id_pessoa: arraySistemaPessoa[0][0]?.ID,
           ds_nome: sistema,
@@ -164,21 +169,18 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, token, formData, setFor
           ds_senha: senha,
         };
 
-        axios.post(`${BASE_URL}/sistemas-pessoas`, sistemaPessoaBody, {
+        await axios.post(`${BASE_URL}/sistemas-pessoas`, sistemaPessoaBody, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `${token}`,
           },
         })
-          .catch((error) => {
-            toast.error(`${error.data}`, toastConfig);
-          })
       })
       toast.success(`Usuário vinculado a acessos`, toastConfig);
-      handleCloseVinculaUser()
+      handleCloseVinculaUser();
     } catch (error) {
-      toast.error(error, toastConfig);
-      handleCloseVinculaUser()
+      toast.error(error.mensagem, toastConfig);
+      handleCloseVinculaUser();
     }
   }
 

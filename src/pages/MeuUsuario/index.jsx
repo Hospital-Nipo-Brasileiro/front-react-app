@@ -17,7 +17,7 @@ function MeuUsuario() {
   const token = sessionStorage.getItem('token');
   const userId = sessionStorage.getItem('userId');
 
-  const BASE_URL = 'http://localhost:8080'
+  const BASE_URL = 'http://HSRVWVH00028:8080'
 
   useEffect(() => {
 

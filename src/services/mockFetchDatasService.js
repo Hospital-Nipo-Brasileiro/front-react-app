@@ -37,8 +37,11 @@ export class FetchData {
         if (err) {
           toast.error(err.mensagem, toastConfig)
         } else {
-          setPessoaSelecionada(idPessoa);
+          if(setPessoaSelecionada){
+            setPessoaSelecionada(idPessoa);
+          }
           setArraySistemasPorPessoa(data.data)
+          console.log(data.data)
         }
       }, token)
     } catch (err) {

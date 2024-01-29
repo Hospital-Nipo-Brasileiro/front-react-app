@@ -8,7 +8,7 @@ import ModalRightButton from '../../components/ModalRightButton';
 import BackgroundTN from '../../components/BackgroundTN';
 import { toastConfig } from '../../services/toastConfigService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRedo } from '@fortawesome/free-solid-svg-icons';
+import { faAnchorCircleExclamation, faRedo } from '@fortawesome/free-solid-svg-icons';
 import { API } from '../../services/apiService';
 import { FetchData } from '../../services/mockFetchDatasService';
 
@@ -51,7 +51,7 @@ function Acessos() {
     });
   };
 
-  const BASE_URL = 'http://localhost:8080';
+  const BASE_URL = 'http://HSRVWVH00028:8080';
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
@@ -136,6 +136,16 @@ function Acessos() {
     toast.error(`${message}: ${error.data}`, toastConfig);
   };
 
+  const teste = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/user');
+      const user = response.data.user;
+      console.log('Usuário de rede conectado:', user);
+    } catch (error) {
+      console.error('Erro ao obter o usuário de rede:', error);
+    }
+  };
+
   return (
     <BackgroundTN title='ACESSOS' customStyledApp={'flex flex-col items-center'}>
       <NavBarUser backbtn={true} />
@@ -212,6 +222,7 @@ function Acessos() {
                 <ModalPessoa
                   onCloseModal={handleClosePessoa}
                   arraySistemaPessoa={arraySistemaPessoa}
+                  setArraySistemasPessoa={setArraySistemaPessoa}
                   arraySistemas={arraySistemas}
                   formData={formData}
                   setFormData={setFormData}
@@ -226,6 +237,12 @@ function Acessos() {
             </div>
 
             <div className='flex justify-end flex-col ml-3 h-full'>
+            <button
+                className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
+                onClick={teste}
+              >
+                <FontAwesomeIcon icon={faAnchorCircleExclamation} className='text-white' />
+              </button>
               <button
                 className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
                 onClick={() => FetchData.sistemasPorTodasPessoas({ setPessoas, token })}
