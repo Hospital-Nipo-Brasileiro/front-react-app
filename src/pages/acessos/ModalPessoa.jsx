@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
@@ -8,9 +8,9 @@ import Input from '../../components/Input.jsx';
 import MultiSelect from '../../components/SelectIcon/MultiSelect.tsx';
 import { toastConfig } from '../../services/toastConfigService.js';
 import { FetchData } from '../../services/mockFetchDatasService.js';
+import { BASE_URL, PORT } from '../../services/apiService.js';
 
 function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa, token, formData, setFormData, reloadFetchData, setPessoas }) {
-  const BASE_URL = `http://HSRVWVH00028:8080`
   const [editingUserId, setEditingUserId] = useState(null);
   const [editedUsername, setEditedUsername] = useState('');
   const [editedSenha, setEditedSenha] = useState('');
@@ -45,23 +45,14 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
       ds_senha: editedSenha
     }
 
-    axios.put(`${BASE_URL}/sistemas-pessoas/${id}`, body, {
+    axios.put(`${BASE_URL}:${PORT}/sistemas-pessoas/${id}`, body, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`,
       },
     })
       .then(async (response) => {
-        toast.success(response.data, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success(response.data, toastConfig);
 
         const pessoaAtualizada = response.data;
 
@@ -78,16 +69,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
         setEditingUserId(null);
       })
       .catch(async (err) => {
-        await toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        await toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, toastConfig);
       })
 
     setEditingUserId(null)
@@ -107,35 +89,17 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
   };
 
   const handleInativaAcesso = (id) => {
-    axios.delete(`${BASE_URL}/sistemas-pessoas/${id}`, {
+    axios.delete(`${BASE_URL}:${PORT}/sistemas-pessoas/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`,
       },
     })
       .then(async (response) => {
-        await toast.success(response.data, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        await toast.success(response.data, toastConfig);
       })
       .catch(async (err) => {
-        await toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        await toast.error(`Erro ao obter acessos da pessoa: ${err.data}`, toastConfig);
       })
   }
 
@@ -169,7 +133,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
           ds_senha: senha,
         };
 
-        await axios.post(`${BASE_URL}/sistemas-pessoas`, sistemaPessoaBody, {
+        await axios.post(`${BASE_URL}:${PORT}/sistemas-pessoas`, sistemaPessoaBody, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `${token}`,

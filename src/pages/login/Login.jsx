@@ -48,7 +48,8 @@ function Login() {
         });
         return;
       }
-      const token = await signIn({ username, password });
+      await signIn({ username, password });
+      const token = sessionStorage.getItem('token');
       if (token) {
         login();
 
@@ -134,20 +135,20 @@ function Login() {
             />
           </div>
 
-          
+
         </div>
 
         <div className='md:hidden flex items-center justify-center w-full'>
-            <span 
-              className='
+          <span
+            className='
                 text-zinc-700 m-5
                 text-xs
                 sm:text-sm
               '
-            >
-              All rights reseved by TechNipo©2023. Created by Gustavo Fonseca
-            </span>
-          </div>
+          >
+            All rights reseved by TechNipo©2023. Created by Gustavo Fonseca
+          </span>
+        </div>
 
 
 

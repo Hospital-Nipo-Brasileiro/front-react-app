@@ -4,22 +4,20 @@ import { toast } from 'react-toastify';
 import NavBarUser from '../../components/NavBarUser';
 import ModalCriaPessoas from './ModalCriaPessoa';
 import ModalPessoa from './ModalPessoa';
-import ModalRightButton from '../../components/ModalRightButton';
 import BackgroundTN from '../../components/BackgroundTN';
 import { toastConfig } from '../../services/toastConfigService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAnchorCircleExclamation, faRedo } from '@fortawesome/free-solid-svg-icons';
-import { API } from '../../services/apiService';
+import { faRedo } from '@fortawesome/free-solid-svg-icons';
+import { BASE_URL, PORT } from '../../services/apiService';
 import { FetchData } from '../../services/mockFetchDatasService';
 
 function Acessos() {
   const [pessoas, setPessoas] = useState([]);
   const [modalCriaPessoas, setModalCriaPessoas] = useState(false);
-  const [modalButtonRight, setModalButtonRight] = useState(false);
   const [pessoaSelecionada, setPessoaSelecionada] = useState(null);
   const [arraySistemaPessoa, setArraySistemaPessoa] = useState([]);
-  const [updatedUser, setUpdatedUser] = useState(false);
   const [arraySistemas, setArraySistemas] = useState([]);
+  const [filtro, setFiltro] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     cpf: '',
@@ -29,13 +27,6 @@ function Acessos() {
     categoria: '',
     sistemas: [],
   });
-  const [newlyCreatedPerson, setNewlyCreatedPerson] = useState(null);
-  const [filtro, setFiltro] = useState('');
-
-  const handleContextMenu = (e) => {
-    e.preventDefault();
-    setModalButtonRight(true);
-  }
 
   const resetFormData = () => {
     setFormData({
@@ -51,12 +42,11 @@ function Acessos() {
     });
   };
 
-  const BASE_URL = 'http://HSRVWVH00028:8080';
   const token = sessionStorage.getItem('token');
 
   useEffect(() => {
     FetchData.sistemasPorTodasPessoas({ setPessoas, token })
-  }, [token, newlyCreatedPerson, updatedUser]);
+  }, [token]);
 
   const handleOpenModalCriaPessoa = () => {
     FetchData.sistemas({ setArraySistemas, token })
@@ -75,7 +65,7 @@ function Acessos() {
     };
 
     try {
-      const response = await axios.post(`${BASE_URL}/pessoas`, body, {
+      const response = await axios.post(`${BASE_URL}:${PORT}/pessoas`, body, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${token}`,
@@ -83,7 +73,6 @@ function Acessos() {
       });
 
       const newPerson = response.data;
-      setNewlyCreatedPerson(newPerson);
       setModalCriaPessoas(false);
       toast.success(response.data, toastConfig);
 
@@ -97,7 +86,7 @@ function Acessos() {
         };
 
         try {
-          await axios.post(`${BASE_URL}/sistemas-pessoas`, sistemaPessoaBody, {
+          await axios.post(`${BASE_URL}:${PORT}/sistemas-pessoas`, sistemaPessoaBody, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `${token}`,
@@ -134,16 +123,6 @@ function Acessos() {
   const handleError = (error, message) => {
     console.error(`${message}: ${error.data}`);
     toast.error(`${message}: ${error.data}`, toastConfig);
-  };
-
-  const teste = async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/api/user');
-      const user = response.data.user;
-      console.log('Usuário de rede conectado:', user);
-    } catch (error) {
-      console.error('Erro ao obter o usuário de rede:', error);
-    }
   };
 
   return (
@@ -191,7 +170,6 @@ function Acessos() {
                   <div
                     className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
                     onClick={() => handleOpenPessoa(pessoa.ID)}
-                    onContextMenu={handleContextMenu}
                     key={pessoa?.ID}
                   >
                     <div className='flex justify-start items-center h-full mr-3 w-full'>
@@ -237,12 +215,6 @@ function Acessos() {
             </div>
 
             <div className='flex justify-end flex-col ml-3 h-full'>
-            <button
-                className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
-                onClick={teste}
-              >
-                <FontAwesomeIcon icon={faAnchorCircleExclamation} className='text-white' />
-              </button>
               <button
                 className='w-[40px] h-[40px] bg-lime-400 rounded-full flex items-center justify-center mt-3'
                 onClick={() => FetchData.sistemasPorTodasPessoas({ setPessoas, token })}

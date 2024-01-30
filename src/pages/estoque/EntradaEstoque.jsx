@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Input from '../../components/Input';
 import BackgroundTN from '../../components/BackgroundTN';
+import { toastConfig } from '../../services/toastConfigService';
 
 function EntradaEstoque() {
   const [nome, setNome] = useState("");
@@ -50,16 +51,7 @@ function EntradaEstoque() {
         }
       })
       .catch((error) => {
-        toast.error(error, {
-          position: "bottom-left",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error(error, toastConfig);
       });
   }
   const handleNomeChange = (event) => {

@@ -8,9 +8,10 @@ import ModalLogin from './ModalLogin';
 import { toastConfig } from '../../services/toastConfigService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
+import { useGlobalState } from '../home/Home';
 
 function Admin() {
-  const [logins, setLogins] = useState([]);
+  const { logins, setLogins } = useGlobalState();
   const [modalLogin, setModalLogin] = useState(false);
   const [modalCriaLogin, setModalCriaLogin] = useState(false);
   const [arrayPessoas, setArrayPessoas] = useState([]);
@@ -31,27 +32,7 @@ function Admin() {
     dataAdmissaoPessoaExistente: '',
     tipoContratoPessoaExistente: ''
   });
-
   const token = sessionStorage.getItem('token');
-
-  useEffect(() => {
-    console.log("useEffect is running");
-    fetchData();
-  }, [token]);
-
-  const fetchData = async () => {
-    try {
-      await API.get('/login', (error, data) => {
-        if (error) {
-          toast.error(error.mensagem, toastConfig)
-        } else {
-          setLogins(data.data);
-        }
-      }, token);
-    } catch (error) {
-      toast.error(error.mensagem, toastConfig);
-    }
-  };
 
   const handleOpenLogin = (loginId) => {
     try {

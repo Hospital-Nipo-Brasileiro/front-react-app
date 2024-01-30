@@ -8,6 +8,8 @@ import CustomButton from '../../components/CustomButton';
 import NavBarUser from '../../components/NavBarUser';
 import HeaderList from '../../components/HeaderList';
 import BackgroundTN from '../../components/BackgroundTN';
+import { toastConfig } from '../../services/toastConfigService';
+import { BASE_URL, PORT } from '../../services/apiService';
 
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
@@ -15,8 +17,6 @@ function AutomacaoUsuarios() {
   const [arquivoSelecionado, setArquivoSelecionado] = useState(null);
   const [usuarios, setUsuarios] = useState([]);
   const token = sessionStorage.getItem('token');
-
-  const BASE_URL = 'http://HSRVWVH00028:8080'
 
   const handleFileChange = (e) => {
     setArquivoSelecionado(e.target.files[0]);
@@ -26,16 +26,7 @@ function AutomacaoUsuarios() {
     if (arquivoSelecionado && dia) {
 
       if (dia.length !== 4 && !isNaN(dia)) {
-        toast.error('Dia deve ser QUATRO números diamês ex.: 1022.', {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.error('Dia deve ser QUATRO números diamês ex.: 1022.', toastConfig);
 
         return;
       }
@@ -46,7 +37,7 @@ function AutomacaoUsuarios() {
       formData.append('diaAdmissao', dia);
 
       axios
-        .post(`${BASE_URL}/admissoes/enviar`, formData, {
+        .post(`${BASE_URL}:${PORT}/admissoes/enviar`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `${token}`,
@@ -57,28 +48,10 @@ function AutomacaoUsuarios() {
           setUsuarios(response.data);
         })
         .catch((error) => {
-          toast.error(`Erro ao enviar arquivos: ${error.data}`, {
-            position: 'bottom-left',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
+          toast.error(`Erro ao enviar arquivos: ${error.data}`, toastConfig);
         });
     } else {
-      toast.error('Arquivo ou data de admissão não inserido.', {
-        position: 'bottom-left',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      toast.error('Arquivo ou data de admissão não inserido.', toastConfig);
     }
   };
 
@@ -90,46 +63,19 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia);
 
-      axios.post(`${BASE_URL}/admissoes/desk`, formData, {
+      axios.post(`${BASE_URL}:${PORT}/admissoes/desk`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
         },
       })
         .then(async () => {
-          await toast.success('Usuários de DeskManager criados!', {
-            position: 'bottom-left',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
+          await toast.success('Usuários de DeskManager criados!', toastConfig);
         }).catch((error) => {
-          toast.error(error, {
-            position: 'bottom-left',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
+          toast.error(error, toastConfig);
         });
     } else {
-      toast.error('Nenhum arquivo selecionado', {
-        position: 'bottom-left',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      toast.error('Nenhum arquivo selecionado', toastConfig);
     }
 
   }
@@ -141,23 +87,14 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia);
 
-      axios.post(`${BASE_URL}/admissoes/concluir`, formData, {
+      axios.post(`${BASE_URL}:${PORT}/admissoes/concluir`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
         },
       })
         .then(async () => {
-          await toast.success('Words de colaboradores criados!', {
-            position: 'bottom-left',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
+          await toast.success('Words de colaboradores criados!', toastConfig);
 
           setArquivoEnviado(false);
           setArquivoSelecionado(null);
@@ -165,28 +102,10 @@ function AutomacaoUsuarios() {
 
         })
         .catch((error) => {
-          toast.error(`Erro ao enviar arquivos: ${error}`, {
-            position: 'bottom-left',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          });
+          toast.error(`Erro ao enviar arquivos: ${error}`, toastConfig);
         });
     } else {
-      toast.error('Nenhum arquivo ou data de admissão selecionados.', {
-        position: 'bottom-left',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      toast.error('Nenhum arquivo ou data de admissão selecionados.', toastConfig);
     }
   }
 
