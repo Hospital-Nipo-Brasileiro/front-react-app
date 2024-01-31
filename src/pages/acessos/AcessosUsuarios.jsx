@@ -8,7 +8,7 @@ import BackgroundTN from '../../components/BackgroundTN';
 import { toastConfig } from '../../services/toastConfigService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRedo } from '@fortawesome/free-solid-svg-icons';
-import { BASE_URL, PORT } from '../../services/apiService';
+import { BASE_URL, PORT_ } from '../../services/apiService';
 import { FetchData } from '../../services/mockFetchDatasService';
 
 function Acessos() {
@@ -65,7 +65,7 @@ function Acessos() {
     };
 
     try {
-      const response = await axios.post(`${BASE_URL}:${PORT}/pessoas`, body, {
+      const response = await axios.post(`${BASE_URL}:${PORT_}/pessoas`, body, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${token}`,
@@ -86,7 +86,7 @@ function Acessos() {
         };
 
         try {
-          await axios.post(`${BASE_URL}:${PORT}/sistemas-pessoas`, sistemaPessoaBody, {
+          await axios.post(`${BASE_URL}:${PORT_}/sistemas-pessoas`, sistemaPessoaBody, {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': `${token}`,

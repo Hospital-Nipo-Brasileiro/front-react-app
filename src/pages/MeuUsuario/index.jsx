@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import NavBarUser from '../../components/NavBarUser';
 import BackgroundTN from '../../components/BackgroundTN';
-import { BASE_URL, PORT } from '../../services/apiService';
+import { BASE_URL, PORT_ } from '../../services/apiService';
 
 function MeuUsuario() {
   const [usuario, setUsuario] = useState([]);
@@ -20,7 +20,7 @@ function MeuUsuario() {
 
   useEffect(() => {
 
-    axios.get(`${BASE_URL}:${PORT}/login/${userId}/infos`, {
+    axios.get(`${BASE_URL}:${PORT_}/login/${userId}/infos`, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `${token}`,
@@ -57,7 +57,7 @@ function MeuUsuario() {
       }
     };
 
-    await axios.put(`${BASE_URL}:${PORT}/login/${userId}`, bodySenha, config)
+    await axios.put(`${BASE_URL}:${PORT_}/login/${userId}`, bodySenha, config)
       .then((response) => {
         setSenhaAtual('');
         setNovaSenha('');
@@ -92,7 +92,7 @@ function MeuUsuario() {
 
 
   const handleResetaSenha = () => {
-    axios.put(`${BASE_URL}:${PORT}/login/${userId}/reset`)
+    axios.put(`${BASE_URL}:${PORT_}/login/${userId}/reset`)
       .then((res) => {
         toast.success(res.data, {
           position: 'bottom-left',

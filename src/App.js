@@ -14,6 +14,7 @@ import Pessoas from './pages/pessoas/Pessoas.jsx';
 import { useAuth } from './contexts/AuthContext.js'
 import Admin from './pages/admin/Admin.jsx';
 
+
 export default function App() {
   const { auth } = useAuth();
 

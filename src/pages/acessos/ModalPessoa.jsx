@@ -8,7 +8,7 @@ import Input from '../../components/Input.jsx';
 import MultiSelect from '../../components/SelectIcon/MultiSelect.tsx';
 import { toastConfig } from '../../services/toastConfigService.js';
 import { FetchData } from '../../services/mockFetchDatasService.js';
-import { BASE_URL, PORT } from '../../services/apiService.js';
+import { BASE_URL, PORT_ } from '../../services/apiService.js';
 
 function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa, token, formData, setFormData, reloadFetchData, setPessoas }) {
   const [editingUserId, setEditingUserId] = useState(null);
@@ -45,7 +45,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
       ds_senha: editedSenha
     }
 
-    axios.put(`${BASE_URL}:${PORT}/sistemas-pessoas/${id}`, body, {
+    axios.put(`${BASE_URL}:${PORT_}/sistemas-pessoas/${id}`, body, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`,
@@ -89,7 +89,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
   };
 
   const handleInativaAcesso = (id) => {
-    axios.delete(`${BASE_URL}:${PORT}/sistemas-pessoas/${id}`, {
+    axios.delete(`${BASE_URL}:${PORT_}/sistemas-pessoas/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${token}`,
@@ -133,7 +133,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
           ds_senha: senha,
         };
 
-        await axios.post(`${BASE_URL}:${PORT}/sistemas-pessoas`, sistemaPessoaBody, {
+        await axios.post(`${BASE_URL}:${PORT_}/sistemas-pessoas`, sistemaPessoaBody, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `${token}`,

@@ -1,11 +1,11 @@
 import axios from 'axios';
-export const BASE_URL = process.env.BASE_URL || 'http://localhost';
-export const PORT = process.env.PORT || "8080";
+export const BASE_URL = process.env.BASE_URL || "http://HSRVWVH00028";
+export const PORT_ = process.env.PORT_ || "8080";
 
 export class API {
   static async get(path, callback, token) {
     try {
-      const response = await axios.get(`${BASE_URL}:${PORT}${path}`, {
+      const response = await axios.get(`${BASE_URL}:${PORT_}${path}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${token}`,
@@ -19,7 +19,7 @@ export class API {
 
   static async post(path, body, callback, token) {
     try {
-      const response = await axios.post(`${BASE_URL}:${PORT}${path}`, body, {
+      const response = await axios.post(`${BASE_URL}:${PORT_}${path}`, body, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${token}`,
@@ -37,7 +37,7 @@ export class API {
       ds_password: password
     }
     try {
-      const response = await axios.post(`${BASE_URL}:${PORT}/login`, body, {
+      const response = await axios.post(`${BASE_URL}:${PORT_}/login`, body, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -51,7 +51,7 @@ export class API {
 
   static async put(path, body, callback, token) {
     try {
-      const response = await axios.put(`${BASE_URL}:${PORT}${path}`, body, {
+      const response = await axios.put(`${BASE_URL}:${PORT_}${path}`, body, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${token}`,
@@ -65,7 +65,7 @@ export class API {
 
   static async delete(path, callback, token) {
     try {
-      const response = await axios.delete(`${BASE_URL}:${PORT}${path}`, {
+      const response = await axios.delete(`${BASE_URL}:${PORT_}${path}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `${token}`,

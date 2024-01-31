@@ -9,7 +9,7 @@ import NavBarUser from '../../components/NavBarUser';
 import HeaderList from '../../components/HeaderList';
 import BackgroundTN from '../../components/BackgroundTN';
 import { toastConfig } from '../../services/toastConfigService';
-import { BASE_URL, PORT } from '../../services/apiService';
+import { BASE_URL, PORT_ } from '../../services/apiService';
 
 function AutomacaoUsuarios() {
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
@@ -37,7 +37,7 @@ function AutomacaoUsuarios() {
       formData.append('diaAdmissao', dia);
 
       axios
-        .post(`${BASE_URL}:${PORT}/admissoes/enviar`, formData, {
+        .post(`${BASE_URL}:${PORT_}/admissoes/enviar`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
             'Authorization': `${token}`,
@@ -63,7 +63,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia);
 
-      axios.post(`${BASE_URL}:${PORT}/admissoes/desk`, formData, {
+      axios.post(`${BASE_URL}:${PORT_}/admissoes/desk`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
@@ -87,7 +87,7 @@ function AutomacaoUsuarios() {
       formData.append('file', arquivoSelecionado);
       formData.append('diaAdmissao', dia);
 
-      axios.post(`${BASE_URL}:${PORT}/admissoes/concluir`, formData, {
+      axios.post(`${BASE_URL}:${PORT_}/admissoes/concluir`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `${token}`,
