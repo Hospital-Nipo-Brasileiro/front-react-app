@@ -11,21 +11,10 @@ import { API } from '../../services/apiService';
 import { toast } from 'react-toastify';
 import { toastConfig } from '../../services/toastConfigService';
 
-const loginGlobalState = {
-  logins: [],
-  setLogins: () => { },
-}
-
-export const useGlobalState = () => {
-  const [logins, setLogins] = useState(loginGlobalState.logins);
-  loginGlobalState.setLogins = setLogins;
-  return { logins, setLogins };
-};
 
 function Home() {
   const token = sessionStorage.getItem('token')
   const navigate = useNavigate()
-  const { logins, setLogins } = useGlobalState();
 
   const acessaAdmin = async () => {
     try {
@@ -34,10 +23,6 @@ function Home() {
           toast.error(error.mensagem, toastConfig)
 
         } else {
-          console.log(logins);
-          console.log(data.data)
-          setLogins(data.data);
-          console.log(logins);
           navigate('/admin')
         }
       }, token);

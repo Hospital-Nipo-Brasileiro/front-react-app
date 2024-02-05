@@ -10,8 +10,10 @@ import HeaderList from '../../components/HeaderList';
 import BackgroundTN from '../../components/BackgroundTN';
 import { toastConfig } from '../../services/toastConfigService';
 import { BASE_URL, PORT_ } from '../../services/apiService';
+import { FormatacaoDeAcessos } from '../../services/formatarUsuarioService';
 
 function AutomacaoUsuarios() {
+  const [dataAdmissao, setDataAdmissao] = useState('');
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
   const [dia, setDia] = useState('');
   const [arquivoSelecionado, setArquivoSelecionado] = useState(null);
@@ -21,6 +23,8 @@ function AutomacaoUsuarios() {
   const handleFileChange = (e) => {
     setArquivoSelecionado(e.target.files[0]);
   }
+
+
 
   const handlePreview = () => {
     if (arquivoSelecionado && dia) {
@@ -129,7 +133,16 @@ function AutomacaoUsuarios() {
               />
               {arquivoSelecionado && <p className='ml-4'>{arquivoSelecionado.name}</p>}
             </div>
-            <Input type='text' value={dia} onChange={(e) => setDia(e.target.value)} />
+            <Input 
+              type='date' 
+              value={dataAdmissao} 
+              onChange={async (e) => {
+                const value = await FormatacaoDeAcessos.formatarDataAdmissao(e.target.value);
+                setDia(value);
+                setDataAdmissao(e.target.value);
+              }} 
+              divStyled={"w-2/4"}
+            />
 
             <div className='w-full flex justify-center' >
               <button className='bg-lime-400 w-3/6 h-10 rounded-lg mt-5' onClick={handlePreview}>Pré-visualizar</button>

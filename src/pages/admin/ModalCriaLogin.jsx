@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Input from '../../components/Input';
 import Select from '../../components/Select/Select';
-import { FormatacaoDeAcessos } from '../../services/formatarUsuariarioService';
+import { FormatacaoDeAcessos } from '../../services/formatarUsuarioService';
 import { toast } from 'react-toastify';
 import AutocompleteInput from '../../components/AutocompleteInput';
 import { API } from '../../services/apiService';

@@ -2,7 +2,7 @@ import React from 'react';
 import Input from '../../components/Input.jsx';
 import Select from '../../components/Select/Select.jsx';
 import MultiSelect from '../../components/SelectIcon/MultiSelect.tsx';
-import { FormatacaoDeAcessos } from '../../services/formatarUsuariarioService.js';
+import { FormatacaoDeAcessos } from '../../services/formatarUsuarioService';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 
