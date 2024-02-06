@@ -2,7 +2,7 @@ import React from 'react';
 import './StylesTechNipo.css'
 
 import BackgroundTN from '../../components/BackgroundTN';
-import logo from '../../assets/logotype.svg'
+import logo from '../../assets/logobranca.png'
 import hospital from '../../assets/initial.svg'
 import ti from '../../assets/ti-hospital.svg'
 
@@ -19,8 +19,8 @@ function TechNipo() {
               alt='logotipo' 
               className='
                 mt-5 ml-5
-                md:w-full
-                w-10  
+                md:w-40
+                w-20  
               '/>
           </div>
         <Link to={'/login'}>

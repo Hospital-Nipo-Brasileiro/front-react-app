@@ -2,7 +2,7 @@ import React from 'react';
 
 function BackgroundTN({ title, children, customStyledApp, Height }) {
   return (
-    <div className={`bg-[#0a1444] w-full md:h-screen ${Height === undefined ? "h-full" : Height}  flex justify-center`}>
+    <div className={`bg-[#001A70] w-full md:h-screen ${Height === undefined ? "h-full" : Height}  flex justify-center`}>
       <span
         className='
           absolute font-bayon text-white text-shadow

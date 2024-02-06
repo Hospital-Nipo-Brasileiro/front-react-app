@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import logo from '../../assets/logotype.svg'
+import logo from '../../assets/logobranca.png'
 import hnipo from '../../assets/hnipo.svg'
 import { useAuth } from '../../contexts/AuthContext';
 import { signIn } from '../../hooks/signIn';
@@ -86,8 +86,8 @@ function Login() {
             alt='logotipo'
             className='
               mt-5 ml-5
-              md:w-full
-              w-10  
+              md:w-40
+              w-20    
             '/>
         </div>
 
