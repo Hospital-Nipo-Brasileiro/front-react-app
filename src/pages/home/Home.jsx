@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './StyleHome.css'
 import { Link, useNavigate } from 'react-router-dom';
 import StyledAvatar from '../../components/StyledAvatar';

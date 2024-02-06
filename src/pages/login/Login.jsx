@@ -7,6 +7,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { signIn } from '../../hooks/signIn';
 import BackgroundTN from '../../components/BackgroundTN';
 import CustomButton from '../../components/CustomButton';
+import { toastConfig } from '../../services/toastConfigService';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -24,28 +25,10 @@ function Login() {
   const handleSignIn = async () => {
     try {
       if (!username || username === undefined) {
-        toast.error(`Nenhum usuário inserido`, {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.error(`Nenhum usuário inserido`, toastConfig);
         return;
       } else if (!password || password === undefined) {
-        toast.error(`Senha não inserida`, {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.error(`Senha não inserida`, toastConfig);
         return;
       }
       await signIn({ username, password });
@@ -53,16 +36,7 @@ function Login() {
       if (token) {
         login();
 
-        await toast.success('Login bem-sucedido!', {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        await toast.success('Login bem-sucedido!', toastConfig);
       }
 
     } catch (error) {

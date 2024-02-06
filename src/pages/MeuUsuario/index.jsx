@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import NavBarUser from '../../components/NavBarUser';
 import BackgroundTN from '../../components/BackgroundTN';
 import { BASE_URL, PORT_ } from '../../services/apiService';
+import { toastConfig } from '../../services/toastConfigService';
 
 function MeuUsuario() {
   const [usuario, setUsuario] = useState([]);
@@ -30,16 +31,7 @@ function MeuUsuario() {
         setUsuario(response.data);
       })
       .catch((error) => {
-        toast.error(`Erro ao enviar arquivos: ${error}`, {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.error(`Erro ao enviar arquivos: ${error}`, toastConfig);
       })
   }, [token, userId])
 
@@ -77,16 +69,7 @@ function MeuUsuario() {
       .catch((err) => {
         setSenhaAtual('');
         setErrorStatus(true);
-        toast.error(`Erro ao enviar arquivos: ${err}`, {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.error(`Erro ao enviar arquivos: ${err}`, toastConfig);
       });
   };
 
@@ -94,29 +77,11 @@ function MeuUsuario() {
   const handleResetaSenha = () => {
     axios.put(`${BASE_URL}:${PORT_}/login/${userId}/reset`)
       .then((res) => {
-        toast.success(res.data, {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.success(res.data, toastConfig);
         setModalResetaSenha(false)
       })
       .catch((err) => {
-        toast.error(`Erro ao enviar arquivos: ${err}`, {
-          position: 'bottom-left',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        });
+        toast.error(`Erro ao enviar arquivos: ${err}`, toastConfig);
       })
   }
 
