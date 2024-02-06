@@ -5,7 +5,7 @@ import { toastConfig } from '../services/toastConfigService';
 export const signIn = async ({ username, password }) => {
   try {
     await API.login(username, password, (err, data) => {
-      if (err) {
+      if (err) {       
         toast.error(err.mensagem, toastConfig)
       } else {
         sessionStorage.setItem('token', data.data.token);

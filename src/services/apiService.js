@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import { toastConfig } from './toastConfigService';
 export const BASE_URL = process.env.BASE_URL || "http://HSRVWVH00028";
 export const PORT_ = process.env.PORT_ || "8080";
 
@@ -13,7 +15,11 @@ export class API {
       });
       callback(null, response);
     } catch (error) {
-      callback(error.response.data, null);
+      if(error.message === 'Network Error'){
+        toast.error('Erro interno de servidor', toastConfig)
+      } else {
+        callback(error.response.data, null);
+      }
     }
   }
 
@@ -27,7 +33,11 @@ export class API {
       });
       callback(null, response);
     } catch (error) {
-      callback(error, null);
+      if(error.message === 'Network Error'){
+        toast.error('Erro interno de servidor', toastConfig)
+      } else {
+        callback(error, null);
+      }
     }
   }
 
@@ -44,7 +54,11 @@ export class API {
       });
       callback(null, response);
     } catch (error) {
-      callback(error, null);
+      if(error.message === 'Network Error'){
+        toast.error('Erro interno de servidor', toastConfig)
+      } else {
+        callback(error, null);
+      }
     }
   }
 
@@ -59,7 +73,11 @@ export class API {
       });
       callback(null, response);
     } catch (error) {
-      callback(error.response.data, null);
+      if(error.message === 'Network Error'){
+        toast.error('Erro interno de servidor', toastConfig)
+      } else {
+        callback(error, null);
+      }
     }
   }
 
@@ -73,7 +91,11 @@ export class API {
       });
       callback(null, response.data);
     } catch (error) {
-      callback(error.response.data, null);
+      if(error.message === 'Network Error'){
+        toast.error('Erro interno de servidor', toastConfig)
+      } else {
+        callback(error, null);
+      }
     }
   }
 }
