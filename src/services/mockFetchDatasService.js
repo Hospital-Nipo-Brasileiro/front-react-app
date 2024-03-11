@@ -32,6 +32,7 @@ export class FetchData {
   }
 
   static async sistemasPorIdPessoa({ idPessoa, setPessoaSelecionada, setArraySistemasPorPessoa, token }) {
+    console.log('ENTREIIII: ', idPessoa)
     try {
       await API.get(`/sistemas-pessoas/${idPessoa}/filtra`, (err, data) => {
         if (err) {

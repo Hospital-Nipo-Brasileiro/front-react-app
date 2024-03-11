@@ -53,7 +53,7 @@ function Admin() {
         if (error) {
           toast.error(error.mensagem, toastConfig)
         } else {
-          setArrayLogin(data.data[0][0]);
+          setArrayLogin(data.data[0]);
           console.log(arrayLogin);
           setModalLogin(true);
         }

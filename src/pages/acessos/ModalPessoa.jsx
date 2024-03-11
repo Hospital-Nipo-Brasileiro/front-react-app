@@ -31,7 +31,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
   const handleOpenEdit = (userId) => {
     setEditingUserId(userId);
 
-    const userToEdit = arraySistemaPessoa[0].find(user => user.ID_SISTEMA_PESSOA === userId);
+    const userToEdit = arraySistemaPessoa.find(user => user.ID_SISTEMA_PESSOA === userId);
 
     if (userToEdit) {
       setEditedUsername(userToEdit.USERNAME);
@@ -57,14 +57,14 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
         const pessoaAtualizada = response.data;
 
         // Atualizar o estado local com os novos dados
-        const novoArraySistemaPessoa = arraySistemaPessoa[0].map((pessoa) => {
+        const novoArraySistemaPessoa = arraySistemaPessoa.map((pessoa) => {
           return pessoa.ID_SISTEMA_PESSOA === pessoaAtualizada.ID_SISTEMA_PESSOA
             ? pessoaAtualizada
             : pessoa;
         });
 
         // Atualizar o estado diretamente com o novo array
-        arraySistemaPessoa[0] = novoArraySistemaPessoa;
+        arraySistemaPessoa = novoArraySistemaPessoa;
 
         setEditingUserId(null);
       })
@@ -108,12 +108,12 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
     setVinculaUser(true);
   }
 
-  const handleCloseVinculaUser = async () => {
+  const handleCloseVinculaUser = async ({idPessoa}) => {
     if (reloadFetchData) {
       reloadFetchData()
     }
     await FetchData.sistemasPorIdPessoa({
-      idPessoa: arraySistemaPessoa[0][0]?.ID,
+      idPessoa,
       setArraySistemasPorPessoa: setArraySistemasPessoa,
       token: token
     });
@@ -127,7 +127,7 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
     try {
       sistemas.forEach(async (sistema) => {
         const sistemaPessoaBody = {
-          id_pessoa: arraySistemaPessoa[0][0]?.ID,
+          id_pessoa: arraySistemaPessoa[0]?.ID,
           ds_nome: sistema,
           ds_usuario: usuario,
           ds_senha: senha,
@@ -141,10 +141,10 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
         })
       })
       toast.success(`Usuário vinculado a acessos`, toastConfig);
-      handleCloseVinculaUser();
+      handleCloseVinculaUser({idPessoa: arraySistemaPessoa[0]?.ID});
     } catch (error) {
       toast.error(error.mensagem, toastConfig);
-      handleCloseVinculaUser();
+      handleCloseVinculaUser({idPessoa: arraySistemaPessoa[0]?.ID});
     }
   }
 
@@ -153,10 +153,10 @@ function ModalPessoa({ onCloseModal, arraySistemaPessoa, setArraySistemasPessoa,
 
       <div className="absolute w-2/3 h-4/6 bg-white rounded-lg p-8 flex flex-col">
 
-        <h1 className='text-xl text-emerald-600 font-bold'>{arraySistemaPessoa[0][0]?.NOME}</h1>
+        <h1 className='text-xl text-emerald-600 font-bold'>{arraySistemaPessoa[0]?.NOME}</h1>
         <div className='w-full h-full mb-10 overflow-auto'>
-          {arraySistemaPessoa && arraySistemaPessoa[0].length >= 1 && arraySistemaPessoa[0][0]?.SISTEMA !== null ? (
-            arraySistemaPessoa[0].map((acesso) => (
+          {arraySistemaPessoa && arraySistemaPessoa.length >= 1 && arraySistemaPessoa[0]?.SISTEMA !== undefined ? (
+            arraySistemaPessoa.map((acesso) => (
               <div className='w-full h-24 bg-slate-100 rounded-2xl p-3 mt-5' key={acesso?.ID_SISTEMA_PESSOA}>
                 <div className='flex flex-col'>
                   <div className='flex'>
