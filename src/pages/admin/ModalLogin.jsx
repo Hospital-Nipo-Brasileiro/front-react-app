@@ -113,7 +113,7 @@ function ModalLogin({
     <div className="fixed top-9 left-0 w-full h-full flex items-center justify-center z-50">
       <div className="absolute w-2/3 h-4/6 bg-white rounded-lg p-8 flex flex-col">
         <div className='w-full h-full'>
-          <h3 className='text-lime-500 block font-bold mb-5 text-lg'>{loginInfos.NOME}</h3>
+          <h3 className='text-lime-500 block font-bold mb-5 text-lg'>{loginInfos?.NOME}</h3>
 
           <div className='w-full h-24 bg-slate-100 rounded-2xl p-3 mt-5'>
             <div className='flex flex-col'>
@@ -152,9 +152,14 @@ function ModalLogin({
                     ) : (
                       <>
                         <span className='w-20 text-lime-500 font-bold mr-2'>Senha: </span>
-                        {mostraSenha !== '' ? (
-                          <span className='text-sm 2xl:text-base text-gray-700'>{mostraSenha}</span>
-                        ) : (<span className='text-sm 2xl:text-base text-gray-700'>********</span>)}
+                        {
+                          mostraSenha !== '' ? (
+                            <span className='text-sm 2xl:text-base text-gray-700'>{mostraSenha}</span>
+                          ) : 
+                          (
+                            <span className='text-sm 2xl:text-base text-gray-700'>********</span>
+                          )
+                        }
                       </>
                     )}
                   </div>
@@ -174,9 +179,6 @@ function ModalLogin({
                       </>
                     ) : (
                       <>
-                        {mostraSenha !== '' ? (<FontAwesomeIcon icon={faEyeSlash} onClick={handleOcultaSenha} className='cursor-pointer' />)
-                          : (<FontAwesomeIcon icon={faEye} onClick={handleMostraSenha} className='cursor-pointer' />)
-                        }
                         <FontAwesomeIcon icon={faUserEdit} className='ml-3 text-emerald-500 cursor-pointer' onClick={handleEditaUsuario} />
                         <FontAwesomeIcon icon={faTrash} className='ml-3 text-emerald-900 cursor-pointer' onClick={handleOpenModalDesativaAcesso} />
                       </>

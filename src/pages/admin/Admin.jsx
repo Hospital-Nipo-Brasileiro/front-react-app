@@ -16,6 +16,7 @@ function Admin() {
   const [arrayPessoas, setArrayPessoas] = useState([]);
   const [arrayLogin, setArrayLogin] = useState([]);
   const [filterText, setFilterText] = useState('');
+  const [number, setNumber] = useState(0);
   const [formData, setFormData] = useState({
     id: '',
     name: '',
@@ -42,7 +43,8 @@ function Admin() {
       if (error) {
         toast.error(error.mensagem, toastConfig)
       } else {
-        setLogins(data.data);
+        setLogins(data.data[0]);
+        console.log(data.data[0])
       }
     }, token);
   }  
@@ -54,7 +56,7 @@ function Admin() {
           toast.error(error.mensagem, toastConfig)
         } else {
           setArrayLogin(data.data[0]);
-          console.log(arrayLogin);
+          console.log(data.data[0]);
           setModalLogin(true);
         }
       }, token)
@@ -95,7 +97,7 @@ function Admin() {
           <nav className='w-full h-10 bg-white rounded-3xl shadow-md flex flex-row justify-center px-6'>
             <div className='w-10/12 flex justify-start'>
               <div className='flex justify-center items-center h-full mr-3 '>
-                <span className='w-[40px] font-sans font-bold'>id</span>
+                <span className='w-[40px] font-sans font-bold'>  </span>
               </div>
               <div className='flex justify-start items-center h-full mr-3 w-full'>
                 <span className='font-sans font-bold'>nome</span>
@@ -119,21 +121,21 @@ function Admin() {
               {logins
                 .filter(
                   (login) =>
-                    login.ds_username.toLowerCase().includes(filterText.toLowerCase()) ||
-                    login.id.toString().includes(filterText)
+                    login.NOME?.toLowerCase().includes(filterText.toLowerCase()) ||
+                    login.ID?.toString().includes(filterText)
                 )
-                .map((login) => (
+                .map((login, index) => (
                   <div
                     className='w-full h-10 bg-white rounded-3xl px-6 mt-8'
-                    onClick={() => handleOpenLogin(login?.id)}
-                    key={login?.id}
+                    onClick={() => handleOpenLogin(login?.ID)}
+                    key={login?.ID}
                   >
                     <div className='flex justify-start items-center h-full mr-3 w-full'>
                       <div className='flex justify-center items-center h-full mr-3 '>
-                        <span className='w-[40px] font-sans truncate'>{login?.id}</span>
+                        <span className='w-[40px] font-sans truncate'>{index + 1}</span>
                       </div>
                       <div className='flex justify-start items-center h-full mr-3 w-1/3'>
-                        <span className='font-sans truncate'>{login?.ds_username}</span>
+                        <span className='font-sans truncate'>{login?.NOME}</span>
                       </div>
                     </div>
                   </div>

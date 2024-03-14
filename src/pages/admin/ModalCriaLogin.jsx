@@ -196,31 +196,13 @@ function ModalCriaLogin({
     const camposNecessarios = validaCamposDeAcessos();
 
     if (camposNecessarios !== true) {
-      return toast.error('Necessário inserir os devidos acessos acessos', {
-        position: 'bottom-left',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: 'light',
-      });
+      return toast.error('Necessário inserir os devidos acessos acessos', toastConfig);
     }
 
     const acessosExistentes = validaAcessosSetados()
 
     if (acessosExistentes === false) {
-      return toast.error("Necessário setar acessos", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      return toast.error("Necessário setar acessos", toastConfig);
     } else {
       const body = {
         ds_nome: formData.name,
