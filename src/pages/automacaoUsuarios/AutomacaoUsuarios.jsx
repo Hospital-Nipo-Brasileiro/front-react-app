@@ -13,7 +13,7 @@ import { BASE_URL, PORT_ } from '../../services/apiService';
 import { FormatacaoDeAcessos } from '../../services/formatarUsuarioService';
 
 function AutomacaoUsuarios() {
-  const [dataAdmissao, setDataAdmissao] = useState('');
+  const [dataAdmissao, setDataAdmissao] = useState(Date);
   const [arquivoEnviado, setArquivoEnviado] = useState(false);
   const [dia, setDia] = useState('');
   const [arquivoSelecionado, setArquivoSelecionado] = useState(null);
@@ -137,9 +137,9 @@ function AutomacaoUsuarios() {
               type='date' 
               value={dataAdmissao} 
               onChange={async (e) => {
+                setDataAdmissao(e.target.value);
                 const value = await FormatacaoDeAcessos.formatarDataAdmissao(e.target.value);
                 setDia(value);
-                setDataAdmissao(e.target.value);
               }} 
               divStyled={"w-2/4"}
             />
